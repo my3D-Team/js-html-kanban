@@ -2,11 +2,11 @@
 Proof Of Concept for the new kanban in HTML
 
 
+### Local dependencies
+
 ```sh
 $ npm install -g gulp
 ```
-
-### Local dependencies
 
 Next, install the local dependencies :
 
