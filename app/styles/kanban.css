@@ -1,0 +1,14 @@
+.kanban {
+    background-color: lightpink;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 42px;
+}
+
+.sticky {
+    width: 200px;
+    height: 50px;
+    background-color: darkblue;
+    border-radius: 5px;
+}
