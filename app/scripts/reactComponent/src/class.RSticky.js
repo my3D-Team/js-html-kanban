@@ -10,16 +10,9 @@ var Sticky = React.createClass({
         return {offsetX:0, offsetY:0};
     },
     onMouseDown : function (e) {
-        //Change the mouse cursor
-        e.currentTarget.style.cursor = '-webkit-grabbing';
-        e.currentTarget.className += " animate";
         this.props.onSelect(e);
     },
     onMouseUp: function(e) {
-        //Change the mouse cursor
-        e.currentTarget.style.cursor = '-webkit-grab';
-        e.currentTarget.className = e.currentTarget.className.replace("animate", "");
-
         this.props.onDeselect();
     },
     render: function() {
