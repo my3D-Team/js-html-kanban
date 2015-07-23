@@ -1,3 +1,5 @@
+"use strict"
+
 /**
  * This class builds the react Application.
  *
