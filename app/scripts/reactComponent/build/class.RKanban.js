@@ -19,7 +19,8 @@ var Kanban = React.createClass({displayName: "Kanban",
                     React.createElement(Sticky, {className: "info", onSelect: this.onSelectItem, onDeselect: this.onDeselectItem}), 
                     React.createElement(Sticky, {className: "default", onSelect: this.onSelectItem, onDeselect: this.onDeselectItem}), 
                     React.createElement(Sticky, {className: "danger", onSelect: this.onSelectItem, onDeselect: this.onDeselectItem}), 
-                    React.createElement(Sticky, {className: "success", onSelect: this.onSelectItem, onDeselect: this.onDeselectItem})
+                    React.createElement(Sticky, {className: "success", onSelect: this.onSelectItem, onDeselect: this.onDeselectItem}), 
+                    React.createElement(Cicle, {radius: "200", onSelect: this.onSelectItem, onDeselect: this.onDeselectItem})
                 )
             )
             );

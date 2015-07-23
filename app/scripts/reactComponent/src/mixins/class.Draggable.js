@@ -31,7 +31,10 @@ var Draggable = {
     onDeselectItem: function () {
         //Change the mouse cursor
         this.state.selectedNode.style.cursor = '-webkit-grab';
-        this.state.selectedNode.className = this.state.selectedNode.className.replace("animate", "");
+        //Manage special element (ei.SVG)
+        if (this.state.selectedNode.className.replace) {
+            this.state.selectedNode.className = this.state.selectedNode.className.replace("animate", "");
+        }
 
         this.state.selectedNode = null;
         this.state.offsetX = 0;

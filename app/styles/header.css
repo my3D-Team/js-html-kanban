@@ -1,4 +1,3 @@
-
 .header {
     position: fixed;
     top: 0px;
@@ -8,198 +7,16 @@
     z-index: 2;
 }
 
-/*
-TOPBAR
-*/
 .topBar{
     width: 100%;
     height: 50px;
     background-color: #01468b;
 }
 
-
-.topBtn {
-    float:left;
-    max-height: 50px;
-    overflow: hidden;
-    cursor: pointer;
-    /* width: initial; */
-}
-
-.topBtn > img {
-    margin: 10px;
-    float: left;
-    width: 32px;
-}
-
-.topDropDownIco {
-    float: right;
-    margin-top: 18px;
-    font-size: 14px;
-    margin-right: 15px;
-}
-
-.dropDownItem, .topBtn:hover, .topActionBtn:hover {
-    background-color: #1b5996;
-}
-
-.topDropDown {
-    float: left;
-    max-height: 50px;
-    overflow: hidden;
-    cursor: pointer;
-    width: 180px;
-}
-.topDropDown:hover {
-    background-color: #1b5996;
-    max-height: 100%;
-}
-
-.topDropDown > .topBtn {
-    width: 100%;
-}
-
-.dropDownItemWrapper{
-    overflow-y: auto;
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    cursor: pointer;
-}
-
-.topDropDownIcoLabel {
-    max-height: none;
-    overflow: visible;
-    width: 70px;
-    float: left;
-    height: 100%;
-}
-
-.topLabel {
-    line-height: 50px;
-    text-align: left;
-    margin: 0px;
-    padding-left: 15px;
-    padding-right: 10px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.topLabelEnabled:hover {
-    background-color: #01468b;
-}
-
-.topLabelDisabled {
-    color: rgba(254,254,254,0.7);
-    max-height: 20px;
-    line-height: 20px;
-    font-size: 11px;
-    padding-top: 11px;
-    padding-left: 10px;
-    border-top: 1px solid #01468b;;
-}
-
-.rightActionWrapper {
-    float: right;
-    height: 100%;
-}
-
-
-.topActionBtn {
-    float: left;
-    height: 100%;
-    font-size: 2em;
-    padding-top: 14px;
-    min-width: 70px;
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-.topActionBtn > img, i {
-    text-align: center;
-    height: 20px;
-    width: 20px;
-}
-
-.topActionBtn > p {
-    margin: 0;
-    text-align: center;
-}
-
-.meetingMode {
-    background-color: red;
-}
-
-
-/*
-BREADCRUMB
-*/
-.breadcrumb {
-    width: 100%;
-    height: 50px;
-    background-color: #ffffff;
-    border-bottom: solid 1px #eeeeee;
-    color: #000000;
-}
-
-.breadcrumb > p {
-    margin: 0 0 0 10px;
-    float: left;
-    line-height: 3.5em;
-    font-family: cursive;
-}
-
-/* region RIGHTPANEL */
-
-/* region COMMON */
-
-.my3d-ico {
-    font-family: my3d;
-}
-
-/* endregion COMMON */
-
-/* region PLAYBUTTON */
-/* endregion PLAYBUTTON */
-
-
-
-/* endregion RIGHTPANEL */
-
 @media screen and (min-height: 500px) and (max-height: 774px) {
     .topBar{
         width: 100%;
         height: 42px;
         background-color: #01468b;
-    }
-    .topBtn {
-        max-height: 42px;
-    }
-
-    .topDropDown {
-        max-height: 42px;
-    }
-
-    .topLabel {
-        line-height: 42px;
-    }
-
-    .breadcrumb {
-        height: 42px;
-    }
-    .topLabelDisabled {
-        max-height: 20px;
-        line-height: 20px;
-    }
-    .topDropDownIco {
-        margin-top: 14px;
-    }
-    .topActionBtn {
-        padding-top: 11px;
-    }
-    .topBtn > img {
-        margin-top: 5px;
     }
 }

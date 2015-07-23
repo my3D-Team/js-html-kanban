@@ -20,6 +20,7 @@ var Kanban = React.createClass({
                     <Sticky className="default" onSelect={this.onSelectItem} onDeselect={this.onDeselectItem}></Sticky>
                     <Sticky className="danger" onSelect={this.onSelectItem} onDeselect={this.onDeselectItem}></Sticky>
                     <Sticky className="success" onSelect={this.onSelectItem} onDeselect={this.onDeselectItem}></Sticky>
+                    <Cicle radius="200" onSelect={this.onSelectItem} onDeselect={this.onDeselectItem}></Cicle>
                 </div>
             </div>
             );

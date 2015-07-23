@@ -27,7 +27,7 @@
 }
 
 .animate {
-    transform: rotate(10deg);
+    transform: rotate(5deg);
 }
 
 .danger {
@@ -71,3 +71,6 @@
     background-color: #01468b;
 }
 
+svg {
+    position: absolute;
+}
