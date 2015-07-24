@@ -17,7 +17,7 @@ var Sticky = React.createClass({displayName: "Sticky",
     },
     render: function() {
         return (
-            React.createElement("div", {className: this.props.className + " sticky", onMouseDown: this.onMouseDown, onMouseUp: this.onMouseUp}, " ")
+            React.createElement("div", {className: this.props.className + " sticky", onDrop: this.onDrop, onMouseDown: this.onMouseDown, onMouseUp: this.onMouseUp}, " ")
             );
     }
 });
