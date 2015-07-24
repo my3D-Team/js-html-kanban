@@ -104,7 +104,7 @@ gulp.task('styles', () => {
     // Concatenate and minify styles
     .pipe($.if('*.css', $.minifyCss()))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist/styles'))
     .pipe($.size({title: 'styles'}));
 });
 
@@ -191,7 +191,7 @@ gulp.task('serve:dist', ['default'], () => {
 gulp.task('default', ['clean'], cb => {
   runSequence(
     'styles',
-    ['jshint', 'html', 'scripts', 'images', 'fonts', 'copy'],
+    ['html', 'scripts', 'images', 'fonts', 'copy'],
     'generate-service-worker',
     cb
   );
