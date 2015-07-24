@@ -24,7 +24,7 @@
 
 
 
-var PrecacheConfig = [["dist/index.html","4d6fee2f846918f750fa6770af8503d9"],["dist/scripts/main.min.js","efa30219ec7db314058d540badbefa04"],["dist/styles/header.css","0b97ffc74f7901fd8f02b92818f01d88"],["dist/styles/kanban.css","48c84072692578f6058ad7ac1860e697"],["dist/styles/sticky.css","4a1ac1174d1ee7fefebdbdf697487bef"],["dist/styles/style.css","a2e1ec770100f6c465f713dedaeed99f"]];
+var PrecacheConfig = [["dist/index.html","aac1e445501b18dc3b42a0d3956b8123"],["dist/scripts/main.min.js","421ec222e9669713f0189d84a0649a15"],["dist/styles/header.css","0b97ffc74f7901fd8f02b92818f01d88"],["dist/styles/kanban.css","48c84072692578f6058ad7ac1860e697"],["dist/styles/sticky.css","4a1ac1174d1ee7fefebdbdf697487bef"],["dist/styles/style.css","a2e1ec770100f6c465f713dedaeed99f"]];
 var CacheNamePrefix = 'sw-precache-v1-web-starter-kit-' + (self.registration ? self.registration.scope : '') + '-';
 
 
