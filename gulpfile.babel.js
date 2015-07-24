@@ -68,6 +68,15 @@ gulp.task('copy', () => {
     .pipe($.size({title: 'copy'}));
 });
 
+
+// Copy lib (app) into script (dist)
+gulp.task('libCopy', () => {
+    return gulp.src('app/scripts/lib/**/*', {
+        dot: true
+    }).pipe(gulp.dest('dist/scripts/lib'))
+        .pipe($.size({title: 'libCopy'}));
+});
+
 // Copy web fonts to dist
 gulp.task('fonts', () => {
   return gulp.src(['app/fonts/**'])
@@ -191,7 +200,7 @@ gulp.task('serve:dist', ['default'], () => {
 gulp.task('default', ['clean'], cb => {
   runSequence(
     'styles',
-    ['html', 'scripts', 'images', 'fonts', 'copy'],
+    ['html', 'scripts', 'images', 'fonts', 'copy', 'libCopy'],
     'generate-service-worker',
     cb
   );
