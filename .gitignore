@@ -3,4 +3,4 @@ dist
 .tmp
 app.yaml
 .idea
-app/scripts/reactComponent/build/.module-cache
+app/scripts/reactComponent/build

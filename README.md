@@ -17,5 +17,9 @@ $ npm install
 ## Watch For Changes & Automatically Refresh Across Devices
 
 ```sh
+$ jsx --watch app/script/reactComponent/src app/script/reactComponent/build
+```
+
+```sh
 $ gulp serve
 ```

@@ -7,16 +7,12 @@
  */
 var Cicle = React.createClass({
 
+    mixins:[Draggable],
     getInitialState: function () {
         return {}
     },
-    onMouseDown : function (e) {
-        this.props.onSelect(e);
-    },
-    onMouseUp: function(e) {
-        this.props.onDeselect();
-    },
-    render: function() {
+
+    render: function () {
         var css = {
             top: this.props.y,
             left: this.props.x

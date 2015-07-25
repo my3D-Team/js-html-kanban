@@ -2,7 +2,6 @@
 .sticky {
     width: 250px;
     height: 40px;
-    background-color: darkblue;
     border-radius: 5px;
     position: absolute;
     top: 1px;
@@ -26,51 +25,11 @@
     cursor: -moz-grab;
 }
 
-.animate {
-    transform: rotate(5deg);
+.grabbing:hover {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }
-
-.danger {
-    background-color: #d9534f;
-}
-
-.warn {
-    background-color: #f0ad4e;
-}
-
-.info {
-    background-color: #5bc0de;
-}
-
-.success {
-    background-color: #5cb85c;
-}
-
-.default {
-    background-color: #01468b;
-}
-
-
-.danger:hover {
-    background-color: #c9302c;
-}
-
-.warn:hover {
-    background-color: #ec971f;
-}
-
-.info:hover {
-    background-color: #31b0d5;
-}
-
-.success:hover {
-    background-color: #449d44;
-}
-
-.default:hover {
-    background-color: #01468b;
-}
-
 svg {
     position: absolute;
 }

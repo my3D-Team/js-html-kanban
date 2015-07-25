@@ -16,9 +16,7 @@ var Column = React.createClass({
             backgroundColor: this.props.color
         }
         return (
-            <div>
             <div className="column" style={css}> </div>
-            </div>
             );
     }
 });

@@ -7,6 +7,7 @@
  */
 
 var App = React.createClass({
+    mixins:[Scallable, KanbanDragManager],
 
     getInitialState : function () {
         return {};
@@ -14,9 +15,12 @@ var App = React.createClass({
 
     render: function() {
         return (
-            <div>
+            <div onMouseMove={this.onMove} >
                 <Header></Header>
-                <Kanban></Kanban>
+                <Kanban ref="scallable" dragBoard={this}></Kanban>
+
+                <input className="zoom" type="range" min="100" max="200" defaultValue="100" onChange={this.manageZoom} step="10" />
+
             </div>
             );
     }

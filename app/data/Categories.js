@@ -1,0 +1,38 @@
+var Status = {
+    "id":null,
+    "message":null,
+    "title":null,
+    "status":"0",
+    "data":[
+        {
+            "values":[
+                {
+                    "id":"18",
+                    "name":"Backlog",
+                    "domain":"category"
+                },
+                {
+                    "id":"19",
+                    "name":"On hold",
+                    "domain":"category"
+                },
+                {
+                    "id":"20",
+                    "name":"WIP",
+                    "domain":"category"
+                },
+                {
+                    "id":"21",
+                    "name":"Closed",
+                    "domain":"category"
+                },
+                {
+                    "id":"38",
+                    "name":"Done",
+                    "domain":"category"
+                }
+            ]
+        }
+    ],
+    "date":1437765420714
+}
