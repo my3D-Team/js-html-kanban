@@ -3,7 +3,7 @@
 var Scallable = {
 
     manageZoom: function (e) {
-        var scale = e.currentTarget.value / 100;
-        React.findDOMNode(this.refs.scallable).style.transform = "scale(" + scale + ", " + scale + ")";
+        this.refs.scallable.state.scale = e.currentTarget.value / 100;
+        React.findDOMNode(this.refs.scallable).style.transform = "scale(" + this.refs.scallable.state.scale  + ", " + this.refs.scallable.state.scale  + ")";
     }
 }

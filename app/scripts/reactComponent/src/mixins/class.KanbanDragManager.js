@@ -22,7 +22,7 @@ var KanbanDragManager = {
             //Move Node
             //Todo : manage right and bot (idea : let see if we can not manage this with css and scrollbar
             if (e.clientY - this.state.offsetY < 50 ) {
-                this.state.selectedNode.style.top = e.clientY - this.state.offsetY + "px";
+                this.state.selectedNode.style.top = e.clientY  - this.state.offsetY + "px";
             }
             if (e.clientX - this.state.offsetX < 0 ) {
                 this.state.selectedNode.style.left = e.clientX - this.state.offsetX + "px";

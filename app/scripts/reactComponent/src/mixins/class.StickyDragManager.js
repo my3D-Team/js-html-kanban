@@ -17,17 +17,17 @@ var StickyDragManager = {
         this.state.selectedNode.className += " grabbing rotate";
 
         //store the mouse offset on the node
-        this.state.offsetX = e.clientX - offsetLeft;
-        this.state.offsetY = e.clientY - offsetTop;
+        this.state.offsetX = (e.clientX / this.state.scale )- offsetLeft;
+        this.state.offsetY = (e.clientY / this.state.scale ) - offsetTop;
     },
 
     onMove: function (e) {
         if (this.state.selectedNode &&
-            ( this.state.selectedNode.style.top = e.clientY - this.state.offsetY + "px"
-                || this.state.selectedNode.style.left !== e.clientX - this.state.offsetX + "px" )) {
+            ( this.state.selectedNode.style.top = (e.clientY / this.state.scale ) - this.state.offsetY + "px"
+                || this.state.selectedNode.style.left !== (e.clientX / this.state.scale )- this.state.offsetX + "px" )) {
             //Move Node
-            this.state.selectedNode.style.top = e.clientY - this.state.offsetY + "px";
-            this.state.selectedNode.style.left = e.clientX - this.state.offsetX + "px";
+            this.state.selectedNode.style.top = (e.clientY / this.state.scale ) - this.state.offsetY + "px";
+            this.state.selectedNode.style.left = (e.clientX / this.state.scale ) - this.state.offsetX + "px";
             e.stopPropagation();
         }
     },
