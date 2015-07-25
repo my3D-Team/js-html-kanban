@@ -12,8 +12,8 @@ var Sticky = React.createClass({
     },
     render: function() {
         var css = {
-            top: this.props.y,
-            left: this.props.x
+            top: this.props.y + "px",
+            left: this.props.x + "px"
         }
         return (
             <div className={this.props.className + " sticky"}  style={css} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} > </div>

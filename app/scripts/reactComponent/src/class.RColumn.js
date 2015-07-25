@@ -6,17 +6,18 @@
  * @author $Author$
  */
 var Column = React.createClass({
-    getInitialState : function () {
+    getInitialState: function () {
         return {displayOrder: 0};
     },
-    render: function() {
+    render: function () {
         var css = {
-            top: this.props.y,
-            left: this.props.x,
+            height: this.props.height,
             backgroundColor: this.props.color
         }
         return (
-            <div className="column" style={css}> </div>
+            <div className="column" style={css}>
+                <h3>{this.props.title}</h3>
+            </div>
             );
     }
 });
