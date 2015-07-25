@@ -24,7 +24,7 @@
 
 
 
-var PrecacheConfig = [["dist/index.html","aac1e445501b18dc3b42a0d3956b8123"],["dist/scripts/main.min.js","421ec222e9669713f0189d84a0649a15"],["dist/styles/header.css","0b97ffc74f7901fd8f02b92818f01d88"],["dist/styles/kanban.css","48c84072692578f6058ad7ac1860e697"],["dist/styles/sticky.css","4a1ac1174d1ee7fefebdbdf697487bef"],["dist/styles/style.css","a2e1ec770100f6c465f713dedaeed99f"]];
+var PrecacheConfig = [["dist/index.html","aac1e445501b18dc3b42a0d3956b8123"],["dist/scripts/lib/lodash.min.js","87d3c3c75203c26ed6d8504f20d93f00"],["dist/scripts/lib/react/JSXTransformer.js","e04cce8c0106079c95c2d8f177f2df02"],["dist/scripts/lib/react/react-with-addons.js","ab45471b9c04e93513fff58e98a9d9ef"],["dist/scripts/lib/react/react.js","e63dc1d3fb5f4aec244921c589092670"],["dist/scripts/main.min.js","48318ac699b4c67c6fa5e18c1d8df6a1"],["dist/styles/header.css","0b97ffc74f7901fd8f02b92818f01d88"],["dist/styles/kanban.css","006c75ddf00503f0643062fd70d55720"],["dist/styles/sticky.css","89fb84866e6036a148c03c238944a2e9"],["dist/styles/style.css","e92088844ee2cec8d6365a1f8ee91d0b"]];
 var CacheNamePrefix = 'sw-precache-v1-web-starter-kit-' + (self.registration ? self.registration.scope : '') + '-';
 
 
