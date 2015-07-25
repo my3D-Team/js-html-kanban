@@ -1819,7 +1819,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 		var len = b64.length
 		placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0
 
-		// base64 is 4/3 + up to two characters of the original data
+		// base64 is 4/3 + up to two characters of the original OldData
 		arr = new Arr(b64.length * 3 / 4 - placeHolders)
 
 		// if there are placeholders, only get up to the last complete 4 chars
@@ -10062,7 +10062,7 @@ define(function (_dereq_, exports, module) {
   var util = _dereq_('./util');
 
   /**
-   * A data structure which is a combination of an array and a set. Adding a new
+   * A OldData structure which is a combination of an array and a set. Adding a new
    * member is O(1), testing for membership is O(1), and finding the index of an
    * element is O(1). Removing elements from the set is not supported. Only
    * strings are supported for membership.
@@ -10190,7 +10190,7 @@ define(function (_dereq_, exports, module) {
 
   var base64 = _dereq_('./base64');
 
-  // A single base 64 digit can contain 6 bits of data. For the base 64 variable
+  // A single base 64 digit can contain 6 bits of OldData. For the base 64 variable
   // length quantities we use in the source map spec, the first bit is the sign,
   // the next four bits are the actual value, and the 6th bit is the
   // continuation bit. The continuation bit tells us whether there are more
@@ -10600,7 +10600,7 @@ define(function (_dereq_, exports, module) {
   });
 
   /**
-   * Parse the mappings in a string in to a data structure which we can easily
+   * Parse the mappings in a string in to a OldData structure which we can easily
    * query (the ordered arrays in the `this.__generatedMappings` and
    * `this.__originalMappings` properties).
    */
@@ -11122,7 +11122,7 @@ define(function (_dereq_, exports, module) {
     };
 
   /**
-   * A mapping can have one of the three levels of data:
+   * A mapping can have one of the three levels of OldData:
    *
    *   1. Just the generated position.
    *   2. The Generated position, original position, and original source.
@@ -12661,7 +12661,7 @@ function createState(source, rootNode, transformOptions) {
        */
       position: 0,
       /**
-       * Auxiliary data to be returned by transforms
+       * Auxiliary OldData to be returned by transforms
        * @type {Object}
        */
       extra: {},
@@ -14182,7 +14182,7 @@ function visitStructuredVariable(traverse, node, path, state) {
   utils.catchupWhiteSpace(node.init.range[0], state);
   traverse(node.init, path, state);
   utils.catchup(node.init.range[1], state);
-  // Render the destructured data.
+  // Render the destructured OldData.
   utils.append(',' + getDestructuredComponents(node.id, state), state);
   state.localScope.tempVarIndex++;
   return false;

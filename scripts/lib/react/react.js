@@ -225,7 +225,7 @@ var canUseTextInputEvent = (
   !isPresto()
 );
 
-// In IE9+, we have access to composition events, but the data supplied
+// In IE9+, we have access to composition events, but the OldData supplied
 // by the native compositionend event may be incorrect. Japanese ideographic
 // spaces, for instance (\u3000) are not recorded correctly.
 var useFallbackCompositionData = (
@@ -387,8 +387,8 @@ function isFallbackCompositionEnd(topLevelType, nativeEvent) {
 }
 
 /**
- * Google Input Tools provides composition data via a CustomEvent,
- * with the `data` property populated in the `detail` object. If this
+ * Google Input Tools provides composition OldData via a CustomEvent,
+ * with the `OldData` property populated in the `detail` object. If this
  * is available on the event object, use it. If not, this is a plain
  * composition event and we have nothing special to extract.
  *
@@ -455,7 +455,7 @@ function extractCompositionEvent(
   );
 
   if (fallbackData) {
-    // Inject data generated from fallback path into the synthetic event.
+    // Inject OldData generated from fallback path into the synthetic event.
     // This matches the property of native CompositionEventInterface.
     event.data = fallbackData;
   } else {
@@ -1656,7 +1656,7 @@ var DOMPropertyInjection = {
    * with the following properties:
    *
    * isCustomAttribute: function that given an attribute name will return true
-   * if it can be inserted into the DOM verbatim. Useful for data-* or aria-*
+   * if it can be inserted into the DOM verbatim. Useful for OldData-* or aria-*
    * attributes where it's impossible to enumerate all of the possible
    * attribute names,
    *
@@ -1958,7 +1958,7 @@ if ("production" !== "development") {
     warnedProperties[name] = true;
     var lowerCasedName = name.toLowerCase();
 
-    // data-* attributes should be lowercase; suggest the lowercase version
+    // OldData-* attributes should be lowercase; suggest the lowercase version
     var standardName = (
       DOMProperty.isCustomAttribute(lowerCasedName) ?
         lowerCasedName :
@@ -5156,7 +5156,7 @@ var ReactClassInterface = {
 
   /**
    * Invoked when the component is initially created and about to be mounted.
-   * This may have side effects, but any external subscriptions or data created
+   * This may have side effects, but any external subscriptions or OldData created
    * by this method must be cleaned up in `componentWillUnmount`.
    *
    * @optional
@@ -10924,9 +10924,9 @@ var warning = _dereq_(154);
 /**
  * We used to allow keyed objects to serve as a collection of ReactElements,
  * or nested sets. This allowed us a way to explicitly key a set a fragment of
- * components. This is now being replaced with an opaque data structure.
+ * components. This is now being replaced with an opaque OldData structure.
  * The upgrade path is to call React.addons.createFragment({ key: value }) to
- * create a keyed fragment. The resulting data structure is opaque, for now.
+ * create a keyed fragment. The resulting OldData structure is opaque, for now.
  */
 
 if ("production" !== "development") {
@@ -12023,7 +12023,7 @@ function batchedMountComponentIntoNode(
  *   );
  *
  *   <div id="container">                   <-- Supplied `container`.
- *     <div data-reactid=".3">              <-- Rendered reactRoot of React
+ *     <div OldData-reactid=".3">              <-- Rendered reactRoot of React
  *       // ...                                 component.
  *     </div>
  *   </div>
@@ -13230,7 +13230,7 @@ var invariant = _dereq_(135);
  *   });
  *
  * Refs should rarely be used. When refs are used, they should only be done to
- * control data that is not handled by React's data flow.
+ * control OldData that is not handled by React's OldData flow.
  *
  * @class ReactOwner
  */
@@ -17237,7 +17237,7 @@ var isUnitlessNumber = CSSProperty.isUnitlessNumber;
 function dangerousStyleValue(name, value) {
   // Note that we've removed escapeTextForBrowser() calls here since the
   // whole string will be escaped when the attribute is injected into
-  // the markup. If you provide unsafe user data here they can inject
+  // the markup. If you provide unsafe user OldData here they can inject
   // arbitrary CSS which may be problematic (I couldn't repro this):
   // https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
   // http://www.thespanner.co.uk/2007/11/26/ultimate-xss-css-injection/
@@ -19173,7 +19173,7 @@ var invariant = _dereq_(135);
 /**
  * Convert array-like objects to arrays.
  *
- * This API assumes the caller knows the contents of the data type. For less
+ * This API assumes the caller knows the contents of the OldData type. For less
  * well defined inputs use createArrayFromMixed.
  *
  * @param {object|function|filelist} obj
