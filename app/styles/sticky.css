@@ -30,6 +30,26 @@
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
 }
+
+
+.zoomEffect {
+    -webkit-transition: width 1s, height 1s; /* Safari */
+    transition: width 1s, height 1s, top 1s, left 1s;
+    -webkit-transition-timing-function: cubic-bezier(.87,-0.1,.19,1.44);
+    transform-origin: bottom right;
+}
+
+
+.edit {
+     font-size: 20px;
+     line-height: 40px;
+     width: 40px;
+     text-align: center;
+     color: #f9f9f9;
+     float: left;
+     cursor: pointer;
+ }
+
 svg {
     position: absolute;
 }

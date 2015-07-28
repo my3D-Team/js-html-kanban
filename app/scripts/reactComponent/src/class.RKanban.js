@@ -20,7 +20,7 @@ var Kanban = React.createClass({
             y = 0;
 
         return (
-            <div className="kanban" onMouseUp={this.onDeselectItem} onMouseMove={this.onMove} >
+            <div className="kanban"  onTouchEnd={this.onDeselectItem} onMouseUp={this.onDeselectItem} onTouchMove={this.onMove} onMouseMove={this.onMove} >
 
                 {this.state.users.map(function (item, i) {
                         color = color === "white" ? "#f9f9f9" : "white";
