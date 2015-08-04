@@ -5,6 +5,8 @@
  *
  * @author $Author$
  */
+var React = require('react');
+
 var Column = React.createClass({
     getInitialState: function () {
         return {displayOrder: 0};
@@ -21,3 +23,5 @@ var Column = React.createClass({
             );
     }
 });
+
+module.exports = Column;

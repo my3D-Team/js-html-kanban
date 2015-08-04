@@ -5,7 +5,9 @@
  *
  * @author $Author$
  */
-var User = React.createClass({
+var React = require('react');
+
+var UserRow = React.createClass({
     getInitialState: function () {
         return {displayOrder: 0};
     },
@@ -21,3 +23,5 @@ var User = React.createClass({
             );
     }
 });
+
+module.exports = UserRow;

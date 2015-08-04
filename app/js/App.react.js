@@ -6,20 +6,24 @@
  * @author $Author$
  */
 
-var App = React.createClass({
-    mixins:[Scallable],
+var React = require('react');
 
-    getInitialState : function () {
-        return {};
-    },
+var Header = require('./Header.react');
+var Kanban = require('./Kanban.react');
+var Scalable = require('./mixins/ScalableMixin.js');
+
+var App = React.createClass({
+    mixins:[Scalable],
 
     render: function() {
         return (
-            <div >
+             <div>
                 <Header></Header>
-                <Kanban ref="scallable" ></Kanban>
+                <Kanban ref="scalable" ></Kanban>
                 <input className="zoom" type="range" min="60" max="200" defaultValue="100" onChange={this.manageZoom} step="10" />
             </div>
             );
     }
 });
+
+module.exports = App;

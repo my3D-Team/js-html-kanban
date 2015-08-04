@@ -5,6 +5,8 @@
  *
  * @author $Author$
  */
+var React = require('react');
+
 var Header = React.createClass({
     getInitialState: function () {
         return {isZoomed: false};
@@ -20,3 +22,4 @@ var Header = React.createClass({
             );
     }
 });
+module.exports = Header;

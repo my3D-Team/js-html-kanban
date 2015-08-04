@@ -21,43 +21,33 @@
     <meta name="theme-color" content="#3372DF">
 
     <!-- Page styles -->
-    <link rel="stylesheet" href="styles/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/kanban.css">
-    <link rel="stylesheet" href="styles/sticky.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/kanban.css">
+    <link rel="stylesheet" href="css/sticky.css">
 </head>
 <body>
 <div id="content"></div>
 
-
-
-
-<script src="scripts/lib/react/react-with-addons.js"></script>
-<script src="scripts/lib/react/JSXTransformer.js"></script>
-<script src="scripts/lib/lodash.min.js"></script>
-<!-- build:js(app/) scripts/main.min.js -->
-<!--Data-->
 <script src="data/Columns.js"></script>
 <script src="data/Users.js"></script>
 
-<!--Mixins-->
-<script src="scripts/reactComponent/build/mixins/class.KanbanDragManager.js"></script>
-<script src="scripts/reactComponent/build/mixins/class.StickyDragManager.js"></script>
-<script src="scripts/reactComponent/build/mixins/class.Draggable.js"></script>
-<script src="scripts/reactComponent/build/mixins/class.Scallable.js"></script>
+<script src="js/bundle.js"></script>
 
-<!--Component-->
-<script src="scripts/reactComponent/build/class.RApp.js"></script>
-<script src="scripts/reactComponent/build/class.RMenuHeader.js"></script>
-<script src="scripts/reactComponent/build/class.RKanban.js"></script>
-<script src="scripts/reactComponent/build/class.RSticky.js"></script>
-<script src="scripts/reactComponent/build/class.RCicle.js"></script>
-<script src="scripts/reactComponent/build/class.RColumn.js"></script>
-<script src="scripts/reactComponent/build/class.RUser.js"></script>
-<script src="scripts/main.js"></script>
-<!-- endbuild -->
 
+<!-- Google Analytics -->
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-65600701-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
 
 </body>
 </html>
