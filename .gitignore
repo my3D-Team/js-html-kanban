@@ -2,3 +2,4 @@ node_modules
 dist
 .idea
 app/js/bundle.js
+app/js/bundle.min.js
