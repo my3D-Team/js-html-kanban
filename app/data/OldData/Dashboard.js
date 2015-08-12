@@ -1,5 +1,21 @@
-var Dashboard = {"content": {"title": "Project Kanban", "typeOfWebview": null, "zoomType": "kanban", "weeklyActivities": [], "displayOrder": 0},
-    "nodeId": 1827579, "type": "ZoomNode", "x": -13.85364, "y": -205.75372, "width": 8064.0, "height": 4242.0, "scaleX": 1.0, "scaleY": 1.0, "parentId": 1810789, "projectId": 2770,
+var Dashboard = {
+    "content": {
+        "title": "Project Kanban",
+        "typeOfWebview": null,
+        "zoomType": "kanban",
+        "weeklyActivities": [],
+        "displayOrder": 0
+    },
+    "nodeId": 1827579,
+    "type": "ZoomNode",
+    "x": -13.85364,
+    "y": -205.75372,
+    "width": 8064.0,
+    "height": 4242.0,
+    "scaleX": 1.0,
+    "scaleY": 1.0,
+    "parentId": 1810789,
+    "projectId": 2770,
     "children": [
 
 //BackLog
@@ -7,7 +23,7 @@ var Dashboard = {"content": {"title": "Project Kanban", "typeOfWebview": null, "
             "content": {}, "nodeId": 1827580, "type": "BacklogNode", "x": 10.0, "y": 2.0, "width": 417.0, "height": 1176.4841, "scaleX": 1.0, "scaleY": 1.0, "parentId": 1827579, "projectId": 2770, "children": [], "zindex": "6"
         },
 
-//    All Columns And Rows are on the
+//    All Columns And Rows are on the children
         {
             "content": {
                 "groupName": "null",

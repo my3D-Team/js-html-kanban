@@ -7,7 +7,8 @@
         "flux": "^2.0.1",
         "keymirror": "~0.1.0",
         "object-assign": "^1.0.0",
-        "react": "^0.13.3"
+        "react": "^0.13.3",
+        "lodash" : "^3.10.0"
     },
     "devDependencies": {
         "envify": "^3.0.0",

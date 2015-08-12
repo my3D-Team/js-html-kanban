@@ -7,7 +7,7 @@
  */
 var React = require('react');
 
-var StickyManager = require('../../mixins/StickyMixin');
+var StickyManager = require('../mixins/StickyMixin');
 var StickyActions = require('../actions/StickyActions.js');
 
 var Sticky = React.createClass({
