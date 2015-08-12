@@ -9,8 +9,8 @@
 var React = require('react');
 
 var Header = require('./Header.react');
-var Kanban = require('./Kanban.react');
-var Scalable = require('./mixins/ScalableMixin.js');
+var Kanban = require('./kanban/components/Kanban.react');
+var Scalable = require('./mixins/ScalableMixin');
 
 var App = React.createClass({
     mixins:[Scalable],

@@ -7,18 +7,19 @@
  */
 var React = require('react');
 
-var StickyDragManager = require('./mixins/StickyDragMixin');
-var StickyStore = require('./sticky/stores/StickyStore');
+var DragManager = require('./../../mixins/DragMixin');
+var StickyStore = require('./../../sticky/stores/StickyStore');
 
-var Sticky = require('./sticky/components/Sticky.react');
-var Column = require('./Column.react');
+var Sticky = require('./../../sticky/components/Sticky.react.js');
 var UserRow = require('./UserRow.react');
+var Column= require('./Column.react');
 
 var Kanban = React.createClass({
 
-    mixins: [StickyDragManager],
+    mixins: [DragManager],
     getInitialState: function () {
         var retval = {};
+
         retval.columns = Columns;
         retval.users = ProjectUsers;
         retval.scale = 1;
@@ -41,9 +42,8 @@ var Kanban = React.createClass({
             <div className="kanban"  onTouchEnd={this._onDeselectItem} onMouseUp={this._onDeselectItem} onTouchMove={this._onMove} onMouseMove={this._onMove} >
 
                 {this.state.users.map(function (item, i) {
-                        color = color === "white" ? "#f9f9f9" : "white";
                         y += 150;
-                        return (<UserRow x="425" y={y} item={item} key={i}> </UserRow>);
+                        return (<UserRow x="425" y={y}  item={item} key={i}> </UserRow>);
                     }
                 )}
 

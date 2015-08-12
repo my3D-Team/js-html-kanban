@@ -13,7 +13,7 @@ var StickyActions = require('../actions/StickyActions.js');
 var Sticky = React.createClass({
     mixins: [StickyManager],
     getInitialState: function () {
-        return {isZoomed: false, offsetX: 0, offsetY: 0};
+        return {}
     },
     render: function () {
         var css = {
@@ -22,7 +22,7 @@ var Sticky = React.createClass({
         }
         return (
             <div className={this.props.className + " sticky"}  style={css} onTouchStart={this._onSelect} onTouchEnd={this._onDeselect} onMouseDown={this._onSelect} onMouseUp={this._onDeselect} >
-                <i  onClick={this._toggleEditMode} onMouseDown={this._stopPropagation} onToucheStart={this._stopPropagation} className="fa fa-pencil edit"></i>
+                <i onClick={this._toggleEditMode} onMouseDown={this._stopPropagation} onToucheStart={this._stopPropagation} className="fa fa-pencil edit"></i>
             </div>
             );
     },

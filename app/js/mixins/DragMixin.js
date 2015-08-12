@@ -1,6 +1,6 @@
 "use strict";
 
-var StickyDragManager = {
+var DragManager = {
     _onSelectItem: function (e) {
         var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
         var mouseY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -18,16 +18,18 @@ var StickyDragManager = {
         this.state.offsetY = (mouseY / this.state.scale ) - offsetTop;
     },
     _onDeselectItem: function (e) {
-        //Manage special element (ei.SVG)
-        if (this.state.selectedNode && this.state.selectedNode.className.replace) {
-            this.state.selectedNode.className = this.state.selectedNode.className.replace("grabbing", "");
+        if (this.state.selectedNode) {
+
+            //Manage special element (ei.SVG)
+            if (this.state.selectedNode.className.replace) {
+                this.state.selectedNode.className = this.state.selectedNode.className.replace("grabbing", "");
+            }
+
+            this.state.selectedNode.style.zIndex = 1;
+            this.state.selectedNode = null;
+            this.state.offsetX = 0;
+            this.state.offsetY = 0;
         }
-        this.state.selectedNode.style.zIndex = 1;
-
-
-        this.state.selectedNode = null;
-        this.state.offsetX = 0;
-        this.state.offsetY = 0;
     },
 
     _onMove: function (e) {
@@ -46,4 +48,4 @@ var StickyDragManager = {
 
 }
 
-module.exports = StickyDragManager;
+module.exports = DragManager;
