@@ -18,7 +18,7 @@ var UserRow = React.createClass({
         }
         return (
             <div className="row" style={css} >
-                <h3>{this.props.item.content.text}</h3>
+                <h3>{this.props.item.firstName}</h3>
             </div>
             );
     }

@@ -5,7 +5,7 @@ var Columns = [
         "type": "BacklogNode",
 //        "x":10.0,
 //        "y":2.0,
-        "width": 420.0,
+//        "width": 420.0,
 //        "height":1613.0,
 //        "scaleX":1.0,
 //        "scaleY":1.0,
@@ -19,14 +19,12 @@ var Columns = [
     {
         "nodeId": 898735,
         "type": "User",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
         "displayOrder" : 0
     },{
         "nodeId": 898736,
         "type": "ToDoNode",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
         "displayOrder" : 1
@@ -34,7 +32,6 @@ var Columns = [
     {
         "nodeId": 898737,
         "type": "WIP",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
         "displayOrder" : 2
@@ -42,7 +39,6 @@ var Columns = [
     {
         "nodeId": 898738,
         "type": "test",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
         "displayOrder" : 3
@@ -50,64 +46,57 @@ var Columns = [
     {
         "nodeId": 898739,
         "type": "DOne",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
-        "displayOrder" : 4
+        "displayOrder" : 5
     }
     ,
     {
         "nodeId": 898739,
         "type": "DOne",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
-        "displayOrder" : 4
+        "displayOrder" : 6
     }
     ,
     {
         "nodeId": 898739,
         "type": "DOne",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
-        "displayOrder" : 4
+        "displayOrder" : 7
     }
     ,
     {
         "nodeId": 898739,
         "type": "DOne",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
-        "displayOrder" : 4
+        "displayOrder" : 8
     }
     ,
     {
         "nodeId": 898739,
         "type": "DOne",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
-        "displayOrder" : 4
+        "displayOrder" : 9
     }
     ,
     {
         "nodeId": 898739,
         "type": "DOne",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
-        "displayOrder" : 4
+        "displayOrder" : 10
     }
     ,
     {
         "nodeId": 898739,
         "type": "DOne",
-        "width": 420.0,
         "parentId": 898734,
         "projectId": 62,
-        "displayOrder" : 4
+        "displayOrder" : 11
     }
 
 ]

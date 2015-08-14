@@ -25,6 +25,17 @@
     cursor: -moz-grab;
 }
 
+.sticky-title-wrapper{
+    height: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.sticky-title{
+    color: white;
+    padding: 3px;
+}
+
 .grabbing:hover {
     cursor: grabbing;
     cursor: -moz-grabbing;

@@ -8,15 +8,15 @@ body {
 }
 
 
-.danger {
+.danger, .issue {
     background-color: #d9534f;
 }
 
-.warn {
+.warn, .ticket {
     background-color: #f0ad4e;
 }
 
-.info {
+.info, .feature {
     background-color: #5bc0de;
 }
 
@@ -24,7 +24,7 @@ body {
     background-color: #5cb85c;
 }
 
-.default {
+.default, .action {
     background-color: #01468b;
 }
 
