@@ -1,0 +1,66 @@
+
+.sticky {
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    position: absolute;
+    top: 1px;
+    left: 2px;
+
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* Required to make elements draggable in old WebKit */
+    /*-moz-user-drag: element;*/
+    /*-khtml-user-drag: element;*/
+    /*-webkit-user-drag: element;*/
+    /*user-drag : element;*/
+}
+
+.sticky:hover {
+    cursor: pointer;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+.sticky-title-wrapper{
+    height: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.sticky-title{
+    color: white;
+    padding: 3px;
+}
+
+.grabbing:hover {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+
+.zoomEffect {
+    -webkit-transition: width 1s, height 1s; /* Safari */
+    transition: width 1s, height 1s, top 1s, left 1s;
+    -webkit-transition-timing-function: cubic-bezier(.87,-0.1,.19,1.44);
+    transform-origin: bottom right;
+}
+
+
+.edit {
+     font-size: 20px;
+     line-height: 40px;
+     width: 40px;
+     text-align: center;
+     color: #f9f9f9;
+     float: left;
+     cursor: pointer;
+ }
+
+svg {
+    position: absolute;
+}

@@ -1,0 +1,50 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000;
+}
+
+
+.danger, .issue {
+    background-color: #d9534f;
+}
+
+.warn, .ticket {
+    background-color: #f0ad4e;
+}
+
+.info, .feature {
+    background-color: #5bc0de;
+}
+
+.success {
+    background-color: #5cb85c;
+}
+
+.default, .action {
+    background-color: #01468b;
+}
+
+
+.danger:hover {
+    background-color: #c9302c;
+}
+
+.warn:hover {
+    background-color: #ec971f;
+}
+
+.info:hover {
+    background-color: #31b0d5;
+}
+
+.success:hover {
+    background-color: #449d44;
+}
+
+.default:hover {
+    background-color: #01468b;
+}
