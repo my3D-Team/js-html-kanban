@@ -7,7 +7,7 @@ var _ = require('lodash');
 
 var KanbanManager = {
 
-    getOrderFromUser(arrayUsers, user){
+    getOrderFromUser: function(arrayUsers, user){
         var displayOrder = -1;
         var userLogin = "";
 

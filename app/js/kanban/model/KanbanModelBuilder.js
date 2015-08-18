@@ -5,6 +5,7 @@
 
 var KanbanManager = require('./../manager/KanbanManager.js');
 var _ = require('lodash');
+var Main = require('../../main.js');
 
 var KanbanModelBuilder = {
 
@@ -20,6 +21,8 @@ var KanbanModelBuilder = {
 
         // build children
         this.buildChildren(model);
+
+        Main.model = model;
 
         return model;
 

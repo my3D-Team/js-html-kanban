@@ -36,11 +36,14 @@ var DragManager = {
         if (this.state.selectedNode) {
             var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
             var mouseY = e.touches ? e.touches[0].clientY : e.clientY;
-            if (this.state.selectedNode.style.top = (mouseY / this.state.scale ) - this.state.offsetY + "px"
+            if (this.state.selectedNode.style.top === (mouseY / this.state.scale ) - this.state.offsetY + "px"
                 || this.state.selectedNode.style.left !== (mouseX / this.state.scale ) - this.state.offsetX + "px") {
+
+                var x = (mouseX / this.state.scale ) - this.state.offsetX;
+                var y = (mouseY / this.state.scale ) - this.state.offsetY;
                 //Move Node
-                this.state.selectedNode.style.top = (mouseY / this.state.scale ) - this.state.offsetY + "px";
-                this.state.selectedNode.style.left = (mouseX / this.state.scale ) - this.state.offsetX + "px";
+                this.state.selectedNode.style.top = y + "px";
+                this.state.selectedNode.style.left = x + "px";
             }
             e.preventDefault()
         }

@@ -11,6 +11,7 @@ var StickyManager = require('../mixins/StickyMixin');
 var StickyActions = require('../actions/StickyActions.js');
 var _ = require('lodash');
 
+
 var Sticky = React.createClass({
     mixins: [StickyManager],
     getInitialState: function () {
@@ -30,7 +31,7 @@ var Sticky = React.createClass({
 
     render: function () {
         var x = this.props.x * (Constants.COLUMN.WIDTH + Constants.COLUMN.MARGE) + Constants.COLUMN.MARGE + Constants.STICKY.PADDING,
-            y = this.props.y * Constants.ROW.HEIGHT + Constants.STICKY.MARGE_TOP + Constants.STICKY.PADDING,
+            y = this.props.y * Constants.ROW.HEIGHT + Constants.STICKY.MARGE_TOP + Constants.STICKY.PADDING_TOP,
             width = Constants.COLUMN.WIDTH - 2 * Constants.STICKY.PADDING,
             title = this.getTitle();
 
@@ -39,7 +40,7 @@ var Sticky = React.createClass({
                 x = this.props.x;
                 y = this.props.y;
             }else {
-                x += 350;
+                x += Constants.BACKLOG.MARGE_LEFT;
             }
         }
 
@@ -47,7 +48,7 @@ var Sticky = React.createClass({
             top: y + "px",
             left: x + "px",
             width: width + "px"
-        }
+        };
         return (
             <div className={this.props.className + " sticky"} style={css} onTouchStart={this._onSelect}
                  onTouchEnd={this._onDeselect} onMouseDown={this._onSelect} onMouseUp={this._onDeselect}>
@@ -71,6 +72,10 @@ var Sticky = React.createClass({
 
     _stopPropagation: function (e) {
         e.stopPropagation();
+    },
+
+    setPositions: function(){
+
     }
 
 });
