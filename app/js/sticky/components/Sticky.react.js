@@ -14,9 +14,20 @@ var _ = require('lodash');
 
 var Sticky = React.createClass({
     mixins: [StickyManager],
+
     getInitialState: function () {
-        return {}
+        return {
+            position: {}
+        }
     },
+
+    componentWillMount: function () {
+        this.state.position = {
+            x: this.props.sticky.position.x,
+            y: this.props.sticky.position.y
+        };
+    },
+
 
     getTitle: function () {
         var title = "";
@@ -30,27 +41,16 @@ var Sticky = React.createClass({
     },
 
     render: function () {
-        var x = this.props.x * (Constants.COLUMN.WIDTH + Constants.COLUMN.MARGE) + Constants.COLUMN.MARGE + Constants.STICKY.PADDING,
-            y = this.props.y * Constants.ROW.HEIGHT + Constants.STICKY.MARGE_TOP + Constants.STICKY.PADDING_TOP,
-            width = Constants.COLUMN.WIDTH - 2 * Constants.STICKY.PADDING,
+        var width = Constants.COLUMN.WIDTH - 2 * Constants.STICKY.PADDING,
             title = this.getTitle();
 
-        if (this.props.model.backlog) {
-            if(this.props.isInBacklog){
-                x = this.props.x;
-                y = this.props.y;
-            }else {
-                x += Constants.BACKLOG.MARGE_LEFT;
-            }
-        }
-
         var css = {
-            top: y + "px",
-            left: x + "px",
+            top: this.state.position.y + "px",
+            left: this.state.position.x + "px",
             width: width + "px"
         };
         return (
-            <div className={this.props.className + " sticky"} style={css} onTouchStart={this._onSelect}
+            <div className={this.props.sticky.content.stickyCode + " sticky"} style={css} onTouchStart={this._onSelect}
                  onTouchEnd={this._onDeselect} onMouseDown={this._onSelect} onMouseUp={this._onDeselect}>
                 <i onClick={this._toggleEditMode} onMouseDown={this._stopPropagation}
                    onToucheStart={this._stopPropagation} className="fa fa-pencil edit"></i>
@@ -74,8 +74,9 @@ var Sticky = React.createClass({
         e.stopPropagation();
     },
 
-    setPositions: function(){
-
+    setPositions: function (newX, newY) {
+        var newPositions = {x: newX, y: newY};
+        this.setState({position: newPositions});
     }
 
 });

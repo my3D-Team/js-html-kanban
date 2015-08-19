@@ -17,6 +17,7 @@ var UserRow = require('./UserRow.react');
 var Column = require('./Column.react');
 var KanbanModel = require('./../model/KanbanModel.js');
 var StickyPositionHelperManager = require('../../sticky/manager/StickyPositionHelperManager.js');
+var PositionManager = require('../../utils/PositionManager.js');
 
 var Kanban = React.createClass({
 
@@ -81,9 +82,9 @@ var Kanban = React.createClass({
             stickiesBacklog =
                 model.backlog.stickies.map(function (sticky, i) {
                     posY += Constants.STICKY.HEIGHT + Constants.STICKY.BACKLOG.PADDING;
+                    sticky.position = {x: posX, y: posY};
                     return (
-                        <Sticky x={posX} y={posY} className={sticky.content.stickyCode} sticky={sticky} model={model}
-                                isInBacklog={true}/>);
+                        <Sticky sticky={sticky}/>);
                 })
         }
 
@@ -108,8 +109,8 @@ var Kanban = React.createClass({
                 {model.stickies.map(function (item, i) {
                     var stickies = item.map(function (sticky, j) {
                         if (model.stickies[i][j] !== 0) {
-                            return (<Sticky x={i} y={j} className={sticky.content.stickyCode} sticky={sticky}
-                                            model={model}/>);
+                            sticky.position = PositionManager.getPositionFromCell(i, j, model);
+                            return (<Sticky sticky={sticky}/>);
                         }
                     });
                     return stickies;
