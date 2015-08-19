@@ -4,7 +4,7 @@
 "use strict";
 
 var _ = require('lodash');
-var Main = require('../../main.js');
+var Main = require('../main.js');
 
 var cells = {};
 

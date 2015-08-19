@@ -1,9 +1,9 @@
 "use strict";
 
-var StickyManager = {
+var StickyMixin = {
 
     _toggleEditMode: function (e) {
-        this.state.selectedNode = e.currentTarget.parentNode;
+        this.state.selectedNode = e.currentTarget;
 
         this.state.isZoomed = this.state.isZoomed ? false : true;
         if (this.state.isZoomed) {
@@ -44,4 +44,4 @@ var StickyManager = {
     }
 };
 
-module.exports = StickyManager;
+module.exports = StickyMixin;

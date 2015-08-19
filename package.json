@@ -19,8 +19,8 @@
     },
 
     "scripts": {
-        "start": "watchify -o app/js/bundle.js -v -d app/js/main.js",
-        "build": "browserify ./app/js/main.js  -t [envify --NODE_ENV production] | uglifyjs -cm > ./app/js/bundle.min.js"
+        "start": "watchify -o app/bundle.js -v -d app/js/main.js",
+        "build": "browserify --debug app/js/main.js  | exorcist app/bundle.js.map | uglifyjs -cm > app/bundle.js"
 
     },
     "browserify": {

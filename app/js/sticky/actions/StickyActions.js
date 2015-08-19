@@ -5,22 +5,18 @@ var StickyConst = require('../constants/StickyConst');
 
 var StickyActions = {
 
-    editToggle: function () {
-        AppDispatcher.dispatch({
-            actionType: StickyConst.EDIT_TOGGLE
-        });
-    },
-
-    select: function (e) {
+    select: function (e, node) {
         AppDispatcher.dispatch({
             actionType: StickyConst.SELECT,
-            event: e
+            event: e,
+            node: node
         });
     },
-    deselect: function (e) {
+    deselect: function (e, node) {
         AppDispatcher.dispatch({
             actionType: StickyConst.DESELECT,
-            event: e
+            event: e,
+            node: node
         });
     }
 

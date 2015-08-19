@@ -7,60 +7,44 @@
  */
 var React = require('react');
 
-var DragManager = require('./../mixins/DragMixin');
+var DragMixin = require('./../mixins/DragMixin');
 var DataManager = require('./../mixins/KanbanDataMixin');
 
-var StickyStore = require('./../../sticky/stores/StickyStore');
-var Sticky = require('./../../sticky/components/Sticky.react');
+var KanbanStore = require('../stores/KanbanStore');
+var StickyActions = require('../../sticky/actions/StickyActions.js');
 
-var UserRow = require('./UserRow.react');
-var Column = require('./Column.react');
+var Sticky = require('./../../sticky/components/Sticky.react');
+var UserRow = require('./../../colAndRow/components/UserRow.react');
+var Column = require('./../../colAndRow/components/Column.react');
+
 var KanbanModel = require('./../model/KanbanModel.js');
-var StickyPositionHelperManager = require('../../sticky/manager/StickyPositionHelperManager.js');
+var StickyPositionHelperManager = require('../../utils/StickyPositionHelperManager.js');
 var PositionManager = require('../../utils/PositionManager.js');
 
 var Kanban = React.createClass({
 
-    mixins: [DragManager],
+    mixins: [DragMixin],
 
     getInitialState: function () {
         var retval = {};
 
         retval.model = KanbanModel.getModel();
         retval.scale = 1;
+        retval.selectedNode = KanbanStore.getSelectedNode();
         return retval
     },
 
     componentDidMount: function () {
-        StickyStore.addSelectListener(this.onSelectItem);
-        StickyStore.addDeselectListener(this.onDeselectItem);
+        KanbanStore.addChangeListener(this.onChange);
     },
     componentWillUnmount: function () {
-        StickyStore.removeSelectListener(this.onSelectItem);
-        StickyStore.removeDeselectListener(this.onDeselectItem);
+        KanbanStore.removeChangeListener();
     },
 
-    onSelectItem: function(e){
-        this._onSelectItem(e);
-        var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
-        var mouseY = e.touches ? e.touches[0].clientY : e.clientY;
-        //this.state.selectedNode.startCells = StickyPositionHelperManager.getCells((mouseX / this.state.scale) - this.state.offsetX, (mouseY / this.state.scale) - this.state.offsetY, this.state);
-    },
 
-    onDeselectItem: function(e){
-        //StickyPositionHelperManager.setStickyPosition(this.state);
-        this._onDeselectItem(e);
-    },
-
-    onMove: function(e){
-        this._onMove(e);
-        //TODO à changer
-        var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
-        var mouseY = e.touches ? e.touches[0].clientY : e.clientY;
-        var x = (mouseX / this.state.scale ) - this.state.offsetX;
-        var y = (mouseY / this.state.scale ) - this.state.offsetY;
-        //this.state.selectedNode.currentCell = StickyPositionHelperManager.getCells(x, y, this.state);
-        //StickyPositionHelperManager.buildRegion(this.state.selectedNode.currentCell);
+    onChange: function (e) {
+        this.state.selectedNode = KanbanStore.getSelectedNode();
+        this.state.scale = KanbanStore.getScale();
     },
 
     render: function () {
@@ -84,16 +68,16 @@ var Kanban = React.createClass({
                     posY += Constants.STICKY.HEIGHT + Constants.STICKY.BACKLOG.PADDING;
                     sticky.position = {x: posX, y: posY};
                     return (
-                        <Sticky sticky={sticky}/>);
+                        <Sticky x={posX} y={posY} className={sticky.content.stickyCode} sticky={sticky} model={model}
+                        isInBacklog={true} key={i}/>);
                 })
         }
 
         return (
-            <div className="kanban" onTouchEnd={this.onDeselectItem} onMouseUp={this.onDeselectItem}
-                 onTouchMove={this.onMove} onMouseMove={this.onMove}>
+            <div className="kanban" onTouchMove={this.onMove} onMouseMove={this.onMove} onTouchEnd={this.deselectNode} onMouseUp={this.deselectNode}>
 
                 {backlog}
-                {stickiesBacklog}
+
                 {model.rows.map(function (item, i) {
                         y += 150;
                         return (<UserRow x={x} y={y} item={item} key={i}> </UserRow>);
@@ -105,22 +89,36 @@ var Kanban = React.createClass({
                         return (<Column height={y + 150} color={color} title={item.type} key={i}> </Column>);
                     }
                 )}
-
+                 {stickiesBacklog}
                 {model.stickies.map(function (item, i) {
                     var stickies = item.map(function (sticky, j) {
                         if (model.stickies[i][j] !== 0) {
                             sticky.position = PositionManager.getPositionFromCell(i, j, model);
-                            return (<Sticky sticky={sticky}/>);
+                            return (<Sticky sticky={sticky} key={i}/>);
                         }
                     });
                     return stickies;
                 })}
 
             </div>
-        );
+            );
+    },
+
+
+
+    deselectNode: function (e) {
+       StickyActions.deselect(e, this.state.selectedNode.node);
+    },
+    onMove: function (e) {
+        this._onMove(e);
+        //TODO manage the ghost
+//        var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
+//        var mouseY = e.touches ? e.touches[0].clientY : e.clientY;
+//        var x = (mouseX / this.state.scale ) - this.state.offsetX;
+//        var y = (mouseY / this.state.scale ) - this.state.offsetY;
+        //this.state.selectedNode.currentCell = StickyPositionHelperManager.getCells(x, y, this.state);
+        //StickyPositionHelperManager.buildRegion(this.state.selectedNode.currentCell);
     }
-
-
 });
 
 module.exports = Kanban;

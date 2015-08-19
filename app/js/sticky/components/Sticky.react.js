@@ -7,13 +7,14 @@
  */
 var React = require('react');
 
-var StickyManager = require('../mixins/StickyMixin');
+var StickyMixin = require('../mixins/StickyMixin');
 var StickyActions = require('../actions/StickyActions.js');
+var StickyStore = require('../stores/StickyStore');
 var _ = require('lodash');
 
 
 var Sticky = React.createClass({
-    mixins: [StickyManager],
+    mixins: [StickyMixin],
 
     getInitialState: function () {
         return {
@@ -63,11 +64,11 @@ var Sticky = React.createClass({
     },
 
     _onSelect: function (e) {
-        StickyActions.select(e);
-
+        StickyActions.select(e, this);
     },
+
     _onDeselect: function (e) {
-        StickyActions.deselect(e);
+        StickyActions.deselect(e, this);
     },
 
     _stopPropagation: function (e) {

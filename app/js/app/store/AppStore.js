@@ -7,6 +7,11 @@ var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
+
+var app = {
+    scale : 1
+}
+
 var AppStore = assign({}, EventEmitter.prototype, {
 
     storesList: [],
@@ -25,6 +30,10 @@ var AppStore = assign({}, EventEmitter.prototype, {
         _.each(this.storesList, function(store){
             store.init();
         });
+    },
+
+    getScale: function () {
+        return app.scale;
     }
 
 });
