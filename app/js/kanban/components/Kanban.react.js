@@ -10,16 +10,21 @@ var React = require('react');
 var DragMixin = require('./../mixins/DragMixin');
 var DataManager = require('./../mixins/KanbanDataMixin');
 
+// Stores
+var AppStore = require('../../app/store/AppStore');
 var KanbanStore = require('../stores/KanbanStore');
+var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
+var StickyStore = require('../../sticky/stores/StickyStore');
+
+// Actions
 var StickyActions = require('../../sticky/actions/StickyActions.js');
 
+// Components
 var Sticky = require('./../../sticky/components/Sticky.react');
 var UserRow = require('./../../colAndRow/components/UserRow.react');
 var Column = require('./../../colAndRow/components/Column.react');
 
 var KanbanModel = require('./../model/KanbanModel.js');
-var StickyPositionHelperManager = require('../../utils/StickyPositionHelperManager.js');
-var PositionManager = require('../../utils/PositionManager.js');
 
 var Kanban = React.createClass({
 
@@ -27,87 +32,84 @@ var Kanban = React.createClass({
 
     getInitialState: function () {
         var retval = {};
-
-        retval.model = KanbanModel.getModel();
         retval.scale = 1;
         retval.selectedNode = KanbanStore.getSelectedNode();
+        retval.backlog = KanbanStore.isBacklog();
+        retval.rows = ColAndRowStore.getRows();
+        retval.columns = ColAndRowStore.getColumns();
+        retval.stickies = StickyStore.getStickies();
         return retval
     },
 
     componentDidMount: function () {
         KanbanStore.addChangeListener(this.onChange);
+        var model = KanbanModel.getModel();
+        AppStore.initStores(model);
+        this.onChange();
     },
+
+    componentWillMount: function () {
+
+    },
+
     componentWillUnmount: function () {
         KanbanStore.removeChangeListener();
     },
 
 
     onChange: function (e) {
-        this.state.selectedNode = KanbanStore.getSelectedNode();
-        this.state.scale = KanbanStore.getScale();
+        this.setState({
+            selectedNode: KanbanStore.getSelectedNode(),
+            scale: KanbanStore.getScale(),
+            rows:  ColAndRowStore.getRows(),
+            columns: ColAndRowStore.getColumns(),
+            stickies: StickyStore.getStickies()
+        });
     },
 
     render: function () {
         var color = "white",
             x = 25,
             y = 0,
-            backlog = {},
-            stickiesBacklog = {},
-            model = this.state.model;
+            backlog = {};
 
-        if (model.backlog) {
+        if (this.state.backlog) {
             x = 400;
-            var height = model.rows.length * Constants.ROW,
+            var height = this.state.rows.length * Constants.ROW,
                 posX = Constants.COLUMN.MARGE + Constants.STICKY.PADDING,
                 posY = 50;
 
-            backlog = (<Column height={height} color={color} title={model.backlog.title}> </Column>);
-
-            stickiesBacklog =
-                model.backlog.stickies.map(function (sticky, i) {
-                    posY += Constants.STICKY.HEIGHT + Constants.STICKY.BACKLOG.PADDING;
-                    sticky.position = {x: posX, y: posY};
-                    return (
-                        <Sticky x={posX} y={posY} className={sticky.content.stickyCode} sticky={sticky} model={model}
-                        isInBacklog={true} key={i}/>);
-                })
+            backlog = (<Column height={height} color={color} title={Labels.BACKLOG}> </Column>);
         }
 
         return (
-            <div className="kanban" onTouchMove={this.onMove} onMouseMove={this.onMove} onTouchEnd={this.deselectNode} onMouseUp={this.deselectNode}>
+            <div className="kanban" onTouchMove={this.onMove} onMouseMove={this.onMove} onTouchEnd={this.deselectNode}
+                 onMouseUp={this.deselectNode}>
 
                 {backlog}
 
-                {model.rows.map(function (item, i) {
+                {this.state.rows.map(function (row, i) {
                         y += 150;
-                        return (<UserRow x={x} y={y} item={item} key={i}> </UserRow>);
+                        return (<UserRow x={x} y={y} item={row} key={i}> </UserRow>);
                     }
                 )}
 
-                {model.columns.map(function (item, i) {
+                {this.state.columns.map(function (column, i) {
                         color = color === "white" ? "#f9f9f9" : "white";
-                        return (<Column height={y + 150} color={color} title={item.type} key={i}> </Column>);
+                        return (<Column height={y + 150} color={color} title={column.type} key={i}> </Column>);
                     }
                 )}
-                 {stickiesBacklog}
-                {model.stickies.map(function (item, i) {
-                    var stickies = item.map(function (sticky, j) {
-                        if (model.stickies[i][j] !== 0) {
-                            sticky.position = PositionManager.getPositionFromCell(i, j, model);
-                            return (<Sticky sticky={sticky} key={i}/>);
-                        }
-                    });
-                    return stickies;
+                {this.state.stickies.map(function (sticky, i) {
+                    return (<Sticky sticky={sticky} key={i}/>);
                 })}
 
             </div>
-            );
+        );
     },
 
 
-
     deselectNode: function (e) {
-       StickyActions.deselect(e, this.state.selectedNode.node);
+        StickyActions.deselect(e, this.state.selectedNode.node);
     },
     onMove: function (e) {
         this._onMove(e);

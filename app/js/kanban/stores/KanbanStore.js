@@ -11,13 +11,16 @@ var React = require('react');
 
 var selectedNode = {
     node: null,
+    domNode: null,
     offsetX: 0,
     offsetY: 0
-}
+};
 
 var kanban = {
     scale: AppStore.getScale()
-}
+};
+
+var backlog = false;
 
 var _selectNode = function (e, node) {
     var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -34,10 +37,22 @@ var _selectNode = function (e, node) {
     selectedNode.domNode = domNode;
     selectedNode.offsetX = (mouseX / kanban.scale ) - offsetLeft;
     selectedNode.offsetY = (mouseY / kanban.scale ) - offsetTop;
-}
+};
 
 
 var KanbanStore = assign({}, EventEmitter.prototype, {
+
+    _setSelectedNode: function(node, domNode, offsetX, offsetY){
+        selectedNode.node = node;
+        selectedNode.domNode = domNode;
+        selectedNode.offsetX = offsetX;
+        selectedNode.offsetY = offsetY;
+    },
+
+    _setBacklog: function(isBacklog){
+        backlog = isBacklog;
+    },
+
     addChangeListener: function (callback) {
         this.on(KanbanConst.CHANGE, callback);
     },
@@ -58,8 +73,19 @@ var KanbanStore = assign({}, EventEmitter.prototype, {
 
     getScale: function () {
         return kanban.scale;
+    },
+
+    isBacklog: function(){
+        return backlog;
+    },
+
+    init: function(model){
+        this._setSelectedNode(null, null, 0, 0);
+        this._setBacklog(model.backlog);
     }
 });
+
+AppStore.addStore(KanbanStore);
 
 
 // Register callback to handle all updates

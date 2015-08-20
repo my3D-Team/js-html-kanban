@@ -26,9 +26,9 @@ var AppStore = assign({}, EventEmitter.prototype, {
         }
     },
 
-    initStores: function(){
+    initStores: function(model){
         _.each(this.storesList, function(store){
-            store.init();
+            store.init(model);
         });
     },
 

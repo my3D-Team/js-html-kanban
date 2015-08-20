@@ -2,6 +2,6 @@
 
 var KanbanConst = {
     CHANGE: "KanbanChange"
-}
+};
 
 module.exports = KanbanConst;

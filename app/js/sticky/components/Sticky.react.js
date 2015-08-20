@@ -9,7 +9,11 @@ var React = require('react');
 
 var StickyMixin = require('../mixins/StickyMixin');
 var StickyActions = require('../actions/StickyActions.js');
+
+// Stores
 var StickyStore = require('../stores/StickyStore');
+var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
+
 var _ = require('lodash');
 
 
@@ -22,11 +26,12 @@ var Sticky = React.createClass({
         }
     },
 
-    componentWillMount: function () {
-        this.state.position = {
-            x: this.props.sticky.position.x,
-            y: this.props.sticky.position.y
-        };
+    componentDidMount: function () {
+         var position = ColAndRowStore.getPositionXY(this.props.sticky.cell_column, this.props.sticky.cell_row);
+        //TODO change this
+        if(position !== null){
+            this.setState({position: position});
+        }
     },
 
 

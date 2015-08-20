@@ -20,6 +20,6 @@ var DragMixin = {
         }
     }
 
-}
+};
 
 module.exports = DragMixin;

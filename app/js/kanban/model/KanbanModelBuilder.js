@@ -68,27 +68,12 @@ var KanbanModelBuilder = {
         if (!model.stickies) {
             this.initStickyModel(model);
         }
-        if (sticky.cell_row !== -1 && sticky.cell_column !== -1) {
-            model.stickies[sticky.cell_column][sticky.cell_row] = sticky;
-        } else {
-            if (model.backlog) {
-                model.backlog.stickies.push(sticky);
-            }
-        }
-
+        model.stickies.push(sticky);
     },
 
     initStickyModel: function (model) {
         // build array
-        var stickiesCell = new Array();
-
-        for (var i = 0; i < model.columns.length; i++) {
-            stickiesCell[i] = new Array();
-            for (var j = 0; j < model.rows.length; j++) {
-                stickiesCell[i][j] = 0;
-            }
-        }
-        model.stickies = stickiesCell;
+        model.stickies = [];
     }
 
 
