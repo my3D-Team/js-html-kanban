@@ -5,9 +5,14 @@
 
 var Constants = {
 
+    TOPBAR: {
+        HEIGHT: 50
+    },
+
     COLUMN: {
         WIDTH: 350,
-        MARGE: 0
+        MARGE: 0,
+        MARGE_TOP: 25
     },
 
     ROW: {
@@ -20,7 +25,13 @@ var Constants = {
         },
         MARGE_TOP: 150,
         PADDING: 20,
+        PADDING_TOP: 10,
+        SPACE_BETWEEN: 5,
         HEIGHT: 40
+    },
+
+    BACKLOG: {
+        MARGE_LEFT: 350
     }
 
 };

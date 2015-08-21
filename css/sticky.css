@@ -64,3 +64,10 @@
 svg {
     position: absolute;
 }
+
+#sticky-helper{
+    display: none;
+    position: absolute;
+    border: black 1px dashed;
+    border-radius: 20px;
+}

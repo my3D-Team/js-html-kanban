@@ -41,7 +41,7 @@ var KanbanData = {
                 "trackerId": "null",
                 "rows": 8,
                 "priorities": "null",
-                "backlog": true,
+                "backlog": false,
                 "organizedValue": null,
                 "planningStages": null,
                 "cancelPhase": false,
@@ -181,7 +181,7 @@ var KanbanData = {
 
         {
             "content": {
-                "stickyCode": "issue",
+                "stickyCode": "danger",
                 "escalationSourceProjectsId": [],
                 "aptmtId": null,
                 "belongOrganizedMode": null,
@@ -190,25 +190,31 @@ var KanbanData = {
                 "currentStatus": null,
                 "modifiedDate": null,
                 "escalatedProjectsId": [],
-                "id": 2232534,
+                "id": 2012626,
                 "values": [
-                    {"value": "Review board overview designs", "type": "title"},
-                    {"value": "haazaria", "type": "person"},
-                    {"value": "12/07/2015", "type": "date"},
+                    {"value": "Connector workshop", "type": "title"},
+                    {"value": "", "type": "description"},
+                    {"value": "0", "type": "consumed"},
+                    {"value": "0", "type": "todo"},
+                    {"value": "0.5", "type": "estimated"},
+                    {"value": "20/05/2015", "type": "date"},
                     {"value": "98", "type": "stickyColor"},
-                    {"value": null, "type": "actionDisk"},
-                    {"value": "", "type": "description"}
+                    {"value": null, "type": "featureDisk"},
+                    {"value": "", "type": "id_task"},
+                    {"value": "", "type": "source"},
+                    {"value": "", "type": "zone_regroupement"},
+                    {"value": "jevanler", "type": "person"}
                 ],
                 "description": null,
-                "colIndex": 17,
-                "rowIndex": 28,
+                "colIndex": 20,
+                "rowIndex": 25,
                 "escalationNote": null,
                 "createDate": null
             },
-            "nodeId": 2232534,
+            "nodeId": 2012626,
             "type": "StickyNoteNode",
-            "x": 1360.3334,
-            "y": 1041.0,
+            "x": 2137.8333,
+            "y": 615.0,
             "width": 200.0,
             "height": 100.0,
             "scaleX": 1.0,
@@ -217,8 +223,8 @@ var KanbanData = {
             "projectId": 2770,
             "children": [],
             "zindex": "15",
-            "cell_column": 3,
-            "cell_row": -1
+            "cell_column" : 1,
+            "cell_row": 3
         },
 
         {
@@ -259,8 +265,56 @@ var KanbanData = {
             "projectId": 2770,
             "children": [],
             "zindex": "15",
-            "cell_column": -1,
+            "cell_column": 1,
             "cell_row" : 3
+        },
+
+        {
+            "content": {
+                "stickyCode": "feature",
+                "escalationSourceProjectsId": [],
+                "aptmtId": null,
+                "belongOrganizedMode": null,
+                "linkedStickyNotesId": [],
+                "planningStageId": 0,
+                "currentStatus": null,
+                "modifiedDate": null,
+                "escalatedProjectsId": [],
+                "id": 2012624,
+                "values": [
+                    {"value": "Connector workshop", "type": "title"},
+                    {"value": "", "type": "description"},
+                    {"value": "0", "type": "consumed"},
+                    {"value": "0", "type": "todo"},
+                    {"value": "0.5", "type": "estimated"},
+                    {"value": "98", "type": "stickyColor"},
+                    {"value": null, "type": "featureDisk"},
+                    {"value": "gdrouet", "type": "person"},
+                    {"value": "", "type": "id_task"},
+                    {"value": "", "type": "source"},
+                    {"value": "", "type": "zone_regroupement"},
+                    {"value": "20/05/2015", "type": "date"}
+                ],
+                "description": null,
+                "colIndex": 20,
+                "rowIndex": 23,
+                "escalationNote": null,
+                "createDate": null
+            },
+            "nodeId": 2012624,
+            "type": "StickyNoteNode",
+            "x": 2137.8333,
+            "y": 331.0,
+            "width": 200.0,
+            "height": 100.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "parentId": 1827579,
+            "projectId": 2770,
+            "children": [],
+            "zindex": "15",
+            "cell_column" : 1,
+            "cell_row": 3
         }
     ],
     "columns": [
