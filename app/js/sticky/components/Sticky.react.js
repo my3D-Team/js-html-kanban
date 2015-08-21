@@ -65,9 +65,6 @@ var Sticky = React.createClass({
         return (
             <div className={this.props.sticky.content.stickyCode + " sticky"} style={css} onTouchStart={this._onSelect}
                  onTouchEnd={this._onDeselect} onMouseDown={this._onSelect} onMouseUp={this._onDeselect}>
-                <i onClick={this._toggleEditMode} onMouseDown={this._stopPropagation}
-                   onToucheStart={this._stopPropagation} className="fa fa-pencil edit"></i>
-
                 <div className="sticky-title-wrapper">
                     <div className="sticky-title">{title}</div>
                 </div>
@@ -76,10 +73,14 @@ var Sticky = React.createClass({
     },
 
     _onSelect: function (e) {
+        this.state.hasMove = false;
         StickyActions.select(e, this);
     },
 
     _onDeselect: function (e) {
+        if (!this.state.hasMove) {
+            this._toggleEditMode(e);
+        }
         StickyActions.deselect(e, this);
     },
 

@@ -1,7 +1,10 @@
 "use strict";
 
 var assign = require('object-assign');
+var _ = require('lodash');
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
+var EventEmitter = require('events').EventEmitter;
+
 var StickyConst = require('../constants/StickyConst');
 
 // Stores
@@ -9,9 +12,6 @@ var AppStore = require('../../app/stores/AppStore');
 var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
 var KanbanStore = require('../../kanban/stores/KanbanStore');
 
-var EventEmitter = require('events').EventEmitter;
-
-var _ = require('lodash');
 
 var stickies = [];
 
