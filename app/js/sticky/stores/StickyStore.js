@@ -27,27 +27,30 @@ var _onSelectItem = function (e, node) {
 };
 
 var _onDeselectItem = function (e, node) {
-    if (node) {
-        var domNode = node.getDOMNode();
-        //todo update attr cellCol & cellRow of the given sticky
+        if (node) {
+            var domNode = node.getDOMNode();
+            //todo update attr cellCol & cellRow of the given sticky
 
-        var mouseX = e.touches ? e.touches[0].pageX : e.pageX;
-        var mouseY = e.touches ? e.touches[0].pageY : e.pageY;
-        var scale = KanbanStore.getScale();
-        var selectedNode = KanbanStore.getSelectedNode();
+            var mouseX = e.touches ? e.touches[0].pageX : e.pageX;
+            var mouseY = e.touches ? e.touches[0].pageY : e.pageY;
+            var scale = KanbanStore.getScale();
+            var selectedNode = KanbanStore.getSelectedNode();
 
-        var x = (mouseX) / scale;
-        var y = (mouseY) / scale;
+            var x = (mouseX) / scale;
+            var y = (mouseY) / scale;
 
-        var cell = ColAndRowStore.getColumnAndRow(x, y);
-        node.props.sticky.cell_column = cell.x;
-        node.props.sticky.cell_row = cell.y;
-        StickyStore.positionSticky(node.props.sticky);
-        if (domNode.className.replace) {
-            domNode.className = domNode.className.replace("grabbing", "");
+            var cell = ColAndRowStore.getColumnAndRow(x, y);
+            node.props.sticky.cell_column = cell.x;
+            node.props.sticky.cell_row = cell.y;
+            StickyStore.positionSticky(node.props.sticky);
+
+            if (!node.hasMove) {
+                if (domNode.className.replace) {
+                    domNode.className = domNode.className.replace("grabbing", "");
+                }
+            }
         }
-    }
-};
+    };
 
 
 var StickyStore = assign({}, EventEmitter.prototype, {
