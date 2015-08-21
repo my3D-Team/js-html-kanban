@@ -12,12 +12,14 @@ var EventEmitter = require('events').EventEmitter;
 
 var _ = require('lodash');
 
-//TODO store stickyes []
 var stickies = [];
 
 var _onSelectItem = function (e, node) {
 
     var domNode = node.getDOMNode();
+    var parent = domNode.parentNode;
+    parent.removeChild(domNode)
+    parent.appendChild(domNode);
     //Change the mouse cursor
     domNode.className += " grabbing";
 
