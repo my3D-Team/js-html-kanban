@@ -26,6 +26,7 @@ var Constants = {
         MARGE_TOP: 150,
         PADDING: 20,
         PADDING_TOP: 10,
+        SPACE_BETWEEN: 5,
         HEIGHT: 40
     },
 

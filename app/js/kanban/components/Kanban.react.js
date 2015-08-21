@@ -48,10 +48,6 @@ var Kanban = React.createClass({
         this.onChange();
     },
 
-    componentWillMount: function () {
-
-    },
-
     componentWillUnmount: function () {
         KanbanStore.removeChangeListener();
     },

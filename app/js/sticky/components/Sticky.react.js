@@ -27,13 +27,20 @@ var Sticky = React.createClass({
     },
 
     componentDidMount: function () {
-         var position = ColAndRowStore.getPositionXY(this.props.sticky.cell_column, this.props.sticky.cell_row);
-        //TODO change this
-        if(position !== null){
-            this.setState({position: position});
-        }
+        StickyStore.addChangePositionListener(this.changePosition);
+        StickyStore.positionSticky(this.props.sticky);
     },
 
+    componentWillUnmount: function () {
+        StickyStore.removeChangePositionListener();
+    },
+
+    changePosition: function(){
+        var sticky = StickyStore.findStickyById(this.props.sticky.content.id);
+        this.setState({
+            position: sticky.position
+        })
+    },
 
     getTitle: function () {
         var title = "";
@@ -78,11 +85,6 @@ var Sticky = React.createClass({
 
     _stopPropagation: function (e) {
         e.stopPropagation();
-    },
-
-    setPositions: function (newX, newY) {
-        var newPositions = {x: newX, y: newY};
-        this.setState({position: newPositions});
     }
 
 });

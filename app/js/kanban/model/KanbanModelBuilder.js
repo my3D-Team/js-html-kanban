@@ -42,11 +42,7 @@ var KanbanModelBuilder = {
     },
 
     buildBacklog: function (model, child) {
-        if (child.content.backlog) {
-            model.backlog = {};
-            model.backlog.title = Labels.BACKLOG;
-            model.backlog.stickies = [];
-        }
+        model.backlog = child.content.backlog;
     },
 
     buildColumns: function (model) {
