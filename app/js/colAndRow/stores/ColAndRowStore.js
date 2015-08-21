@@ -65,8 +65,8 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
         if(column === -1 || row === -1){
             position = null;
         }else {
-            position.x = column * (Constants.COLUMN.WIDTH + Constants.COLUMN.MARGE) + Constants.COLUMN.MARGE + Constants.STICKY.PADDING;
-            position.y = row * Constants.ROW.HEIGHT + Constants.STICKY.MARGE_TOP + Constants.STICKY.PADDING_TOP;
+            position.x = ((column+1) * Constants.COLUMN.WIDTH) + Constants.STICKY.PADDING;
+            position.y = ((row+1) * Constants.ROW.HEIGHT) + Constants.STICKY.PADDING_TOP;
 
             if (KanbanStore.isBacklog()) {
                 position.x += Constants.BACKLOG.MARGE_LEFT;

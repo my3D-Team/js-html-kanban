@@ -7,6 +7,7 @@ var StickyConst = require('../constants/StickyConst');
 // Stores
 var AppStore = require('../../app/stores/AppStore');
 var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
+var KanbanStore = require('../../kanban/stores/KanbanStore');
 
 var EventEmitter = require('events').EventEmitter;
 
@@ -29,8 +30,16 @@ var _onDeselectItem = function (e, node) {
     if (node) {
         var domNode = node.getDOMNode();
         //todo update attr cellCol & cellRow of the given sticky
-        
-        var cell = ColAndRowStore.getColumnAndRow(e.clientX, e.clientY);
+
+        var mouseX = e.touches ? e.touches[0].pageX : e.pageX;
+        var mouseY = e.touches ? e.touches[0].pageY : e.pageY;
+        var scale = KanbanStore.getScale();
+        var selectedNode = KanbanStore.getSelectedNode();
+
+        var x = (mouseX) / scale;
+        var y = (mouseY) / scale;
+
+        var cell = ColAndRowStore.getColumnAndRow(x, y);
         node.props.sticky.cell_column = cell.x;
         node.props.sticky.cell_row = cell.y;
         StickyStore.positionSticky(node.props.sticky);
@@ -43,21 +52,21 @@ var _onDeselectItem = function (e, node) {
 
 var StickyStore = assign({}, EventEmitter.prototype, {
 
-    getStickies: function(){
+    getStickies: function () {
         return stickies;
     },
 
-    _setStickies: function(stickiesArray){
+    _setStickies: function (stickiesArray) {
         stickies = stickiesArray;
     },
 
-    init: function(model){
+    init: function (model) {
         this._setStickies(model.stickies);
         this._initPositionStickies();
     },
 
-    _initPositionStickies: function(){
-        _.each(stickies, function(sticky){
+    _initPositionStickies: function () {
+        _.each(stickies, function (sticky) {
             sticky.position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
         });
     },
@@ -77,29 +86,29 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         this.emit(StickyConst.CHANGE, e);
     },
 
-    addChangePositionListener: function(callback){
+    addChangePositionListener: function (callback) {
         this.on(StickyConst.CHANGE_POSITION, callback);
     },
 
-    removeChangePositionListener: function(){
+    removeChangePositionListener: function () {
         this.removeListener(StickyConst.CHANGE_POSITION);
     },
 
-    emitChangePosition: function(e){
+    emitChangePosition: function (e) {
         this.emit(StickyConst.CHANGE_POSITION, e);
     },
 
-    findStickyById: function(id){
-        return _.find(stickies, function(sticky){
+    findStickyById: function (id) {
+        return _.find(stickies, function (sticky) {
             return sticky.content.id === id;
         });
     },
 
-    getAllStickiesForACell: function(column, row){
+    getAllStickiesForACell: function (column, row) {
         var arrayStickies = [];
 
-        _.each(stickies, function(sticky){
-            if(sticky.cell_column === column && sticky.cell_row === row){
+        _.each(stickies, function (sticky) {
+            if (sticky.cell_column === column && sticky.cell_row === row) {
                 arrayStickies.push(sticky);
             }
         });
@@ -107,45 +116,41 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         return arrayStickies;
     },
 
-    positionSticky: function(sticky){
+    positionSticky: function (sticky) {
         sticky.position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
 
-        if(_.isNull(sticky.position)){
+        if (_.isNull(sticky.position)) {
             this._positionStickyBacklog();
-        }else{
+        } else {
             this._positionStickyInCell(sticky);
         }
     },
 
-    _positionStickyInCell: function(sticky){
+    _positionStickyInCell: function (sticky) {
 
         var stickiesInCell = this.getAllStickiesForACell(sticky.cell_column, sticky.cell_row);
 
-        if(stickiesInCell.length > StickyConst.MAX_STICKIES_IN_CELL){
+        if (stickiesInCell.length > StickyConst.MAX_STICKIES_IN_CELL) {
             this._collapeAllStickies(stickiesInCell, sticky.position);
-        }else{
+        } else {
             this._arrangeStickies(stickiesInCell, sticky);
         }
+        this.emitChangePosition();
     },
 
-    _collapeAllStickies: function(arrayStickies, position){
+    _collapeAllStickies: function (arrayStickies, position) {
         var y = position.y;
-        _.each(arrayStickies, function(sticky){
+        _.each(arrayStickies, function (sticky) {
             sticky.position.y = y;
             y += 5;
         });
-        this.emitChangePosition();
     },
 
-    _arrangeStickies: function(arrayStickies, sticky){
-        var index = _.findIndex(arrayStickies, function(s){
-            return sticky.content.id === s.content.id;
-        });
-        sticky.position.y += index*(Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN);
-        this.emitChangePosition();
+    _arrangeStickies: function (arrayStickies, sticky) {
+        sticky.position.y += (arrayStickies.length - 1) * (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN);
     },
 
-    _positionStickyBacklog: function(){
+    _positionStickyBacklog: function () {
 
     }
 

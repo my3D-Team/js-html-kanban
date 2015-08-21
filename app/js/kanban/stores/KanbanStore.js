@@ -27,8 +27,8 @@ var kanban = {
 var backlog = false;
 
 var _selectNode = function (e, node) {
-    var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
-    var mouseY = e.touches ? e.touches[0].clientY : e.clientY;
+    var mouseX = e.touches ? e.touches[0].pageX : e.pageX;
+    var mouseY = e.touches ? e.touches[0].pageY : e.pageY;
 
     //get the initial position of the node
     var domNode = React.findDOMNode(node);
@@ -39,8 +39,8 @@ var _selectNode = function (e, node) {
     //store the data
     selectedNode.node = node;
     selectedNode.domNode = domNode;
-    selectedNode.offsetX = (mouseX / kanban.scale ) - offsetLeft;
-    selectedNode.offsetY = (mouseY / kanban.scale ) - offsetTop;
+    selectedNode.offsetX = (mouseX / kanban.scale) - offsetLeft;
+    selectedNode.offsetY = (mouseY / kanban.scale) - offsetTop;
 };
 
 
