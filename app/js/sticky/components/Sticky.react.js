@@ -22,7 +22,8 @@ var Sticky = React.createClass({
 
     getInitialState: function () {
         return {
-            position: {}
+            position: {},
+            zIndex: 0
         }
     },
 
@@ -38,7 +39,8 @@ var Sticky = React.createClass({
     changePosition: function(){
         var sticky = StickyStore.findStickyById(this.props.sticky.content.id);
         this.setState({
-            position: sticky.position
+            position: sticky.position,
+            zIndex: sticky.zIndex
         })
     },
 
@@ -60,7 +62,8 @@ var Sticky = React.createClass({
         var css = {
             top: this.state.position.y + "px",
             left: this.state.position.x + "px",
-            width: width + "px"
+            width: width + "px",
+            zIndex: this.state.zIndex
         };
         return (
             <div className={this.props.sticky.content.stickyCode + " sticky"} style={css} onTouchStart={this._onSelect}
