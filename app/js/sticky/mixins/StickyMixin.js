@@ -3,7 +3,7 @@
 var StickyMixin = {
 
     _toggleEditMode: function (e) {
-        this.state.selectedNode = e.currentTarget;
+        this.state.selectedNode = e.currentTarget.parentNode;
 
         this.state.isZoomed = this.state.isZoomed ? false : true;
         if (this.state.isZoomed) {

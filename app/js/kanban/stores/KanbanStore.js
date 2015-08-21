@@ -2,12 +2,16 @@
 
 var assign = require('object-assign');
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
-var KanbanConst = require('../constants/KanbanConst');
-var AppStore = require('../../app/store/AppStore');
-var StickyConst = require('../../sticky/constants/StickyConst');
-
 var EventEmitter = require('events').EventEmitter;
 var React = require('react');
+
+var AppStore = require('../../app/stores/AppStore');
+
+var KanbanConst = require('../constants/KanbanConst');
+var StickyConst = require('../../sticky/constants/StickyConst');
+var AppConst = require('../../app/constants/AppConst');
+
+
 
 var selectedNode = {
     node: null,
@@ -17,7 +21,7 @@ var selectedNode = {
 };
 
 var kanban = {
-    scale: AppStore.getScale()
+    scale: 1
 };
 
 var backlog = false;
@@ -102,6 +106,9 @@ AppDispatcher.register(function (action) {
             selectedNode.domNode = null;
             KanbanStore.emitChange(action.event);
             break;
+        case AppConst.SCALE:
+            kanban.scale =  action.scale;
+            KanbanStore.emitChange(action.event);
     }
 });
 

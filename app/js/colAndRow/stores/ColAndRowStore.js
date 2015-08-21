@@ -2,7 +2,7 @@
 
 var assign = require('object-assign');
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
-var AppStore = require('../../app/store/AppStore');
+var AppStore = require('../../app/stores/AppStore');
 var KanbanStore = require('../../kanban/stores/KanbanStore');
 
 var EventEmitter = require('events').EventEmitter;

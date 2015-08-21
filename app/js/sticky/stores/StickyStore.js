@@ -5,7 +5,7 @@ var AppDispatcher = require('../../dispatcher/AppDispatcher');
 var StickyConst = require('../constants/StickyConst');
 
 // Stores
-var AppStore = require('../../app/store/AppStore');
+var AppStore = require('../../app/stores/AppStore');
 var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
 
 var EventEmitter = require('events').EventEmitter;

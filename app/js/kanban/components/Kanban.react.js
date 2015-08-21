@@ -11,7 +11,7 @@ var DragMixin = require('./../mixins/DragMixin');
 var DataManager = require('./../mixins/KanbanDataMixin');
 
 // Stores
-var AppStore = require('../../app/store/AppStore');
+var AppStore = require('../../app/stores/AppStore');
 var KanbanStore = require('../stores/KanbanStore');
 var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
 var StickyStore = require('../../sticky/stores/StickyStore');
@@ -67,19 +67,19 @@ var Kanban = React.createClass({
         var color = "white",
             x = 25,
             y = 0,
-            backlog = {};
+            backlog = {},
+            kanbanCss = {
+                transform: "scale(" + this.state.scale + ", " + this.state.scale  + ")"
+            };
 
         if (this.state.backlog) {
             x = 400;
-            var height = this.state.rows.length * Constants.ROW,
-                posX = Constants.COLUMN.MARGE + Constants.STICKY.PADDING,
-                posY = 50;
-
+            var height = this.state.rows.length * Constants.ROW;
             backlog = (<Column height={height} color={color} title={Labels.BACKLOG}> </Column>);
         }
 
         return (
-            <div className="kanban" onTouchMove={this.onMove} onMouseMove={this.onMove} onTouchEnd={this.deselectNode}
+            <div className="kanban" style={kanbanCss} onTouchMove={this.onMove} onMouseMove={this.onMove} onTouchEnd={this.deselectNode}
                  onMouseUp={this.deselectNode}>
 
                 {backlog}
@@ -95,6 +95,7 @@ var Kanban = React.createClass({
                         return (<Column height={y + 150} color={color} title={column.type} key={i}> </Column>);
                     }
                 )}
+
                 {this.state.stickies.map(function (sticky, i) {
                     return (<Sticky sticky={sticky} key={i}/>);
                 })}
@@ -107,15 +108,10 @@ var Kanban = React.createClass({
     deselectNode: function (e) {
         StickyActions.deselect(e, this.state.selectedNode.node);
     },
+
     onMove: function (e) {
         this._onMove(e);
         //TODO manage the ghost
-//        var mouseX = e.touches ? e.touches[0].clientX : e.clientX;
-//        var mouseY = e.touches ? e.touches[0].clientY : e.clientY;
-//        var x = (mouseX / this.state.scale ) - this.state.offsetX;
-//        var y = (mouseY / this.state.scale ) - this.state.offsetY;
-        //this.state.selectedNode.currentCell = StickyPositionHelperManager.getCells(x, y, this.state);
-        //StickyPositionHelperManager.buildRegion(this.state.selectedNode.currentCell);
     }
 });
 

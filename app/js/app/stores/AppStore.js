@@ -8,9 +8,6 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
 
-var app = {
-    scale : 1
-}
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
@@ -31,10 +28,6 @@ var AppStore = assign({}, EventEmitter.prototype, {
             store.init(model);
         });
     },
-
-    getScale: function () {
-        return app.scale;
-    }
 
 });
 
