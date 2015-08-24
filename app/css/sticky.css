@@ -65,8 +65,7 @@ svg {
     position: absolute;
 }
 
-#sticky-helper{
-    display: none;
+.sticky-helper{
     position: absolute;
     border: black 1px dashed;
     border-radius: 20px;
