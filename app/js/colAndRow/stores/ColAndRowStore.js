@@ -21,7 +21,7 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
     },
 
     /**
-     * Getter for columns
+     *
      * @returns {Array}
      */
     getColumns: function(){
@@ -35,7 +35,7 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
      * @returns {{x: number, y: number}}
      */
     getColumnAndRow: function(x, y){
-        var margeTop = Constants.COLUMN.MARGE_TOP + Constants.STICKY.MARGE_TOP + Constants.TOPBAR.HEIGHT;
+        var margeTop = Constants.STICKY.MARGE_TOP;
         var column = -1,
             row = Math.floor((y - margeTop) / (Constants.ROW.HEIGHT));
 

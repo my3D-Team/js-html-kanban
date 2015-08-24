@@ -59,9 +59,12 @@ var Sticky = React.createClass({
         var width = Constants.COLUMN.WIDTH - 2 * Constants.STICKY.PADDING,
             title = this.getTitle();
 
+        var top = !_.isNull(this.state.position) ? this.state.position.y : "";
+        var left = !_.isNull(this.state.position) ? this.state.position.x : "";
+
         var css = {
-            top: this.state.position.y + "px",
-            left: this.state.position.x + "px",
+            top: top + "px",
+            left: left + "px",
             width: width + "px",
             zIndex: this.state.zIndex
         };
