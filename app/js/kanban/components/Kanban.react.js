@@ -65,34 +65,11 @@ var Kanban = React.createClass({
         });
     },
 
-    manageGhost: function (x, y) {
-        var ghost = {},
-            cell = ColAndRowStore.getColumnAndRow(x + (Constants.COLUMN.WIDTH / 2), y),
-            top = cell.y * Constants.ROW.HEIGHT + Constants.STICKY.MARGE_TOP,
-            left = cell.x * Constants.COLUMN.WIDTH + Constants.COLUMN.WIDTH,
-            width = Constants.COLUMN.WIDTH,
-            height = Constants.ROW.HEIGHT;
-
-        if (cell.x !== -1 && cell.y !== -1) {
-            ghost = (<Ghost x={left} y={top} width={width} height={height}/>);
-        } else {
-            if (KanbanStore.isBacklog()) {
-                top = Constants.STICKY.MARGE_TOP;
-                left = Constants.STICKY.PADDING;
-                height = this.state.rows.length * Constants.ROW.HEIGHT;
-                ghost = (<Ghost x={left} y={top} width={width} height={height}/>);
-            }
-        }
-
-        return ghost;
-    },
-
     render: function () {
         var color = "white",
             x = 25,
             y = 0,
             backlog = {},
-            ghost = {},
             kanbanCss = {
                 transform: "scale(" + this.state.scale + ", " + this.state.scale + ")"
             };
@@ -101,10 +78,6 @@ var Kanban = React.createClass({
             x = 400;
             var height = this.state.rows.length * Constants.ROW.HEIGHT;
             backlog = (<Column height={height} color={color} title={Labels.BACKLOG}> </Column>);
-        }
-
-        if (!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
-           ghost = this.manageGhost(this.state.selectedNode.node.state.position.x, this.state.selectedNode.node.state.position.y);
         }
 
         return (
@@ -130,7 +103,7 @@ var Kanban = React.createClass({
                     return (<Sticky sticky={sticky} key={i}/>);
                 })}
 
-                {ghost}
+                <Ghost ref="ghost" />
 
             </div>
         );
@@ -139,12 +112,21 @@ var Kanban = React.createClass({
 
     deselectNode: function (e) {
         StickyActions.deselect(e, this.state.selectedNode.node);
+
+        // Hide ghost
+        this.refs.ghost.hide();
     },
 
     onMove: function (e) {
         this._onMove(e);
-        //TODO manage the ghost
-        this.setState({});
+
+        // display ghost
+        if(!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
+            var x = this.state.selectedNode.node.state.position.x;
+            var y = this.state.selectedNode.node.state.position.y;
+
+            this.refs.ghost.manageGhost(x, y);
+        }
     }
 });
 

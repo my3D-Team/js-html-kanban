@@ -64,8 +64,29 @@
 
 .html2canvas {
     bottom: 0px;
+}
+
+.add_button {
+    position: fixed;
+    right: 50px;
+    bottom: 30px;
+    width: 75px;
+    height: 75px;
+    opacity: 0.2;
+    border: black 1px solid;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 
 }
+
+.add_button > i {
+    font-size: 75px;
+    padding-top: 5px;
+}
+
 .html2canvas > i, .zoom-out > i, .zoom-in > i {
     font-size: 30px;
     margin: 9px;

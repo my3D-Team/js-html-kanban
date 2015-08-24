@@ -32,6 +32,10 @@ var App = React.createClass({
                 <div className="html2canvas tools" onClick={this.generateCanvas}>
                     <i className="fa fa-picture-o"></i>
                 </div>
+
+                <div className="add_button" onClick={this.onClickAddButton}>
+                    <i className="fa fa-plus"></i>
+                </div>
             </div>
             );
     },
@@ -50,6 +54,10 @@ var App = React.createClass({
                 w.document.body.appendChild(canvas);
             }
         });
+    },
+
+    onClickAddButton: function(){
+
     }
 
 
