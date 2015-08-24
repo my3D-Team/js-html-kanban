@@ -7,27 +7,25 @@ var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
-
+var storesList = [];
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
-    storesList: [],
-
     getStoresList: function(){
-        return this.storesList;
+        return storesList;
     },
 
     addStore: function(store){
         if(!_.isNull(store)) {
-            this.storesList.push(store);
+            storesList.push(store);
         }
     },
 
     initStores: function(model){
-        _.each(this.storesList, function(store){
+        _.each(storesList, function(store){
             store.init(model);
         });
-    },
+    }
 
 });
 

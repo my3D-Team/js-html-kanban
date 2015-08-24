@@ -46,48 +46,86 @@ var _selectNode = function (e, node) {
 
 var KanbanStore = assign({}, EventEmitter.prototype, {
 
-    _setSelectedNode: function(node, domNode, offsetX, offsetY){
-        selectedNode.node = node;
-        selectedNode.domNode = domNode;
-        selectedNode.offsetX = offsetX;
-        selectedNode.offsetY = offsetY;
-    },
-
-    _setBacklog: function(isBacklog){
-        backlog = isBacklog;
-    },
-
+    /**
+     * Add a listener when something has changed in the kanban
+     * @param callback
+     */
     addChangeListener: function (callback) {
         this.on(KanbanConst.CHANGE, callback);
     },
+
     /**
-     * @param {function} callback
+     * Remove the change listener
      */
     removeChangeListener: function () {
         this.removeListener(KanbanConst.CHANGE);
     },
 
+    /**
+     * Emit the change for all listeners
+     * @param e
+     */
     emitChange: function (e) {
         this.emit(KanbanConst.CHANGE, e);
     },
 
+    /**
+     * Getter for the selected node
+     * @returns {{node: null, domNode: null, offsetX: number, offsetY: number}}
+     */
     getSelectedNode: function () {
         return selectedNode;
     },
 
+    /**
+     * Getter for the scale
+     * @returns {number}
+     */
     getScale: function () {
         return kanban.scale;
     },
 
+    /**
+     * Getter for the backlog
+     * @returns {boolean}
+     */
     isBacklog: function(){
         return backlog;
     },
 
+    /**
+     * Initialization of the store
+     * @param model
+     */
     init: function(model){
-        this._setSelectedNode(null, null, 0, 0);
-        this._setBacklog(model.backlog);
+        _setSelectedNode(null, null, 0, 0);
+        _setBacklog(model.backlog);
     }
 });
+
+/**
+ * Private setter for the selected node
+ * @param node
+ * @param domNode
+ * @param offsetX
+ * @param offsetY
+ * @private
+ */
+var _setSelectedNode = function(node, domNode, offsetX, offsetY){
+    selectedNode.node = node;
+    selectedNode.domNode = domNode;
+    selectedNode.offsetX = offsetX;
+    selectedNode.offsetY = offsetY;
+};
+
+/**
+ * Private setter for backlog
+ * @param isBacklog
+ * @private
+ */
+var _setBacklog = function(isBacklog){
+    backlog = isBacklog;
+};
 
 AppStore.addStore(KanbanStore);
 

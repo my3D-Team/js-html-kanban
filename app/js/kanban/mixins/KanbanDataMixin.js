@@ -21,10 +21,10 @@ var DataManager = {
                     }
                 })
             }
-        })
+        });
         return retval;
     }
 
-}
+};
 
 module.exports = DataManager;

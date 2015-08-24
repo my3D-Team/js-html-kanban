@@ -12,18 +12,18 @@ var columns = [];
 
 var ColAndRowStore = assign({}, EventEmitter.prototype, {
 
-    _setRows: function(newRows){
-        rows = newRows;
-    },
-
-    _setColumns: function(newColumns){
-        columns = newColumns;
-    },
-
+    /**
+     * Getter for rows
+     * @returns {Array}
+     */
     getRows: function(){
         return rows;
     },
 
+    /**
+     * Getter for columns
+     * @returns {Array}
+     */
     getColumns: function(){
         return columns;
     },
@@ -35,7 +35,7 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
      * @returns {{x: number, y: number}}
      */
     getColumnAndRow: function(x, y){
-        var margeTop = Constants.COLUMN.MARGE_TOP + Constants.STICKY.MARGE_TOP;
+        var margeTop = Constants.COLUMN.MARGE_TOP + Constants.STICKY.MARGE_TOP + Constants.TOPBAR.HEIGHT;
         var column = -1,
             row = Math.floor((y - margeTop) / (Constants.ROW.HEIGHT));
 
@@ -76,12 +76,34 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
         return position;
     },
 
+    /**
+     * Initialization of the store
+     * @param model
+     */
     init: function(model){
-        this._setColumns(model.columns);
-        this._setRows(model.rows);
+        _setColumns(model.columns);
+        _setRows(model.rows);
     }
 
 });
+
+/**
+ * Private setter for rows
+ * @param newRows
+ * @private
+ */
+var _setRows = function(newRows){
+    rows = newRows;
+};
+
+/**
+ * Private setter for columns
+ * @param newColumns
+ * @private
+ */
+var _setColumns = function(newColumns){
+    columns = newColumns;
+};
 
 AppStore.addStore(ColAndRowStore);
 

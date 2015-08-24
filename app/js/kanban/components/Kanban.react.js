@@ -52,7 +52,6 @@ var Kanban = React.createClass({
         KanbanStore.removeChangeListener();
     },
 
-
     onChange: function (e) {
         this.setState({
             selectedNode: KanbanStore.getSelectedNode(),

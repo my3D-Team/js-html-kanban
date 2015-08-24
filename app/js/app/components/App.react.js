@@ -10,9 +10,9 @@ var React = require('react');
 
 var Header = require('../../Header.react.js');
 var Kanban = require('../../kanban/components/Kanban.react.js');
-var KanbanStore = require('../../kanban/stores/KanbanStore')
+var KanbanStore = require('../../kanban/stores/KanbanStore');
 
-var AppActions = require('../actions/AppActions')
+var AppActions = require('../actions/AppActions');
 
 var App = React.createClass({
 

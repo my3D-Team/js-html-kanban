@@ -15,7 +15,7 @@ var StickyMixin = {
             position.height = this.state.selectedNode.style.height;
             this.state.unZoomedPosition = position;
 
-            this.state.selectedNode.className += " zoomEffect"
+            this.state.selectedNode.className += " zoomEffect";
             this.state.selectedNode.style.width = "700px";
             this.state.selectedNode.style.height = "500px";
             this.state.selectedNode.style.top = "100px";
