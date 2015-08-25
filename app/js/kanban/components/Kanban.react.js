@@ -122,8 +122,11 @@ var Kanban = React.createClass({
 
         // display ghost
         if(!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
-            var x = this.state.selectedNode.node.state.position.x;
-            var y = this.state.selectedNode.node.state.position.y;
+            var mouseX = e.touches ? e.touches[0].pageX : e.pageX;
+            var mouseY = e.touches ? e.touches[0].pageY : e.pageY;
+
+            var x = mouseX / KanbanStore.getScale();
+            var y = (mouseY / KanbanStore.getScale()) - Constants.TOPBAR.HEIGHT;
 
             this.refs.ghost.manageGhost(x, y);
         }

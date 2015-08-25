@@ -115,7 +115,7 @@ var _onDeselectItem = function (e, node) {
         var y = (mouseY) / scale;
 
         // set marge top
-        y -= (Constants.TOPBAR.HEIGHT + Constants.COLUMN.MARGE_TOP);
+        y -= (Constants.TOPBAR.HEIGHT);
 
         var cell = ColAndRowStore.getColumnAndRow(x, y);
         var nodeToModify = StickyStore.findStickyById(node.props.sticky.content.id);

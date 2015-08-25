@@ -20,7 +20,7 @@ var Ghost = React.createClass({
     },
 
     manageGhost: function (x, y) {
-        var cell = ColAndRowStore.getColumnAndRow(x + (Constants.COLUMN.WIDTH / 2), y),
+        var cell = ColAndRowStore.getColumnAndRow(x , y),
             top = cell.y * Constants.ROW.HEIGHT + Constants.STICKY.MARGE_TOP,
             left = cell.x * Constants.COLUMN.WIDTH + Constants.COLUMN.WIDTH,
             width = Constants.COLUMN.WIDTH,
