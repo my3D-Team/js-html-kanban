@@ -77,7 +77,7 @@ var Kanban = React.createClass({
 
         if (this.state.backlog) {
             x = 400;
-            var height = this.state.rows.length * Constants.ROW.HEIGHT;
+            var height = (this.state.rows.length+1) * Constants.ROW.HEIGHT;
             backlog = (<Column height={height} color={color} title={Labels.BACKLOG}> </Column>);
         }
 

@@ -10,7 +10,10 @@ var React = require('react');
 
 var Header = require('../../Header.react.js');
 var Kanban = require('../../kanban/components/Kanban.react.js');
+
+// Stores
 var KanbanStore = require('../../kanban/stores/KanbanStore');
+var StickyStore = require('../../sticky/stores/StickyStore');
 
 var AppActions = require('../actions/AppActions');
 
@@ -57,7 +60,7 @@ var App = React.createClass({
     },
 
     onClickAddButton: function(){
-
+        StickyStore.createSticky();
     }
 
 

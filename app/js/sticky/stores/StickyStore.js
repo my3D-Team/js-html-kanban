@@ -15,6 +15,9 @@ var KanbanStore = require('../../kanban/stores/KanbanStore');
 
 var stickies = [];
 
+//TODO remove this it is just for test
+var id = 1;
+
 var StickyStore = assign({}, EventEmitter.prototype, {
 
     getStickies: function () {
@@ -51,6 +54,38 @@ var StickyStore = assign({}, EventEmitter.prototype, {
 
     emitChangePosition: function (e) {
         this.emit(StickyConst.CHANGE_POSITION, e);
+    },
+
+    createSticky: function(){
+        var sticky = {
+            content: {
+                stickyCode: "feature",
+                id: id,
+                values: [
+                    {"value": "", "type": "description"},
+                    {"value": "28/04/2015", "type": "date"},
+                    {"value": "98", "type": "stickyColor"},
+                    {"value": null, "type": "featureDisk"},
+                    {"value": "", "type": "id_task"},
+                    {"value": "", "type": "source"},
+                    {"value": "", "type": "zone_regroupement"},
+                    {"value": "adargoeu", "type": "person"},
+                    {"value": "1", "type": "consumed"},
+                    {"value": "4", "type": "estimated"},
+                    {"value": "[3] Application profile and packaging", "type": "title"},
+                    {"value": "0", "type": "todo"}
+                ]
+            },
+            nodeId: id,
+            type: "StickyNoteNode",
+            parentId: 1827579,
+            projectId: 2770,
+            cell_column: -1,
+            cell_row: -1
+        };
+        id += 1;
+        stickies.push(sticky);
+        KanbanStore.emitChange();
     },
 
     findStickyById: function (id) {
