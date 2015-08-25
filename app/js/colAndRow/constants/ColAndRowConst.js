@@ -4,7 +4,7 @@
 "use strict";
 
 var ColAndRowConst = {
-
+    CHANGE_TITLE: "change_title"
 };
 
 module.exports = ColAndRowConst;

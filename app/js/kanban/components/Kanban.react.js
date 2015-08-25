@@ -78,7 +78,7 @@ var Kanban = React.createClass({
         if (this.state.backlog) {
             x = 400;
             var height = (this.state.rows.length+1) * Constants.ROW.HEIGHT;
-            backlog = (<Column height={height} color={color} title={Labels.BACKLOG}> </Column>);
+            backlog = (<Column height={height} color={color} title={Labels.BACKLOG} store={ColAndRowStore}>  </Column>);
         }
 
         return (
@@ -90,13 +90,13 @@ var Kanban = React.createClass({
 
                 {this.state.rows.map(function (row, i) {
                         y += 150;
-                        return (<UserRow x={x} y={y} item={row} key={i}> </UserRow>);
+                        return (<UserRow x={x} y={y} item={row} key={i} store={ColAndRowStore}> </UserRow>);
                     }
                 )}
 
                 {this.state.columns.map(function (column, i) {
                         color = color === "white" ? "#f9f9f9" : "white";
-                        return (<Column height={y + 150} color={color} title={column.type} key={i}> </Column>);
+                        return (<Column height={y + 150} color={color} title={column.type} key={i} item={column} store={ColAndRowStore}> </Column>);
                     }
                 )}
 

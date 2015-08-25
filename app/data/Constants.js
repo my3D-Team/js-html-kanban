@@ -32,6 +32,12 @@ var Constants = {
 
     BACKLOG: {
         MARGE_LEFT: 350
+    },
+
+    NODE_TYPE: {
+        COLUMN: "column",
+        ROW: "row",
+        STICKY: "Sticky"
     }
 
 };

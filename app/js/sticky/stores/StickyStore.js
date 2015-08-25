@@ -130,8 +130,10 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         sticky.position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
 
         if (_.isNull(sticky.position)) {
-            var arrayStickies = StickyStore.getAllStickiesInBacklog();
-            _positionStickyBacklog(arrayStickies);
+            if(KanbanStore.isBacklog()) {
+                var arrayStickies = StickyStore.getAllStickiesInBacklog();
+                _positionStickyBacklog(arrayStickies);
+            }
         } else {
             _positionStickyInCell(sticky);
         }
@@ -147,9 +149,11 @@ var _onSelectItem = function (e, node) {
     parent.appendChild(domNode);
 
     var selectedNode = node.props.sticky;
-    if(selectedNode.cell_column === -1 && selectedNode.cell_row){
-        var stickiesInBacklog = StickyStore.getAllStickiesInBacklog(selectedNode);
-        _positionStickyBacklog(stickiesInBacklog)
+    if(selectedNode.cell_column === -1 && selectedNode.cell_row === -1){
+        if(KanbanStore.isBacklog()) {
+            var stickiesInBacklog = StickyStore.getAllStickiesInBacklog(selectedNode);
+            _positionStickyBacklog(stickiesInBacklog)
+        }
     }else {
         var stickiesInCurrentCell = StickyStore.getAllStickiesForACell(selectedNode.cell_column, selectedNode.cell_row, selectedNode);
         _positionStickiesInCell(stickiesInCurrentCell);

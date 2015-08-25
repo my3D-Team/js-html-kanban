@@ -7,6 +7,9 @@
  */
 var React = require('react');
 
+// Components
+var EditableText = require('../../common/components/EditableText.react');
+
 var Column = React.createClass({
 
     getInitialState: function () {
@@ -19,9 +22,11 @@ var Column = React.createClass({
             backgroundColor: this.props.color
         };
 
+        var nodeId = this.props.item ? this.props.item : -1;
+
         return (
             <div className="column" style={css}>
-                <h3>{this.props.title}</h3>
+                <EditableText value={this.props.title} type={Constants.NODE_TYPE.COLUMN} nodeId={nodeId} store={this.props.store}/>
             </div>
         );
     }

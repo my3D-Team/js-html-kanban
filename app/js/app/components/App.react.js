@@ -37,7 +37,9 @@ var App = React.createClass({
                 </div>
 
                 <div className="add_button" onClick={this.onClickAddButton}>
-                    <i className="fa fa-plus"></i>
+                    <svg xmlns="//www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <path d="M38 26H26v12h-4V26H10v-4h12V10h4v12h12v4z"></path>
+                    </svg>
                 </div>
             </div>
             );

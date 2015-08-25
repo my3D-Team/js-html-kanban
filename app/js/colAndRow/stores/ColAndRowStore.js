@@ -2,8 +2,13 @@
 
 var assign = require('object-assign');
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
+
+// Stores
 var AppStore = require('../../app/stores/AppStore');
 var KanbanStore = require('../../kanban/stores/KanbanStore');
+
+// Const
+var ColAndRowConst = require('../constants/ColAndRowConst');
 
 var EventEmitter = require('events').EventEmitter;
 
@@ -76,6 +81,10 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
         return position;
     },
 
+    changeTitle: function(type, nodeId, title){
+        
+    },
+
     /**
      * Initialization of the store
      * @param model
@@ -112,6 +121,9 @@ AppStore.addStore(ColAndRowStore);
 AppDispatcher.register(function (action) {
 
     switch (action.actionType) {
+        case ColAndRowConst.CHANGE_TITLE:
+            _setTitle(action.nodeId, action.title);
+            break;
         default:
         // no op
     }

@@ -7,6 +7,9 @@
  */
 var React = require('react');
 
+// Components
+var EditableText = require('../../common/components/EditableText.react');
+
 var UserRow = React.createClass({
 
     getInitialState: function () {
@@ -21,7 +24,7 @@ var UserRow = React.createClass({
 
         return (
             <div className="row" style={css}>
-                <h3>{this.props.item.firstName}</h3>
+                <EditableText value={this.props.item.firstName} type={Constants.NODE_TYPE.ROW} nodeId={this.props.item.nodeId} store={this.props.store} />
             </div>
         );
     }
