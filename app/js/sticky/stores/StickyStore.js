@@ -73,11 +73,30 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         return arrayStickies;
     },
 
+    getAllStickiesInBacklog: function(excludeSticky){
+        var arrayStickies = [];
+
+        _.each(stickies, function(sticky){
+           if(sticky.cell_column === -1 || sticky.cell_row === -1){
+               if(excludeSticky){
+                   if(excludeSticky.content.id !== sticky.content.id) {
+                       arrayStickies.push(sticky);
+                   }
+               }else{
+                   arrayStickies.push(sticky);
+               }
+           }
+        });
+
+        return arrayStickies;
+    },
+
     positionSticky: function (sticky) {
         sticky.position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
 
         if (_.isNull(sticky.position)) {
-            _positionStickyBacklog();
+            var arrayStickies = StickyStore.getAllStickiesInBacklog();
+            _positionStickyBacklog(arrayStickies);
         } else {
             _positionStickyInCell(sticky);
         }
@@ -93,9 +112,13 @@ var _onSelectItem = function (e, node) {
     parent.appendChild(domNode);
 
     var selectedNode = node.props.sticky;
-    var stickiesInCurrentCell = StickyStore.getAllStickiesForACell(selectedNode.cell_column, selectedNode.cell_row, selectedNode);
-    _positionStickiesInCell(stickiesInCurrentCell);
-
+    if(selectedNode.cell_column === -1 && selectedNode.cell_row){
+        var stickiesInBacklog = StickyStore.getAllStickiesInBacklog(selectedNode);
+        _positionStickyBacklog(stickiesInBacklog)
+    }else {
+        var stickiesInCurrentCell = StickyStore.getAllStickiesForACell(selectedNode.cell_column, selectedNode.cell_row, selectedNode);
+        _positionStickiesInCell(stickiesInCurrentCell);
+    }
     //Change the mouse cursor
     domNode.className += " grabbing";
 
@@ -176,7 +199,18 @@ var _arrangeStickies = function (arrayStickies) {
     }
 };
 
-var _positionStickyBacklog = function () {
+var _positionStickyBacklog = function (arrayStickies) {
+    var y = 100 + Constants.STICKY.PADDING_TOP;
+
+    _.each(arrayStickies, function(sticky){
+        sticky.position = {
+            x: Constants.STICKY.PADDING,
+            y: y
+        };
+        y += Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN;
+    });
+
+    StickyStore.emitChangePosition();
 
 };
 
