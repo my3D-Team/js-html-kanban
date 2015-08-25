@@ -61,7 +61,8 @@ var Kanban = React.createClass({
             scale: KanbanStore.getScale(),
             rows: ColAndRowStore.getRows(),
             columns: ColAndRowStore.getColumns(),
-            stickies: StickyStore.getStickies()
+            stickies: StickyStore.getStickies(),
+            backlog: KanbanStore.isBacklog()
         });
     },
 

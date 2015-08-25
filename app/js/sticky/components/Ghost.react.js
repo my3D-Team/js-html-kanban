@@ -27,13 +27,18 @@ var Ghost = React.createClass({
             height = Constants.ROW.HEIGHT;
 
         if (cell.x !== -1 && cell.y !== -1) {
+            if(KanbanStore.isBacklog()){
+                left += Constants.BACKLOG.MARGE_LEFT;
+            }
             this.setPositionsAndDimensions(left, top, width, height);
         } else {
             if (KanbanStore.isBacklog()) {
-                top = Constants.STICKY.MARGE_TOP;
-                left = Constants.STICKY.PADDING;
-                height = this.state.rows.length * Constants.ROW.HEIGHT;
-                this.setPositionsAndDimensions(left, top, width, height);
+                if(x < Constants.COLUMN.WIDTH) {
+                    top = 100;
+                    left = 0;
+                    height = ColAndRowStore.getRows().length * Constants.ROW.HEIGHT;
+                    this.setPositionsAndDimensions(left, top, width, height);
+                }
             }
         }
 
