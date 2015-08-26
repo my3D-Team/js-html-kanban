@@ -191,11 +191,11 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         this.emit(StickyConst.CHANGE_POSITION, e);
     },
 
-    createSticky: function(){
+    createSticky: function(type, cell){
         var id = Math.random();
         var sticky = {
             content: {
-                stickyCode: "feature",
+                stickyCode: type,
                 id: id,
                 values: [
                     {"value": "", "type": "description"},
@@ -216,8 +216,8 @@ var StickyStore = assign({}, EventEmitter.prototype, {
             type: "StickyNoteNode",
             parentId: 1827579,
             projectId: 2770,
-            cell_column: -1,
-            cell_row: -1
+            cell_column: cell.x,
+            cell_row: cell.y
         };
         stickies.push(sticky);
         this.positionSticky(sticky);
@@ -297,6 +297,8 @@ AppDispatcher.register(function (action) {
             StickyStore.emitChange(action.event);
 
             break;
+        case StickyConst.CREATE:
+            StickyStore.createSticky(action.type, action.cell);
 
     }
 });

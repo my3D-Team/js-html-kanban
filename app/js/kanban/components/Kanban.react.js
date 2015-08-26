@@ -21,6 +21,7 @@ var KanbanActions = require('../actions/KanbanActions');
 
 // Components
 var Sticky = require('./../../sticky/components/Sticky.react');
+var AddStickyButton = require('./../../sticky/components/AddStickyButton.react');
 var Ghost = require('./../../sticky/components/Ghost.react');
 var UserRow = require('./../../colAndRow/components/UserRow.react');
 var Column = require('./../../colAndRow/components/Column.react');
@@ -122,6 +123,7 @@ var Kanban = React.createClass({
 
 
                     <Ghost ref="ghost" />
+                    <AddStickyButton ref="addSticky" />
 
 
                 </div>
@@ -151,15 +153,19 @@ var Kanban = React.createClass({
     onMove: function (e) {
         this._onMoveSticky(e);
 
+        var mouseX = EventHelper.getAttr(e, "pageX");
+        var mouseY = EventHelper.getAttr(e, "pageY");
+
+        var x = mouseX / KanbanStore.getScale();
+        var y = (mouseY / KanbanStore.getScale()) - Constants.TOPBAR.HEIGHT;
+
+
         // display ghost
         if (!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
-            var mouseX = EventHelper.getAttr(e, "pageX");
-            var mouseY = EventHelper.getAttr(e, "pageY");
-
-            var x = mouseX / KanbanStore.getScale();
-            var y = (mouseY / KanbanStore.getScale()) - Constants.TOPBAR.HEIGHT;
-
             this.refs.ghost.manageGhost(x, y);
+            this.refs.addSticky.hide();
+        }else{
+            this.refs.addSticky.setPosition(x, y);
         }
     },
 
