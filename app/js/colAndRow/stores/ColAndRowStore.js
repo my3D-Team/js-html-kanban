@@ -10,6 +10,9 @@ var KanbanStore = require('../../kanban/stores/KanbanStore');
 // Const
 var ColAndRowConst = require('../constants/ColAndRowConst');
 
+// Util
+var _ = require('lodash');
+
 var EventEmitter = require('events').EventEmitter;
 
 var rows = [];
@@ -82,7 +85,40 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
     },
 
     changeTitle: function(type, nodeId, title){
+        switch (type){
+            case Labels.NODE_TYPE.COLUMN:
+                this.changeColumnTitle(nodeId, title);
+                break;
+            case Labels.NODE_TYPE.ROW:
+                this.changeRowTitle(nodeId, title);
+                break;
+        }
 
+        //TODO sent to database
+    },
+
+    changeRowTitle: function(nodeId, title){
+
+        //TODO change when rows will be the same as column
+        var row = this.findRowById(nodeId);
+        row.firstName = title;
+    },
+
+    changeColumnTitle: function(nodeId, title){
+        var column = this.findColumnById(nodeId);
+        column.type = title;
+    },
+
+    findRowById: function(id){
+        return _.find(rows, function (row) {
+            return row.id === id;
+        });
+    },
+
+    findColumnById: function(id){
+        return _.find(columns, function (column) {
+            return column.nodeId === id;
+        });
     },
 
     /**

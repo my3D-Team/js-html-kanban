@@ -24,7 +24,7 @@ var UserRow = React.createClass({
 
         return (
             <div className="row" style={css}>
-                <EditableText value={this.props.item.firstName} type={Constants.NODE_TYPE.ROW} nodeId={this.props.item.nodeId} store={this.props.store} />
+                <EditableText value={this.props.item.firstName} type={Labels.NODE_TYPE.ROW} nodeId={this.props.item.id} store={this.props.store} />
             </div>
         );
     }

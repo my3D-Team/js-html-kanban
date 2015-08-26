@@ -22,11 +22,11 @@ var Column = React.createClass({
             backgroundColor: this.props.color
         };
 
-        var nodeId = this.props.item ? this.props.item : -1;
+        var nodeId = this.props.item ? this.props.item.nodeId : -1;
 
         return (
             <div className="column" style={css}>
-                <EditableText value={this.props.title} type={Constants.NODE_TYPE.COLUMN} nodeId={nodeId} store={this.props.store}/>
+                <EditableText value={this.props.title} type={Labels.NODE_TYPE.COLUMN} nodeId={nodeId} store={this.props.store}/>
             </div>
         );
     }
