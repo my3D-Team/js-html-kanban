@@ -21,7 +21,7 @@ var EditableText = React.createClass({
     },
 
     saveData: function(){
-        this.props.store.changeTitle(this.props.type, this.props.nodeId, this.state.inputValue);
+        this.props.callback(this.props.nodeId, this.state.inputValue, this.props.type);
     },
 
     render: function () {

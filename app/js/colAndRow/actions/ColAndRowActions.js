@@ -1,15 +1,16 @@
 "use strict";
 
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
-var ColAndRowConst = require('../constants/ColAndRowConst');
+var ColAndRowConst = require('./ColAndRowConst');
 
 var ColAndRowActions = {
 
-    changeTitle: function (nodeId, title) {
+    changeTitle: function (nodeId, title, type) {
         AppDispatcher.dispatch({
             actionType: ColAndRowConst.CHANGE_TITLE,
             nodeId: nodeId,
-            title: title
+            title: title,
+            type: type
         });
     }
 

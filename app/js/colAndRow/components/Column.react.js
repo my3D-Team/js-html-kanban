@@ -9,6 +9,9 @@ var React = require('react');
 // Components
 var EditableText = require('../../common/components/EditableText.react');
 
+// Actions
+var ColAndRowActions = require('./../../colAndRow/actions/ColAndRowActions');
+
 var Column = React.createClass({
 
     getInitialState: function () {
@@ -25,7 +28,7 @@ var Column = React.createClass({
 
         return (
             <div className="column" style={css}>
-                <EditableText value={this.props.title} type={Labels.NODE_TYPE.COLUMN} nodeId={nodeId} store={this.props.store}/>
+                <EditableText value={this.props.title} type={Labels.NODE_TYPE.COLUMN} nodeId={nodeId} callback={ColAndRowActions.changeTitle}/>
             </div>
         );
     }

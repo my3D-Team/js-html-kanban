@@ -85,7 +85,7 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
         return position;
     },
 
-    changeTitle: function(type, nodeId, title){
+    changeTitle: function(nodeId, title, type){
         switch (type){
             case Labels.NODE_TYPE.COLUMN:
                 this.changeColumnTitle(nodeId, title);
@@ -161,7 +161,8 @@ ColAndRowStore.dispatchToken = AppDispatcher.register(function (action) {
 
             break;
         case ColAndRowConst.CHANGE_TITLE:
-            _setTitle(action.nodeId, action.title);
+            ColAndRowStore.changeTitle(action.nodeId, action.title, action.type);
+            KanbanStore.emitChange();
             break;
         default:
         // no op
