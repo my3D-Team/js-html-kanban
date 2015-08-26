@@ -10,7 +10,6 @@ var React = require('react');
 var StickyManager = require('./mixins/KanbanStickyManager');
 
 // Stores
-var AppStore = require('../../app/stores/AppStore');
 var KanbanStore = require('../stores/KanbanStore');
 var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
 var StickyStore = require('../../sticky/stores/StickyStore');

@@ -153,7 +153,7 @@ var _setColumns = function(newColumns){
 
 
 // Register callback to handle all updates
-AppDispatcher.register(function (action) {
+ColAndRowStore.dispatchToken = AppDispatcher.register(function (action) {
 
     switch (action.actionType) {
         case KanbanConst.CHANGE_MODEL:

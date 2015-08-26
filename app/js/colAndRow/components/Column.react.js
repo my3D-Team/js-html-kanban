@@ -6,7 +6,6 @@
  * @author $Author$
  */
 var React = require('react');
-
 // Components
 var EditableText = require('../../common/components/EditableText.react');
 

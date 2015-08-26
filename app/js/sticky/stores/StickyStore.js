@@ -280,7 +280,7 @@ var StickyStore = assign({}, EventEmitter.prototype, {
 
 
 // Register callback to handle all updates
-AppDispatcher.register(function (action) {
+StickyStore.dispatchToken = AppDispatcher.register(function (action) {
 
     switch (action.actionType) {
 
@@ -293,13 +293,12 @@ AppDispatcher.register(function (action) {
             StickyStore.emitChange(action.event);
             break;
         case KanbanConst.CHANGE_MODEL:
+            AppDispatcher.waitFor([ColAndRowStore.dispatchToken]);
             StickyStore.init(action.model);
-            StickyStore.emitChange(action.event);
 
             break;
 
     }
 });
-
 
 module.exports = StickyStore;

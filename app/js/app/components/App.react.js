@@ -7,16 +7,14 @@
  */
 
 var React = require('react');
+var StickyStore = require('../../sticky/stores/StickyStore');
 
 var Header = require('../../Header.react');
 var Kanban = require('../../kanban/components/Kanban.react');
 
 var KanbanModel = require('./../../kanban/model/KanbanModelBuilder');
 // Stores
-var KanbanStore = require('../../kanban/stores/KanbanStore');
-var StickyStore = require('../../sticky/stores/StickyStore');
 
-var AppActions = require('../actions/AppActions');
 
 var App = React.createClass({
 

@@ -35,8 +35,8 @@ var Sticky = React.createClass({
         var width = Constants.COLUMN.WIDTH - 2 * Constants.STICKY.PADDING,
             title = this.getTitle();
 
-        var top = !_.isNull(this.state.position.y) ? this.state.position.y : this.props.y;
-        var left = !_.isNull(this.state.position.x) ? this.state.position.x : this.props.x;
+        var top = this.state.position.y ? this.state.position.y : this.props.y;
+        var left = this.state.position.x ? this.state.position.x : this.props.x;
 
         var css = {
             top: top + "px",
@@ -64,12 +64,7 @@ var Sticky = React.createClass({
             this._toggleEditMode(e);
         }
         StickyActions.deselect(e, this);
-    },
-
-    _stopPropagation: function (e) {
-        e.stopPropagation();
     }
-
 });
 
 module.exports = Sticky;

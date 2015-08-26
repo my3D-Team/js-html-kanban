@@ -1,14 +1,21 @@
 "use strict";
 
+//LIB
 var assign = require('object-assign');
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var React = require('react');
 var EventHelper = require('../../util/EventHelper')
 
+//Const
 var KanbanConst = require('../actions/KanbanConst');
 var StickyConst = require('../../sticky/actions/StickyConst');
 
+//Store
+var StickyStore = require('../../sticky/stores/StickyStore');
+
+
+//Model
 var selectedNode = {
     node: null,
     domNode: null,
@@ -125,7 +132,7 @@ var _setBacklog = function(isBacklog){
 
 
 // Register callback to handle all updates
-AppDispatcher.register(function (action) {
+KanbanStore.dispatchToken = AppDispatcher.register(function (action) {
 
     switch (action.actionType) {
         case StickyConst.SELECT:
@@ -136,15 +143,18 @@ AppDispatcher.register(function (action) {
         case StickyConst.DESELECT:
             selectedNode.node = null;
             selectedNode.domNode = null;
-            KanbanStore.emitChange(action.event);
+            KanbanStore.emitChange(action);
             break;
 
         case KanbanConst.SCALE:
             kanban.scale = action.scale;
-            KanbanStore.emitChange(action.event);
+            KanbanStore.emitChange(action);
             break;
+
         case KanbanConst.CHANGE_MODEL:
+//            AppDispatcher.waitFor([StickyStore.dispatchToken]);
             KanbanStore.init(action.model);
+            KanbanStore.emitChange(action);
 
             break;
     }
