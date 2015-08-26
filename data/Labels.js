@@ -10,6 +10,12 @@ var Labels = {
     TYPE: {
         STATUS_KANBAN: "StatusKanBanNode",
         STICKY: "StickyNoteNode"
+    },
+
+    NODE_TYPE: {
+        COLUMN: "column",
+        ROW: "row",
+        STICKY: "Sticky"
     }
 
 };

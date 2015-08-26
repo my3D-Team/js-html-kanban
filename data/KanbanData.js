@@ -41,7 +41,7 @@ var KanbanData = {
                 "trackerId": "null",
                 "rows": 8,
                 "priorities": "null",
-                "backlog": false,
+                "backlog": true,
                 "organizedValue": null,
                 "planningStages": null,
                 "cancelPhase": false,

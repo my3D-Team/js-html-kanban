@@ -15,7 +15,9 @@
     width: 350px;
     margin: 25px 0 0 0px;
     background-color: white;
-    float: left;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .column > h3 {
@@ -64,8 +66,32 @@
 
 .html2canvas {
     bottom: 0px;
-
 }
+
+.add_button {
+    position: fixed;
+    width: 310px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: dashed 1px gray;
+    border-radius: 5%;
+    z-index: 2;
+    text-align: center;
+    background: transparent;
+    color: white;
+}
+
+.add_button > svg {
+    height: 24px;
+    vertical-align: text-bottom;
+    width: 24px;
+    fill: silver;
+    position: static;
+}
+
 .html2canvas > i, .zoom-out > i, .zoom-in > i {
     font-size: 30px;
     margin: 9px;
@@ -76,6 +102,31 @@
 
 .rotate {
     transform: rotate(5deg);
+}
+
+.editable-text-input {
+    border: none;
+    background-color: transparent;
+}
+
+.editable-text-input:focus{
+    display: inline-block;
+    border-bottom: 1px solid #999;
+    border-top: none;
+    outline: none;
+}
+
+.column > input {
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.row > input {
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 15px;
 }
 
 @media screen and (min-height: 500px) and (max-height: 774px) {

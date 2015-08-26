@@ -6,6 +6,7 @@
     position: absolute;
     top: 1px;
     left: 2px;
+    border: solid 1px white;
 
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -65,9 +66,8 @@ svg {
     position: absolute;
 }
 
-#sticky-helper{
-    display: none;
+.sticky-helper{
     position: absolute;
-    border: black 1px dashed;
-    border-radius: 20px;
+    border: grey 1px dashed;
+    border-radius: 8px;
 }
