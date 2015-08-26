@@ -18,6 +18,14 @@ var StickyActions = {
             event: e,
             node: node
         });
+    },
+    create: function(e, type, cell){
+        AppDispatcher.dispatch({
+            actionType: StickyConst.CREATE,
+            event: e,
+            type: type,
+            cell: cell
+        });
     }
 
 };

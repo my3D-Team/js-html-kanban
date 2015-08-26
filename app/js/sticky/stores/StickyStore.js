@@ -91,7 +91,7 @@ var _initPositionStickies = function () {
 };
 
 var _positionStickiesInCell = function (arrayStickies) {
-    if (arrayStickies.length > StickyConst.MAX_STICKIES_IN_CELL) {
+    if (arrayStickies.length > Constants.STICKY.MAX_STICKIES_IN_CELL) {
         _collapseAllStickies(arrayStickies);
     } else {
         _arrangeStickies(arrayStickies);
@@ -191,11 +191,11 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         this.emit(StickyConst.CHANGE_POSITION, e);
     },
 
-    createSticky: function(){
+    createSticky: function(type, cell){
         var id = Math.random();
         var sticky = {
             content: {
-                stickyCode: "feature",
+                stickyCode: type,
                 id: id,
                 values: [
                     {"value": "", "type": "description"},
@@ -216,8 +216,8 @@ var StickyStore = assign({}, EventEmitter.prototype, {
             type: "StickyNoteNode",
             parentId: 1827579,
             projectId: 2770,
-            cell_column: -1,
-            cell_row: -1
+            cell_column: cell.x,
+            cell_row: cell.y
         };
         stickies.push(sticky);
         this.positionSticky(sticky);
@@ -235,7 +235,11 @@ var StickyStore = assign({}, EventEmitter.prototype, {
 
         _.each(stickies, function (sticky) {
             if (sticky.cell_column === column && sticky.cell_row === row) {
-                if (excludeSticky.content.id !== sticky.content.id) {
+                if(excludeSticky) {
+                    if (excludeSticky.content.id !== sticky.content.id) {
+                        arrayStickies.push(sticky);
+                    }
+                }else{
                     arrayStickies.push(sticky);
                 }
             }
@@ -297,6 +301,8 @@ StickyStore.dispatchToken = AppDispatcher.register(function (action) {
             StickyStore.init(action.model);
 
             break;
+        case StickyConst.CREATE:
+            StickyStore.createSticky(action.type, action.cell);
 
     }
 });
