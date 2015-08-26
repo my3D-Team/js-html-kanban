@@ -46,15 +46,20 @@ var AddStickyButton = React.createClass({
         var nbStickies = 0;
         var position = {};
         if(cell.x === -1 || cell.y === -1){
-            nbStickies = StickyStore.getAllStickiesInBacklog().length;
-            position.x = Constants.STICKY.PADDING;
-            position.y = (nbStickies+1)*(Constants.STICKY.HEIGHT + Constants.STICKY.MAX_STICKIES_IN_CELL) + 100;
+            if(x < Constants.BACKLOG.MARGE_LEFT) {
+                nbStickies = StickyStore.getAllStickiesInBacklog().length;
+                position.x = Constants.STICKY.PADDING;
+                position.y = 100 + Constants.STICKY.PADDING_TOP + (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN) * nbStickies;
+            }else{
+                this.hide();
+                return;
+            }
         }else{
             nbStickies = StickyStore.getAllStickiesForACell(cell.x, cell.y).length;
-            if(nbStickies < Constants.STICKY.MAX_STICKIES_IN_CELL){
+            if(nbStickies <= Constants.STICKY.MAX_STICKIES_IN_CELL){
                 position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN)*nbStickies;
             }else {
-                 position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN)*2;
+                 position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN + (nbStickies*5);
             }
 
             position.x = (cell.x + 1) * Constants.COLUMN.WIDTH + Constants.STICKY.PADDING;
