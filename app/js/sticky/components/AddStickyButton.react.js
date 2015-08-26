@@ -59,7 +59,7 @@ var AddStickyButton = React.createClass({
             if(nbStickies <= Constants.STICKY.MAX_STICKIES_IN_CELL){
                 position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN)*nbStickies;
             }else {
-                 position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN + (nbStickies*5);
+                 position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN + 15;
             }
 
             position.x = (cell.x + 1) * Constants.COLUMN.WIDTH + Constants.STICKY.PADDING;

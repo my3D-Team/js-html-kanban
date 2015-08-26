@@ -107,14 +107,20 @@ var _positionStickyInCell = function (sticky) {
 };
 
 var _collapseAllStickies = function (arrayStickies) {
-    // Init the position (we know there are at least 4 stickies
-    var position = ColAndRowStore.getPositionXY(arrayStickies[0].cell_column, arrayStickies[0].cell_row);
     _.each(arrayStickies, function (sticky, i) {
         sticky.position = {};
+        var position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
+        if(i < Constants.STICKY.MAX_STICKIES_IN_CELL) {
+            sticky.position.y = position.y + (i*5);
+            sticky.zIndex = i;
+        }else if(i === arrayStickies.length-1){
+            sticky.position.y = position.y + 10;
+            sticky.zIndex = 2;
+        }else{
+            sticky.position.y = position.y;
+            sticky.zIndex = 0;
+        }
         sticky.position.x = position.x;
-        sticky.position.y = position.y;
-        sticky.zIndex = i;
-        position.y += 5;
     });
 };
 
