@@ -117,7 +117,7 @@ var Kanban = React.createClass({
 
                 {this.state.stickies.map(function (sticky, i) {
                     var ref = "sticky" + sticky.nodeId;
-                    return (<Sticky x={sticky.position.x} y={sticky.position.y} sticky={sticky} ref={ref} key={i}/>);
+                    return (<Sticky x={sticky.position.x} y={sticky.position.y} zIndex={sticky.zIndex} sticky={sticky} ref={ref} key={i}/>);
                 })}
 
 

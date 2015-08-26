@@ -25,9 +25,7 @@ var KanbanStickyManager = {
                 var position = {};
                 position.x = x ;
                 position.y = y ;
-                selectedNode.node.state.hasMove = true;
-                selectedNode.node.setState({position: position});
-
+                selectedNode.node.setState({hasMove: true, position: position});
             }
             e.stopPropagation();
         }

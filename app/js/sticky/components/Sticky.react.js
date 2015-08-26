@@ -37,12 +37,12 @@ var Sticky = React.createClass({
 
         var top = this.state.position.y ? this.state.position.y : this.props.y;
         var left = this.state.position.x ? this.state.position.x : this.props.x;
-
+        var zIndex = this.state.zIndex ? this.state.zIndex : this.props.zIndex;
         var css = {
             top: top + "px",
             left: left + "px",
             width: width + "px",
-            zIndex: this.state.zIndex
+            zIndex: zIndex
         };
         return (
             <div className={this.props.sticky.content.stickyCode + " sticky"} style={css} onTouchStart={this._onSelect}

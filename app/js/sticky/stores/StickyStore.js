@@ -34,9 +34,6 @@ var stickies = [];
 var _onSelectItem = function (e, node) {
 
     var domNode = node.getDOMNode();
-    var parent = domNode.parentNode;
-    parent.removeChild(domNode);
-    parent.appendChild(domNode);
 
     var selectedNode = node.props.sticky;
     if(selectedNode.cell_column === -1 && selectedNode.cell_row === -1){
@@ -51,7 +48,7 @@ var _onSelectItem = function (e, node) {
 
     //Change the mouse cursor
     domNode.className += " grabbing";
-
+    node.setState( {zIndex: 100})
 
 };
 
@@ -80,6 +77,8 @@ var _onDeselectItem = function (e, node) {
         if (domNode.className.replace) {
             domNode.className = domNode.className.replace("grabbing", "");
         }
+        node.setState({zIndex: null})
+
     }
 };
 
