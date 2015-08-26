@@ -11,6 +11,7 @@ var StickyActions = require('./../actions/StickyActions');
 // Stores
 var ColAndRowStore = require('./../../colAndRow/stores/ColAndRowStore');
 var KanbanStore = require('./../../kanban/stores/KanbanStore');
+var StickyStore = require('./../../sticky/stores/StickyStore');
 
 var AddStickyButton = React.createClass({
 
@@ -42,13 +43,21 @@ var AddStickyButton = React.createClass({
 
     setPosition: function (x, y) {
         var cell = ColAndRowStore.getColumnAndRow(x, y);
+        var nbStickies = 0;
         var position = {};
         if(cell.x === -1 || cell.y === -1){
-            position.x = Constants.BACKLOG.MARGE_LEFT - 50;
-            position.y = 100;
+            nbStickies = StickyStore.getAllStickiesInBacklog().length;
+            position.x = Constants.STICKY.PADDING;
+            position.y = (nbStickies+1)*(Constants.STICKY.HEIGHT + Constants.STICKY.MAX_STICKIES_IN_CELL) + 100;
         }else{
-            position.x = (cell.x + 2) * Constants.COLUMN.WIDTH - 50;
-            position.y = (cell.y + 2) * Constants.ROW.HEIGHT - 50;
+            nbStickies = StickyStore.getAllStickiesForACell(cell.x, cell.y).length;
+            if(nbStickies < Constants.STICKY.MAX_STICKIES_IN_CELL){
+                position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN)*nbStickies;
+            }else {
+                 position.y = (cell.y + 1) * Constants.ROW.HEIGHT + Constants.STICKY.PADDING_TOP + (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN)*2;
+            }
+
+            position.x = (cell.x + 1) * Constants.COLUMN.WIDTH + Constants.STICKY.PADDING;
 
             if(KanbanStore.isBacklog()){
                 position.x += Constants.BACKLOG.MARGE_LEFT;

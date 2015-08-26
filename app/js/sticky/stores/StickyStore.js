@@ -91,7 +91,7 @@ var _initPositionStickies = function () {
 };
 
 var _positionStickiesInCell = function (arrayStickies) {
-    if (arrayStickies.length > StickyConst.MAX_STICKIES_IN_CELL) {
+    if (arrayStickies.length > Constants.STICKY.MAX_STICKIES_IN_CELL) {
         _collapseAllStickies(arrayStickies);
     } else {
         _arrangeStickies(arrayStickies);
@@ -235,7 +235,11 @@ var StickyStore = assign({}, EventEmitter.prototype, {
 
         _.each(stickies, function (sticky) {
             if (sticky.cell_column === column && sticky.cell_row === row) {
-                if (excludeSticky.content.id !== sticky.content.id) {
+                if(excludeSticky) {
+                    if (excludeSticky.content.id !== sticky.content.id) {
+                        arrayStickies.push(sticky);
+                    }
+                }else{
                     arrayStickies.push(sticky);
                 }
             }

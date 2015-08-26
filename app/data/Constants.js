@@ -27,7 +27,8 @@ var Constants = {
         PADDING: 20,
         PADDING_TOP: 10,
         SPACE_BETWEEN: 5,
-        HEIGHT: 40
+        HEIGHT: 40,
+        MAX_STICKIES_IN_CELL : 2
     },
 
     BACKLOG: {
