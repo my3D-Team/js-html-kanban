@@ -42,6 +42,8 @@ var StickyMixin = {
         }
         e.stopPropagation();
     }
+
+
 };
 
 module.exports = StickyMixin;

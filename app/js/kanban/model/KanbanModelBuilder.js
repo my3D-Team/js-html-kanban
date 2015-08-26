@@ -3,75 +3,65 @@
  */
 "use strict";
 
-var KanbanManager = require('./../manager/KanbanManager.js');
 var _ = require('lodash');
 var Main = require('../../main.js');
 
+var model = {};
+
 var KanbanModelBuilder = {
 
-    initModel: function () {
+    initModel: function (data) {
 
-        var model = {};
-
+        model = {};
         // columns
-        this.buildColumns(model);
+        this.buildColumns(data);
 
         // rows
-        this.buildRows(model);
+        this.buildRows(data);
 
         // build children
-        this.buildChildren(model);
-
-        Main.model = model;
+        this.buildChildren(data);
 
         return model;
 
     },
 
-    buildChildren: function (model) {
-        _.each(KanbanData.children, function (child) {
+    buildChildren: function (data) {
+        _.each(data.children, function (child) {
             switch (child.type) {
                 case Labels.TYPE.STATUS_KANBAN:
-                    this.buildBacklog(model, child);
+                    this.buildBacklog(child);
                     break;
                 case Labels.TYPE.STICKY:
-                    this.buildSticky(model, child);
+                    this.buildSticky(child);
                     break;
             }
         }, this);
     },
 
-    buildBacklog: function (model, child) {
-        model.backlog = child.content.backlog;
+    buildBacklog: function (data) {
+        model.backlog = data.content.backlog;
     },
 
-    buildColumns: function (model) {
+    buildColumns: function (data) {
         // sort columns by display order
-        model.columns = _.sortBy(KanbanData.columns, function (col) {
+        model.columns = _.sortBy(data.columns, function (col) {
             return col.displayOrder;
         });
     },
 
-    buildRows: function (model) {
+    buildRows: function (data) {
         // sort rows by display order
-        model.rows = _.sortBy(KanbanData.rows, function (row) {
+        model.rows = _.sortBy(data.rows, function (row) {
             return row.displayOrder;
         });
     },
 
-    buildSticky: function (model, sticky) {
+    buildSticky: function (sticky) {
         // init stickies model if needed
-        if (!model.stickies) {
-            this.initStickyModel(model);
-        }
+        model.stickies  = model.stickies ? model.stickies : [];
         model.stickies.push(sticky);
-    },
-
-    initStickyModel: function (model) {
-        // build array
-        model.stickies = [];
     }
-
 
 };
 

@@ -11,21 +11,6 @@ var storesList = [];
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
-    getStoresList: function(){
-        return storesList;
-    },
-
-    addStore: function(store){
-        if(!_.isNull(store)) {
-            storesList.push(store);
-        }
-    },
-
-    initStores: function(model){
-        _.each(storesList, function(store){
-            store.init(model);
-        });
-    }
 
 });
 

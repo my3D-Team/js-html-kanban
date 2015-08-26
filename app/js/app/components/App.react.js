@@ -8,9 +8,10 @@
 
 var React = require('react');
 
-var Header = require('../../Header.react.js');
-var Kanban = require('../../kanban/components/Kanban.react.js');
+var Header = require('../../Header.react');
+var Kanban = require('../../kanban/components/Kanban.react');
 
+var KanbanModel = require('./../../kanban/model/KanbanModelBuilder');
 // Stores
 var KanbanStore = require('../../kanban/stores/KanbanStore');
 var StickyStore = require('../../sticky/stores/StickyStore');
@@ -19,22 +20,28 @@ var AppActions = require('../actions/AppActions');
 
 var App = React.createClass({
 
+    getInitialState: function () {
+        var model = {};
+        model.selectedZZ = {};
+        return model;
+    },
+    componentWillMount: function () {
+
+        this.state.selectedZZ = KanbanModel.initModel(KanbanData);
+    },
+
     render: function () {
+
+        var kanban;
+
+        if (this.state.selectedZZ) {
+            kanban = (<Kanban model={this.state.selectedZZ} ></Kanban>);
+        }
+
         return (
             <div>
-
                 <Header></Header>
-                <Kanban></Kanban>
-
-                <div className="zoom-in tools" onClick={this.zoomIn}>
-                    <i className="fa fa-plus"></i>
-                </div>
-                <div className="zoom-out tools" onClick={this.zoomOut}>
-                    <i className="fa fa-minus"></i>
-                </div>
-                <div className="html2canvas tools" onClick={this.generateCanvas}>
-                    <i className="fa fa-picture-o"></i>
-                </div>
+            {kanban}
 
                 <div className="add_button" onClick={this.onClickAddButton}>
                     <svg xmlns="//www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -44,13 +51,7 @@ var App = React.createClass({
             </div>
             );
     },
-    zoomIn: function (e) {
-        AppActions.scale(KanbanStore.getScale() + 0.1);
-    },
 
-    zoomOut: function (e) {
-        AppActions.scale(KanbanStore.getScale() - 0.1);
-    },
 
     generateCanvas: function () {
         html2canvas(document.body, {
@@ -64,7 +65,6 @@ var App = React.createClass({
     onClickAddButton: function(){
         StickyStore.createSticky();
     }
-
 
 });
 

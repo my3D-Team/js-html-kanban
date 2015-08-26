@@ -7,8 +7,7 @@
  */
 var React = require('react');
 
-var DragMixin = require('./../mixins/DragMixin');
-var DataManager = require('./../mixins/KanbanDataMixin');
+var StickyManager = require('./mixins/KanbanStickyManager');
 
 // Stores
 var AppStore = require('../../app/stores/AppStore');
@@ -17,7 +16,8 @@ var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
 var StickyStore = require('../../sticky/stores/StickyStore');
 
 // Actions
-var StickyActions = require('../../sticky/actions/StickyActions.js');
+var StickyActions = require('../../sticky/actions/StickyActions');
+var KanbanActions = require('../actions/KanbanActions');
 
 // Components
 var Sticky = require('./../../sticky/components/Sticky.react');
@@ -25,35 +25,45 @@ var Ghost = require('./../../sticky/components/Ghost.react');
 var UserRow = require('./../../colAndRow/components/UserRow.react');
 var Column = require('./../../colAndRow/components/Column.react');
 
-var KanbanModel = require('./../model/KanbanModel.js');
+//util
+var EventHelper = require('../../util/EventHelper');
+
 
 var _ = require('lodash');
 
 var Kanban = React.createClass({
 
-    mixins: [DragMixin],
+    mixins: [StickyManager],
 
     getInitialState: function () {
         var retval = {};
-        retval.scale = 1;
+        retval.scale = KanbanStore.getScale();
         retval.selectedNode = KanbanStore.getSelectedNode();
         retval.backlog = KanbanStore.isBacklog();
         retval.rows = ColAndRowStore.getRows();
         retval.columns = ColAndRowStore.getColumns();
         retval.stickies = StickyStore.getStickies();
+
         return retval
+    },
+
+    componentWillMount: function () {
+        KanbanActions.changeModel(this.props.model);
     },
 
     componentDidMount: function () {
         KanbanStore.addChangeListener(this.onChange);
-        var model = KanbanModel.getModel();
-        AppStore.initStores(model);
+        StickyStore.addChangePositionListener(this.changeSticky);
         this.onChange();
+
     },
 
     componentWillUnmount: function () {
         KanbanStore.removeChangeListener();
+        StickyStore.removeChangePositionListener();
     },
+
+
 
     onChange: function (e) {
         this.setState({
@@ -66,27 +76,32 @@ var Kanban = React.createClass({
         });
     },
 
+    changeSticky: function () {
+        this.setState({stickies : StickyStore.getStickies()});
+    },
+
     render: function () {
         var color = "white",
             x = 25,
             y = 0,
-            backlog = {},
+            backlog,
             kanbanCss = {
                 transform: "scale(" + this.state.scale + ", " + this.state.scale + ")"
             };
 
         if (this.state.backlog) {
             x = 400;
-            var height = (this.state.rows.length+1) * Constants.ROW.HEIGHT;
+            var height = (this.state.rows.length + 1) * Constants.ROW.HEIGHT;
             backlog = (<Column height={height} color={color} title={Labels.BACKLOG} store={ColAndRowStore}>  </Column>);
         }
 
         return (
-            <div className="kanban" style={kanbanCss} onTouchMove={this.onMove} onMouseMove={this.onMove}
-                 onTouchEnd={this.deselectNode}
-                 onMouseUp={this.deselectNode}>
+            <div>
+                <div className="kanban" style={kanbanCss} onTouchMove={this.onMove} onMouseMove={this.onMove}
+                onTouchEnd={this.deselectNode}
+                onMouseUp={this.deselectNode}>
 
-                {backlog}
+            {backlog}
 
                 {this.state.rows.map(function (row, i) {
                         y += 150;
@@ -101,15 +116,30 @@ var Kanban = React.createClass({
                 )}
 
                 {this.state.stickies.map(function (sticky, i) {
-                    return (<Sticky sticky={sticky} key={i}/>);
+                    var ref = "sticky" + sticky.nodeId;
+                    return (<Sticky x={sticky.position.x} y={sticky.position.y} sticky={sticky} ref={ref} key={i}/>);
                 })}
 
-                <Ghost ref="ghost" />
+
+                    <Ghost ref="ghost" />
+
+
+                </div>
+
+
+                <div className="zoom-in tools" onClick={this.zoomIn}>
+                    <i className="fa fa-plus"></i>
+                </div>
+                <div className="zoom-out tools" onClick={this.zoomOut}>
+                    <i className="fa fa-minus"></i>
+                </div>
+                <div className="html2canvas tools" onClick={this.generateCanvas}>
+                    <i className="fa fa-picture-o"></i>
+                </div>
 
             </div>
-        );
+            );
     },
-
 
     deselectNode: function (e) {
         StickyActions.deselect(e, this.state.selectedNode.node);
@@ -119,18 +149,35 @@ var Kanban = React.createClass({
     },
 
     onMove: function (e) {
-        this._onMove(e);
+        this._onMoveSticky(e);
 
         // display ghost
-        if(!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
-            var mouseX = e.touches ? e.touches[0].pageX : e.pageX;
-            var mouseY = e.touches ? e.touches[0].pageY : e.pageY;
+        if (!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
+            var mouseX = EventHelper.getAttr(e, "pageX");
+            var mouseY = EventHelper.getAttr(e, "pageY");
 
             var x = mouseX / KanbanStore.getScale();
             var y = (mouseY / KanbanStore.getScale()) - Constants.TOPBAR.HEIGHT;
 
             this.refs.ghost.manageGhost(x, y);
         }
+    },
+
+    zoomIn: function (e) {
+        KanbanActions.scale(this.state.scale + 0.1);
+    },
+
+    zoomOut: function (e) {
+        KanbanActions.scale(this.state.scale - 0.1);
+    },
+
+    generateCanvas: function () {
+        html2canvas(document.body, {
+            onrendered: function (canvas) {
+                var w = window.open();
+                w.document.body.appendChild(canvas);
+            }
+        });
     }
 });
 

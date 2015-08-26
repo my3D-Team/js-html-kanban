@@ -1,7 +1,7 @@
 "use strict";
 
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
-var StickyConst = require('../constants/StickyConst');
+var StickyConst = require('./StickyConst');
 
 var StickyActions = {
 

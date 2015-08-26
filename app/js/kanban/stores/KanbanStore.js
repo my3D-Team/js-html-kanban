@@ -4,14 +4,10 @@ var assign = require('object-assign');
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var React = require('react');
+var EventHelper = require('../../util/EventHelper')
 
-var AppStore = require('../../app/stores/AppStore');
-
-var KanbanConst = require('../constants/KanbanConst');
-var StickyConst = require('../../sticky/constants/StickyConst');
-var AppConst = require('../../app/constants/AppConst');
-
-
+var KanbanConst = require('../actions/KanbanConst');
+var StickyConst = require('../../sticky/actions/StickyConst');
 
 var selectedNode = {
     node: null,
@@ -24,11 +20,11 @@ var kanban = {
     scale: 1
 };
 
-var backlog = false;
+var backlog = true;
 
 var _selectNode = function (e, node) {
-    var mouseX = e.touches ? e.touches[0].pageX : e.pageX;
-    var mouseY = e.touches ? e.touches[0].pageY : e.pageY;
+    var mouseX = EventHelper.getAttr(e, "pageX");
+    var mouseY = EventHelper.getAttr(e, "pageY");
 
     //get the initial position of the node
     var domNode = React.findDOMNode(node);
@@ -127,8 +123,6 @@ var _setBacklog = function(isBacklog){
     backlog = isBacklog;
 };
 
-AppStore.addStore(KanbanStore);
-
 
 // Register callback to handle all updates
 AppDispatcher.register(function (action) {
@@ -144,9 +138,15 @@ AppDispatcher.register(function (action) {
             selectedNode.domNode = null;
             KanbanStore.emitChange(action.event);
             break;
-        case AppConst.SCALE:
-            kanban.scale =  action.scale;
+
+        case KanbanConst.SCALE:
+            kanban.scale = action.scale;
             KanbanStore.emitChange(action.event);
+            break;
+        case KanbanConst.CHANGE_MODEL:
+            KanbanStore.init(action.model);
+
+            break;
     }
 });
 

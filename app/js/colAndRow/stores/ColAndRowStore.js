@@ -6,9 +6,10 @@ var AppDispatcher = require('../../dispatcher/AppDispatcher');
 // Stores
 var AppStore = require('../../app/stores/AppStore');
 var KanbanStore = require('../../kanban/stores/KanbanStore');
+var KanbanConst = require('../../kanban/actions/KanbanConst')
 
 // Const
-var ColAndRowConst = require('../constants/ColAndRowConst');
+var ColAndRowConst = require('../actions/ColAndRowConst');
 
 // Util
 var _ = require('lodash');
@@ -150,13 +151,15 @@ var _setColumns = function(newColumns){
     columns = newColumns;
 };
 
-AppStore.addStore(ColAndRowStore);
-
 
 // Register callback to handle all updates
 AppDispatcher.register(function (action) {
 
     switch (action.actionType) {
+        case KanbanConst.CHANGE_MODEL:
+            ColAndRowStore.init(action.model);
+
+            break;
         case ColAndRowConst.CHANGE_TITLE:
             _setTitle(action.nodeId, action.title);
             break;

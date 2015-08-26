@@ -5,7 +5,6 @@
 
 var AppConst = {
 
-    SCALE: "scale"
 
 };
 

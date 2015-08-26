@@ -6,16 +6,10 @@
  * @author $Author$
  */
 var React = require('react');
-
-var StickyMixin = require('../mixins/StickyMixin');
-var StickyActions = require('../actions/StickyActions.js');
-
-// Stores
-var StickyStore = require('../stores/StickyStore');
-var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
-
 var _ = require('lodash');
 
+var StickyMixin = require('./mixins/StickyMixin');
+var StickyActions = require('../actions/StickyActions.js');
 
 var Sticky = React.createClass({
     mixins: [StickyMixin],
@@ -26,24 +20,6 @@ var Sticky = React.createClass({
             zIndex: 0
         }
     },
-
-    componentDidMount: function () {
-        StickyStore.addChangePositionListener(this.changePosition);
-        StickyStore.positionSticky(this.props.sticky);
-    },
-
-    componentWillUnmount: function () {
-        StickyStore.removeChangePositionListener();
-    },
-
-    changePosition: function(){
-        var sticky = StickyStore.findStickyById(this.props.sticky.content.id);
-        this.setState({
-            position: sticky.position,
-            zIndex: sticky.zIndex
-        })
-    },
-
     getTitle: function () {
         var title = "";
         _.each(this.props.sticky.content.values, function (value) {
@@ -59,8 +35,8 @@ var Sticky = React.createClass({
         var width = Constants.COLUMN.WIDTH - 2 * Constants.STICKY.PADDING,
             title = this.getTitle();
 
-        var top = !_.isNull(this.state.position) ? this.state.position.y : "";
-        var left = !_.isNull(this.state.position) ? this.state.position.x : "";
+        var top = !_.isNull(this.state.position.y) ? this.state.position.y : this.props.y;
+        var left = !_.isNull(this.state.position.x) ? this.state.position.x : this.props.x;
 
         var css = {
             top: top + "px",
