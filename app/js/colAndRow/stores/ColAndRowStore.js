@@ -82,7 +82,7 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
     },
 
     changeTitle: function(type, nodeId, title){
-        
+
     },
 
     /**
