@@ -71,7 +71,7 @@
 .add_button {
     position: fixed;
     width: 310px;
-    height: 40px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -127,6 +127,16 @@
     font-weight: bold;
     margin-top: 5px;
     font-size: 15px;
+}
+
+.checkbox-collapse {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}
+
+.checkbox-collapse:hover{
+    cursor: pointer;
 }
 
 @media screen and (min-height: 500px) and (max-height: 774px) {

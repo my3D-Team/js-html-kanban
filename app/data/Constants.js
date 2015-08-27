@@ -3,6 +3,9 @@
  */
 "use strict";
 
+var height = 150;
+var width = 350;
+
 var Constants = {
 
     TOPBAR: {
@@ -10,13 +13,13 @@ var Constants = {
     },
 
     COLUMN: {
-        WIDTH: 350,
+        WIDTH: width,
         MARGE: 0,
         MARGE_TOP: 25
     },
 
     ROW: {
-        HEIGHT: 150
+        HEIGHT: height
     },
 
     STICKY: {
@@ -25,13 +28,26 @@ var Constants = {
         },
         MARGE_TOP: 150,
         PADDING: 20,
-        PADDING_TOP: 10,
+        PADDING_TOP: 5,
         SPACE_BETWEEN: 5,
-        HEIGHT: 40,
-        MAX_STICKIES_IN_CELL : 2
+        WIDTH: 310,
+        HEIGHT: {
+            COLLAPSED: 30,
+            NOT_COLLAPSED: 100
+        },
+        MAX_STICKIES_IN_CELL : 3
     },
 
     BACKLOG: {
         MARGE_LEFT: 350
+    },
+
+    CELL: {
+        HEIGHT: height,
+        WIDTH: width
+    },
+
+    ADD_BUTTON: {
+        HEIGHT: 30
     }
 };

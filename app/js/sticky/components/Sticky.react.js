@@ -17,6 +17,7 @@ var Sticky = React.createClass({
     getInitialState: function () {
         return {
             position: {},
+            dimension: {},
             zIndex: 0
         }
     },
@@ -37,11 +38,13 @@ var Sticky = React.createClass({
 
         var top = this.state.position.y ? this.state.position.y : this.props.y;
         var left = this.state.position.x ? this.state.position.x : this.props.x;
+        var height = this.state.dimension.height ? this.state.dimension.height : this.props.height;
         var zIndex = this.state.zIndex ? this.state.zIndex : this.props.zIndex;
         var css = {
             top: top + "px",
             left: left + "px",
             width: width + "px",
+            height: height + "px",
             zIndex: zIndex
         };
         return (

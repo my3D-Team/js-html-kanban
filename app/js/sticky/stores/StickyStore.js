@@ -23,7 +23,7 @@ var KanbanStore = require('../../kanban/stores/KanbanStore');
  * The model used by the store
  */
 var stickies = [];
-
+var stickiesCollapsed = true;
 
 
 /**
@@ -48,6 +48,8 @@ var _onSelectItem = function (e, node) {
 
     //Change the mouse cursor
     domNode.className += " grabbing";
+
+    // TODO PAS DE SETSTATE !
     node.setState( {zIndex: 100})
 
 };
@@ -77,20 +79,25 @@ var _onDeselectItem = function (e, node) {
         if (domNode.className.replace) {
             domNode.className = domNode.className.replace("grabbing", "");
         }
+        // TODO PAS DE SETSTATE !
         node.setState({zIndex: null})
 
     }
 };
 
-var _initPositionStickies = function () {
+var _initStickies = function () {
     _.each(stickies, function (sticky) {
         sticky.position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
-        StickyStore.positionSticky(sticky);
+        sticky.dimension = {
+            width : Constants.STICKY.WIDTH,
+            height : StickyStore.getStickyHeight()
+        };
     });
 };
 
 var _positionStickiesInCell = function (arrayStickies) {
-    if (arrayStickies.length > Constants.STICKY.MAX_STICKIES_IN_CELL) {
+    var stickyHeight = StickyStore.getStickyHeight();
+    if (arrayStickies.length*(stickyHeight + Constants.STICKY.SPACE_BETWEEN) + Constants.ADD_BUTTON.HEIGHT > Constants.CELL.HEIGHT) {
         _collapseAllStickies(arrayStickies);
     } else {
         _arrangeStickies(arrayStickies);
@@ -110,12 +117,9 @@ var _collapseAllStickies = function (arrayStickies) {
     _.each(arrayStickies, function (sticky, i) {
         sticky.position = {};
         var position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
-        if(i < Constants.STICKY.MAX_STICKIES_IN_CELL) {
+        if((Constants.STICKY.PADDING_TOP + (i*5) + sticky.dimension.height + (Constants.ADD_BUTTON.HEIGHT + Constants.STICKY.SPACE_BETWEEN)) < Constants.CELL.HEIGHT){
             sticky.position.y = position.y + (i*5);
             sticky.zIndex = i;
-        }else if(i === arrayStickies.length-1){
-            sticky.position.y = position.y + 10;
-            sticky.zIndex = 2;
         }else{
             sticky.position.y = position.y;
             sticky.zIndex = 0;
@@ -130,7 +134,7 @@ var _arrangeStickies = function (arrayStickies) {
         _.each(arrayStickies, function (sticky, i) {
             sticky.position = {};
             sticky.position.x = position.x;
-            sticky.position.y = position.y + (i) * (Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN);
+            sticky.position.y = position.y + (i) * (sticky.dimension.height + Constants.STICKY.SPACE_BETWEEN);
             sticky.zIndex = 0;
         });
     }
@@ -138,13 +142,14 @@ var _arrangeStickies = function (arrayStickies) {
 
 var _positionStickyBacklog = function (arrayStickies) {
     var y = 100 + Constants.STICKY.PADDING_TOP;
+    var stickyHeight = StickyStore.getStickyHeight();
 
     _.each(arrayStickies, function(sticky){
         sticky.position = {
             x: Constants.STICKY.PADDING,
             y: y
         };
-        y += Constants.STICKY.HEIGHT + Constants.STICKY.SPACE_BETWEEN;
+        y += stickyHeight + Constants.STICKY.SPACE_BETWEEN;
     });
 
     StickyStore.emitChangePosition();
@@ -166,7 +171,23 @@ var StickyStore = assign({}, EventEmitter.prototype, {
 
     init: function (model) {
         stickies = model.stickies;
-        _initPositionStickies();
+
+        // Init dimension and position
+        _initStickies();
+
+        // Position each sticky
+        _.each(stickies, function(sticky){
+            this.positionSticky(sticky);
+        }, this);
+    },
+
+    areStickiesCollapsed: function(){
+        return stickiesCollapsed;
+    },
+
+    getStickyHeight: function(){
+        return (this.areStickiesCollapsed() ? Constants.STICKY.HEIGHT.COLLAPSED : Constants.STICKY.HEIGHT.NOT_COLLAPSED);
+
     },
 
     addChangeListener: function (callback) {
@@ -198,6 +219,7 @@ var StickyStore = assign({}, EventEmitter.prototype, {
 
     createSticky: function(type, cell){
         var id = Math.random();
+        var height = this.areStickiesCollapsed() ? Constants.STICKY.HEIGHT.COLLAPSED : Constants.STICKY.HEIGHT.NOT_COLLAPSED;
         var sticky = {
             content: {
                 stickyCode: type,
@@ -217,16 +239,27 @@ var StickyStore = assign({}, EventEmitter.prototype, {
                     {"value": "0", "type": "todo"}
                 ]
             },
-            nodeId: Math.random(),
+            nodeId: id,
             type: "StickyNoteNode",
             parentId: 1827579,
             projectId: 2770,
             cell_column: cell.x,
-            cell_row: cell.y
+            cell_row: cell.y,
+            dimension: {
+                width: Constants.STICKY.WIDTH,
+                height: height
+            }
         };
         stickies.push(sticky);
         this.positionSticky(sticky);
-        KanbanStore.emitChange();
+    },
+
+    collapse: function(isCollapse){
+        stickiesCollapsed = isCollapse;
+        _.each(stickies, function(sticky){
+            sticky.dimension.height = this.getStickyHeight();
+            this.positionSticky(sticky);
+        }, this);
     },
 
     findStickyById: function (id) {
@@ -296,7 +329,6 @@ StickyStore.dispatchToken = AppDispatcher.register(function (action) {
         case StickyConst.SELECT :
             _onSelectItem(action.event, action.node);
             break;
-
         case StickyConst.DESELECT:
             _onDeselectItem(action.event, action.node);
             StickyStore.emitChange(action.event);
@@ -304,11 +336,15 @@ StickyStore.dispatchToken = AppDispatcher.register(function (action) {
         case KanbanConst.CHANGE_MODEL:
             AppDispatcher.waitFor([ColAndRowStore.dispatchToken]);
             StickyStore.init(action.model);
-
             break;
         case StickyConst.CREATE:
             StickyStore.createSticky(action.type, action.cell);
-
+            KanbanStore.emitChange();
+            break;
+        case StickyConst.COLLAPSE:
+            StickyStore.collapse(action.isCollapsed);
+            KanbanStore.emitChange();
+            break;
     }
 });
 

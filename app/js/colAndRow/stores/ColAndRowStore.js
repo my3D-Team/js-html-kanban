@@ -127,29 +127,11 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
      * @param model
      */
     init: function(model){
-        _setColumns(model.columns);
-        _setRows(model.rows);
+        columns = model.columns;
+        rows = model.rows;
     }
 
 });
-
-/**
- * Private setter for rows
- * @param newRows
- * @private
- */
-var _setRows = function(newRows){
-    rows = newRows;
-};
-
-/**
- * Private setter for columns
- * @param newColumns
- * @private
- */
-var _setColumns = function(newColumns){
-    columns = newColumns;
-};
 
 
 // Register callback to handle all updates

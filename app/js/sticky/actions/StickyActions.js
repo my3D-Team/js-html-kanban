@@ -19,12 +19,18 @@ var StickyActions = {
             node: node
         });
     },
-    create: function(e, type, cell){
+    create: function (e, type, cell) {
         AppDispatcher.dispatch({
             actionType: StickyConst.CREATE,
             event: e,
             type: type,
             cell: cell
+        });
+    },
+    collapse: function (isCollapsed) {
+        AppDispatcher.dispatch({
+            actionType: StickyConst.COLLAPSE,
+            isCollapsed: isCollapsed
         });
     }
 

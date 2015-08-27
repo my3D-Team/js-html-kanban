@@ -24,6 +24,7 @@ var AddStickyButton = require('./../../sticky/components/AddStickyButton.react')
 var Ghost = require('./../../sticky/components/Ghost.react');
 var UserRow = require('./../../colAndRow/components/UserRow.react');
 var Column = require('./../../colAndRow/components/Column.react');
+var CollapseStickiesButton = require('./../../sticky/components/CollapseStickiesButton.react');
 
 //util
 var EventHelper = require('../../util/EventHelper');
@@ -64,7 +65,6 @@ var Kanban = React.createClass({
     },
 
 
-
     onChange: function (e) {
         this.setState({
             selectedNode: KanbanStore.getSelectedNode(),
@@ -77,7 +77,7 @@ var Kanban = React.createClass({
     },
 
     changeSticky: function () {
-        this.setState({stickies : StickyStore.getStickies()});
+        this.setState({stickies: StickyStore.getStickies()});
     },
 
     render: function () {
@@ -92,37 +92,40 @@ var Kanban = React.createClass({
         if (this.state.backlog) {
             x = 400;
             var height = (this.state.rows.length + 1) * Constants.ROW.HEIGHT;
-            backlog = (<Column height={height} color={color} title={Labels.BACKLOG}>  </Column>);
+            backlog = (<Column height={height} color={color} title={Labels.BACKLOG}> </Column>);
         }
 
         return (
             <div>
                 <div className="kanban" style={kanbanCss} onTouchMove={this.onMove} onMouseMove={this.onMove}
-                onTouchEnd={this.deselectNode}
-                onMouseUp={this.deselectNode}>
+                     onTouchEnd={this.deselectNode}
+                     onMouseUp={this.deselectNode}>
 
-            {backlog}
+                    <CollapseStickiesButton />
+                    {backlog}
 
-                {this.state.rows.map(function (row, i) {
-                        y += 150;
-                        return (<UserRow x={x} y={y} item={row} key={i}> </UserRow>);
-                    }
-                )}
+                    {this.state.rows.map(function (row, i) {
+                            y += 150;
+                            return (<UserRow x={x} y={y} item={row} key={i}> </UserRow>);
+                        }
+                    )}
 
-                {this.state.columns.map(function (column, i) {
-                        color = color === "white" ? "#f9f9f9" : "white";
-                        return (<Column height={y + 150} color={color} title={column.type} key={i} item={column}> </Column>);
-                    }
-                )}
+                    {this.state.columns.map(function (column, i) {
+                            color = color === "white" ? "#f9f9f9" : "white";
+                            return (<Column height={y + 150} color={color} title={column.type} key={i}
+                                            item={column}> </Column>);
+                        }
+                    )}
 
-                {this.state.stickies.map(function (sticky, i) {
-                    var ref = "sticky" + sticky.nodeId;
-                    return (<Sticky x={sticky.position.x} y={sticky.position.y} zIndex={sticky.zIndex} sticky={sticky} ref={ref} key={i}/>);
-                })}
+                    {this.state.stickies.map(function (sticky, i) {
+                        var ref = "sticky" + sticky.nodeId;
+                        return (<Sticky x={sticky.position.x} y={sticky.position.y} height={sticky.dimension.height}
+                                        zIndex={sticky.zIndex} sticky={sticky} ref={ref} key={i}/>);
+                    })}
 
 
-                    <Ghost ref="ghost" />
-                    <AddStickyButton ref="addSticky" />
+                    <Ghost ref="ghost"/>
+                    <AddStickyButton ref="addSticky"/>
 
 
                 </div>
@@ -139,7 +142,7 @@ var Kanban = React.createClass({
                 </div>
 
             </div>
-            );
+        );
     },
 
     deselectNode: function (e) {
@@ -163,7 +166,7 @@ var Kanban = React.createClass({
         if (!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
             this.refs.ghost.manageGhost(x, y);
             this.refs.addSticky.hide();
-        }else{
+        } else {
             this.refs.addSticky.setPosition(x, y);
         }
     },

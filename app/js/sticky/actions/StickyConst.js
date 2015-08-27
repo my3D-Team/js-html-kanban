@@ -5,7 +5,8 @@ var StickyConst = {
     SELECT: "select",
     DESELECT: "deselect",
     CHANGE: "StickyChange",
-    CHANGE_POSITION: "StickyChangePosition"
+    CHANGE_POSITION: "StickyChangePosition",
+    COLLAPSE: "collapse"
 };
 
 module.exports = StickyConst;
