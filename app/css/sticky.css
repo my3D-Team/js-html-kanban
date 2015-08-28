@@ -20,6 +20,38 @@
     /*user-drag : element;*/
 }
 
+.uncollapse {
+    border: solid 1px black;
+    background-color: white;
+}
+
+.sticky-uncollapse-bottom-wrapper{
+    position: absolute;
+    bottom: 5px;
+    width: inherit;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.sticky-uncollapse-content-wrapper{
+    height: 60px
+}
+
+.sticky-uncollapse-content-cell{
+    height: inherit;
+    width: 33%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sticky-uncollapse-bottom{
+
+}
+
 .sticky:hover {
     cursor: pointer;
     cursor: -webkit-grab;
@@ -27,7 +59,7 @@
 }
 
 .sticky-title-wrapper{
-    height: inherit;
+    height: 30px;
     display: flex;
     align-items: center;
 }
