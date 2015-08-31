@@ -1,4 +1,7 @@
 
+* {
+    box-sizing: border-box;
+}
 body {
 	margin: 0;
 	padding: 0;
@@ -9,10 +12,12 @@ body {
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+
 }
 
 
-.danger, .issue {
+
+.danger, .issue, .problem {
     background-color: #d9534f;
 }
 
@@ -20,7 +25,7 @@ body {
     background-color: #f0ad4e;
 }
 
-.info, .feature {
+.info, .feature, .action {
     background-color: #5bc0de;
 }
 
@@ -28,20 +33,20 @@ body {
     background-color: #5cb85c;
 }
 
-.default, .action {
+.default , .a3 {
     background-color: #01468b;
 }
 
 
-.danger:hover {
+.danger:hover, .issue:hover, .problem:hover {
     background-color: #c9302c;
 }
 
-.warn:hover {
+.warn:hover, .ticket:hover {
     background-color: #ec971f;
 }
 
-.info:hover {
+.info:hover, .feature:hover, .action:hover {
     background-color: #31b0d5;
 }
 

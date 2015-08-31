@@ -1,0 +1,182 @@
+.overview {
+    width: 100%;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    position: absolute;
+    top: 50px;
+    transform-origin: top left;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.preview {
+
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 99%;
+    margin: 0.5%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+
+}
+
+.preview .dummy {
+    padding-top: 70%;
+}
+
+.preview:hover > .preview-infos {
+    opacity: 1;
+}
+
+.preview:hover > .preview-core img {
+    transform  : scale(1.3);
+}
+
+.preview:hover > .preview-footer {
+    min-height: 60px;
+}
+
+.preview:hover > .preview-title {
+    min-height: 0px !important;
+    height: 0;
+    overflow: hidden;
+}
+
+.preview-infos {
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 67, 141, 0.7);
+
+}
+
+.preview-footer {
+    position: absolute;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 13px;
+    color: rgba(0, 67, 141, 1);
+    background-color: white;
+    z-index: 1;
+    padding: 0 10px ;
+    font-weight: bold;
+    line-height: 13px;
+    overflow: hidden;
+}
+
+.preview-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 50px;
+    font-size: 16px;
+    color: white;
+    padding: 0 7px 0 15px;
+    text-shadow: 1px 1px #333;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.7);
+    min-width: 100px;
+    z-index: 1;
+}
+
+.preview-title button {
+    float: right;
+    color: #2b649e;
+    text-decoration: none;
+    background-color: white;
+    border-color: whitesmoke;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-top: -7px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.preview-core {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 16px;
+    color: #DDD;
+    text-align: center;
+    text-shadow: 1px 1px #333;
+    background-color: white;
+
+    overflow: hidden;
+}
+
+.preview-core img {
+    max-height: 100%;
+    min-width: 100%;
+}
+
+.graph {
+    height: 75%;
+    margin: 5%;
+}
+
+.minicon {
+    width: 16px;
+    height: 16px;
+    margin: 0px 0px -4px 15px;
+}
+
+.preview-title, .preview-footer, .preview-infos, .preview-core img {
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+@media screen and (max-width: 768px) and (min-width: 320px) {
+    .preview {
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 767px) {
+    .preview {
+        width: 32%;
+    }
+}
+
+@media screen and (max-width: 1500px) and (min-width: 1200px) {
+    .preview {
+        width: 32%;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .preview {
+        width: 24%;
+    }
+}
+
