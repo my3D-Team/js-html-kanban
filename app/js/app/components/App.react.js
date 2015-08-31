@@ -7,14 +7,18 @@
  */
 
 var React = require('react');
+var _ = require('lodash');
 
 var Header = require('../../Header.react');
 var Kanban = require('../../kanban/components/Kanban.react');
+var OverView = require('../../overview/components/Overview.react')
 
 var KanbanModel = require('./../../kanban/model/KanbanModelBuilder');
 
 // Stores
 var StickyStore = require('../../sticky/stores/StickyStore');
+
+var AppStore = require('../stores/AppStore');
 
 
 var App = React.createClass({
@@ -22,42 +26,40 @@ var App = React.createClass({
     getInitialState: function () {
         var model = {};
         model.selectedZZ = {};
+        model.zzList = [];
         return model;
     },
-    componentWillMount: function () {
 
-        this.state.selectedZZ = KanbanModel.initModel(KanbanData);
+    componentDidMount: function () {
+        AppStore.addChangeListener(this.onChange);
+        this.onChange();
+    },
+
+    componentWillUnmount: function () {
+        AppStore.removeChangeListener();
+    },
+
+    onChange: function () {
+        this.setState({zzList: AppStore.getZZList(), selectedZZ : AppStore.getSelectedZZ()});
     },
 
     render: function () {
 
-        var kanban;
-
-        if (this.state.selectedZZ) {
-            kanban = (<Kanban model={this.state.selectedZZ} ></Kanban>);
+        var core;
+        if (this.state.selectedZZ.nodeId) {
+            core = (<Kanban model={this.state.selectedZZ}></Kanban>);
+        } else {
+            core = (<OverView model={this.state.zzList}></OverView>);
         }
 
         return (
             <div>
-
                 <Header></Header>
-            {kanban}
-                
+                {core}
             </div>
             );
-    },
-
-
-    generateCanvas: function () {
-        html2canvas(document.body, {
-            onrendered: function (canvas) {
-                var w = window.open();
-                w.document.body.appendChild(canvas);
-            }
-        });
     }
-
-
 });
 
 module.exports = App;
+

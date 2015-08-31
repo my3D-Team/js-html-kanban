@@ -4,8 +4,7 @@
 "use strict";
 
 var AppConst = {
-
-
+    CHANGE : "app change"
 };
 
 module.exports = AppConst;

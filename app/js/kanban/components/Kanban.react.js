@@ -1,12 +1,11 @@
 "use strict";
 
-/**
- * This class builds the new Kanban.
- *
- * @author $Author$
- */
-var React = require('react');
 
+//util
+var EventHelper = require('../../util/EventHelper');
+var _ = require('lodash');
+var React = require('react');
+//Mixins
 var StickyManager = require('./mixins/KanbanStickyManager');
 
 // Stores
@@ -26,12 +25,11 @@ var UserRow = require('./../../colAndRow/components/UserRow.react');
 var Column = require('./../../colAndRow/components/Column.react');
 var CollapseStickiesButton = require('./../../sticky/components/CollapseStickiesButton.react');
 
-//util
-var EventHelper = require('../../util/EventHelper');
 
-
-var _ = require('lodash');
-
+/**
+ * This class builds the new Kanban.
+ * @author $Author$
+ */
 var Kanban = React.createClass({
 
     mixins: [StickyManager],
@@ -48,23 +46,34 @@ var Kanban = React.createClass({
         return retval
     },
 
+    /**
+     *     init before first render
+     */
     componentWillMount: function () {
         KanbanActions.changeModel(this.props.model);
+        this.onChange();
     },
 
+    /**
+     *  init after render when the component physicaly exist
+     */
     componentDidMount: function () {
         KanbanStore.addChangeListener(this.onChange);
         StickyStore.addChangePositionListener(this.changeSticky);
-        this.onChange();
-
     },
 
+    /**
+     * Before destroy the component
+     */
     componentWillUnmount: function () {
         KanbanStore.removeChangeListener();
         StickyStore.removeChangePositionListener();
     },
 
-
+    /**
+     * CallBack Kanban listener
+     * @param e
+     */
     onChange: function (e) {
         this.setState({
             selectedNode: KanbanStore.getSelectedNode(),
@@ -76,6 +85,10 @@ var Kanban = React.createClass({
         });
     },
 
+    /**
+     * CallBack Sticky listener
+     * @param e
+     */
     changeSticky: function () {
         this.setState({stickies: StickyStore.getStickies()});
     },
@@ -97,9 +110,9 @@ var Kanban = React.createClass({
 
         return (
             <div>
-                <div className="kanban" style={kanbanCss} onTouchMove={this.onMove} onMouseMove={this.onMove}
-                     onTouchEnd={this.deselectNode}
-                     onMouseUp={this.deselectNode}>
+                <div className="kanban" style={kanbanCss} onTouchMove={this._onMove} onMouseMove={this._onMove}
+                onTouchEnd={this._deselectNode}
+                onMouseUp={this._deselectNode}>
 
                     <CollapseStickiesButton />
                     {backlog}
@@ -131,13 +144,13 @@ var Kanban = React.createClass({
                 </div>
 
 
-                <div className="zoom-in tools" onClick={this.zoomIn}>
+                <div className="zoom-in tools" onClick={this._zoomIn}>
                     <i className="fa fa-plus"></i>
                 </div>
-                <div className="zoom-out tools" onClick={this.zoomOut}>
+                <div className="zoom-out tools" onClick={this._zoomOut}>
                     <i className="fa fa-minus"></i>
                 </div>
-                <div className="html2canvas tools" onClick={this.generateCanvas}>
+                <div className="html2canvas tools" onClick={this._generateCanvas}>
                     <i className="fa fa-picture-o"></i>
                 </div>
 
@@ -145,41 +158,45 @@ var Kanban = React.createClass({
         );
     },
 
-    deselectNode: function (e) {
+    _deselectNode: function (e) {
         StickyActions.deselect(e, this.state.selectedNode.node);
 
         // Hide ghost
         this.refs.ghost.hide();
     },
 
-    onMove: function (e) {
-        this._onMoveSticky(e);
+    _onMove: function (e) {
+        var selectedNode = this.state.selectedNode;
 
         var mouseX = EventHelper.getAttr(e, "pageX");
         var mouseY = EventHelper.getAttr(e, "pageY");
-
         var x = mouseX / KanbanStore.getScale();
         var y = (mouseY / KanbanStore.getScale()) - Constants.TOPBAR.HEIGHT;
 
+        //Selected Node action
+        if (selectedNode.domNode) {
+            //move selectedNode
+            this._onMoveSticky(e);
 
-        // display ghost
-        if (!_.isNull(this.state.selectedNode.node) && !_.isNull(this.state.selectedNode.node.state.position)) {
+            // display ghost
             this.refs.ghost.manageGhost(x, y);
             this.refs.addSticky.hide();
+
+            //Hover action
         } else {
             this.refs.addSticky.setPosition(x, y);
         }
     },
 
-    zoomIn: function (e) {
+    _zoomIn: function (e) {
         KanbanActions.scale(this.state.scale + 0.1);
     },
 
-    zoomOut: function (e) {
+    _zoomOut: function (e) {
         KanbanActions.scale(this.state.scale - 0.1);
     },
 
-    generateCanvas: function () {
+    _generateCanvas: function () {
         html2canvas(document.body, {
             onrendered: function (canvas) {
                 var w = window.open();

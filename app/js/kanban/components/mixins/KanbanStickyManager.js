@@ -10,9 +10,8 @@ var EventHelper = require('../../../util/EventHelper');
 
 var KanbanStickyManager = {
     _onMoveSticky: function (e) {
-        var selectedNode = this.state.selectedNode;
+            var selectedNode = this.state.selectedNode;
 
-        if (selectedNode.domNode) {
             var domNode = selectedNode.domNode;
             var mouseX = EventHelper.getAttr(e, "pageX");
             var mouseY = EventHelper.getAttr(e, "pageY");
@@ -28,8 +27,8 @@ var KanbanStickyManager = {
                 // TODO PAS DE SETSTATE !
                 selectedNode.node.setState({hasMove: true, position: position});
             }
+            e.preventDefault();
             e.stopPropagation();
-        }
     }
 
 

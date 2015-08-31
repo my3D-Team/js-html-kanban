@@ -4,15 +4,19 @@
 "use strict";
 
 var _ = require('lodash');
-var Main = require('../../main.js');
 
 var model = {};
 
 var KanbanModelBuilder = {
-
     initModel: function (data) {
 
-        model = {};
+        model = data.content;
+        model.nodeId = data.nodeId;
+        model.type = data.type;
+        model.zindex = data.zindex;
+
+
+
         // columns
         this.buildColumns(data);
 
