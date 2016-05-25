@@ -60,8 +60,8 @@ var KanbanStore = assign({}, EventEmitter.prototype, {
     /**
      * Remove the change listener
      */
-    removeChangeListener: function () {
-        this.removeListener(KanbanConst.CHANGE);
+    removeChangeListener: function (callback) {
+        this.removeListener(KanbanConst.CHANGE, callback);
     },
 
     /**

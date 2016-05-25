@@ -12,6 +12,7 @@ var StickyActions = {
             node: node
         });
     },
+
     deselect: function (e, node) {
         AppDispatcher.dispatch({
             actionType: StickyConst.DESELECT,

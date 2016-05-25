@@ -35,16 +35,9 @@ var Kanban = React.createClass({
     mixins: [StickyManager],
 
     getInitialState: function () {
-        var retval = {};
-        retval.scale = KanbanStore.getScale();
-        retval.selectedNode = KanbanStore.getSelectedNode();
-        retval.backlog = KanbanStore.isBacklog();
-        retval.rows = ColAndRowStore.getRows();
-        retval.columns = ColAndRowStore.getColumns();
-        retval.stickies = StickyStore.getStickies();
-
-        return retval
+        return this.getStatesFromStores();
     },
+
 
     /**
      *     init before first render
@@ -66,8 +59,8 @@ var Kanban = React.createClass({
      * Before destroy the component
      */
     componentWillUnmount: function () {
-        KanbanStore.removeChangeListener();
-        StickyStore.removeChangePositionListener();
+        KanbanStore.removeChangeListener(this.onChange);
+        StickyStore.removeChangePositionListener(this.changeSticky);
     },
 
     /**
@@ -75,14 +68,18 @@ var Kanban = React.createClass({
      * @param e
      */
     onChange: function (e) {
-        this.setState({
-            selectedNode: KanbanStore.getSelectedNode(),
-            scale: KanbanStore.getScale(),
-            rows: ColAndRowStore.getRows(),
-            columns: ColAndRowStore.getColumns(),
-            stickies: StickyStore.getStickies(),
-            backlog: KanbanStore.isBacklog()
-        });
+        this.setState(this.getStatesFromStores());
+    },
+
+    getStatesFromStores: function (){
+      return {
+          selectedNode: KanbanStore.getSelectedNode(),
+          scale: KanbanStore.getScale(),
+          rows: ColAndRowStore.getRows(),
+          columns: ColAndRowStore.getColumns(),
+          stickies: StickyStore.getStickies(),
+          backlog: KanbanStore.isBacklog()
+      }
     },
 
     /**
@@ -110,7 +107,7 @@ var Kanban = React.createClass({
 
         return (
             <div>
-                <div className="kanban" style={kanbanCss} onTouchMove={this._onMove} onMouseMove={this._onMove}
+                <div className="kanban" style={kanbanCss} onTouchMove={this._onMove} onDoubleClick={this._closeZZ} onMouseMove={this._onMove}
                 onTouchEnd={this._deselectNode}
                 onMouseUp={this._deselectNode}>
 
@@ -194,6 +191,10 @@ var Kanban = React.createClass({
 
     _zoomOut: function (e) {
         KanbanActions.scale(this.state.scale - 0.1);
+    },
+
+    _closeZZ: function () {
+        KanbanActions.closeZZ();
     },
 
     _generateCanvas: function () {

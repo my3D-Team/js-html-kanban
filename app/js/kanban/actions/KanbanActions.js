@@ -15,9 +15,12 @@ var KanbanActions = {
             actionType: KanbanConst.CHANGE_MODEL,
             model: model
         });
+    },
+    closeZZ: function () {
+        AppDispatcher.dispatch({
+            actionType: KanbanConst.CLOSE_KANBAN
+        });
     }
-
-
 };
 
 module.exports = KanbanActions;

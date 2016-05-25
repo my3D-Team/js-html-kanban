@@ -11,6 +11,7 @@ var AppDispatcher = require('../../dispatcher/AppDispatcher');
 
 var PreviewConst = require('../../overview/actions/PreviewConst');
 var AppConst = require('../actions/AppConst');
+var KanbanConst = require('../../kanban/actions/KanbanConst');
 var KanbanModelBuilder = require('./../../kanban/model/KanbanModelBuilder');
 
 
@@ -49,8 +50,8 @@ var AppStore = assign({}, EventEmitter.prototype, {
     /**
      * Remove the change listener
      */
-    removeChangeListener: function () {
-        this.removeListener(AppConst.CHANGE);
+    removeChangeListener: function (callback) {
+        this.removeListener(AppConst.CHANGE, callback);
     },
 
     /**
@@ -77,6 +78,10 @@ AppStore.dispatchToken = AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case PreviewConst.OPEN:
             selectedZZ = _getZZbyNodeId(action.nodeId);
+            AppStore.emitChange();
+            break;
+        case KanbanConst.CLOSE_KANBAN:
+            selectedZZ = {};
             AppStore.emitChange();
             break;
     }

@@ -36,7 +36,7 @@ var App = React.createClass({
     },
 
     componentWillUnmount: function () {
-        AppStore.removeChangeListener();
+        AppStore.removeChangeListener(this.onChange);
     },
 
     onChange: function () {
@@ -44,7 +44,6 @@ var App = React.createClass({
     },
 
     render: function () {
-
         var core;
         if (this.state.selectedZZ.nodeId) {
             core = (<Kanban model={this.state.selectedZZ}></Kanban>);

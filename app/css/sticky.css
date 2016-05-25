@@ -13,6 +13,7 @@
     -webkit-user-select: none;
     user-select: none;
 
+    overflow: hidden;
     /* Required to make elements draggable in old WebKit */
     /*-moz-user-drag: element;*/
     /*-khtml-user-drag: element;*/

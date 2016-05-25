@@ -17,7 +17,6 @@ var ColAndRowStore = require('../../colAndRow/stores/ColAndRowStore');
 var KanbanStore = require('../../kanban/stores/KanbanStore');
 
 
-
 /**
  * Store State :
  * The model used by the store
@@ -30,18 +29,17 @@ var stickiesCollapsed = true;
  * All method used by the store
  * /!\ they method can not be call outside this class /!\
  */
-
 var _onSelectItem = function (e, node) {
 
     var domNode = node.getDOMNode();
 
     var selectedNode = node.props.sticky;
-    if(selectedNode.cell_column === -1 && selectedNode.cell_row === -1){
-        if(KanbanStore.isBacklog()) {
+    if (selectedNode.cell_column === -1 && selectedNode.cell_row === -1) {
+        if (KanbanStore.isBacklog()) {
             var stickiesInBacklog = StickyStore.getAllStickiesInBacklog(selectedNode);
             _positionStickyBacklog(stickiesInBacklog)
         }
-    }else {
+    } else {
         var stickiesInCurrentCell = StickyStore.getAllStickiesForACell(selectedNode.cell_column, selectedNode.cell_row, selectedNode);
         _positionStickiesInCell(stickiesInCurrentCell);
     }
@@ -50,7 +48,7 @@ var _onSelectItem = function (e, node) {
     domNode.className += " grabbing";
 
     // TODO PAS DE SETSTATE !
-    node.setState( {zIndex: 100})
+    node.setState({zIndex: 100})
 
 };
 
@@ -87,17 +85,23 @@ var _onDeselectItem = function (e, node) {
 
 var _initStickies = function () {
     _.each(stickies, function (sticky) {
+        if (sticky.cell_column === undefined) {
+            sticky.cell_column = -1;
+        }
+        if (sticky.cell_row === undefined) {
+            sticky.cell_row = -1;
+        }
         sticky.position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
         sticky.dimension = {
-            width : Constants.STICKY.WIDTH,
-            height : StickyStore.getStickyHeight()
+            width: Constants.STICKY.WIDTH,
+            height: StickyStore.getStickyHeight()
         };
     });
 };
 
 var _positionStickiesInCell = function (arrayStickies) {
     var stickyHeight = StickyStore.getStickyHeight();
-    if (arrayStickies.length*(stickyHeight + Constants.STICKY.SPACE_BETWEEN) + Constants.ADD_BUTTON.HEIGHT > Constants.CELL.HEIGHT) {
+    if (arrayStickies.length * (stickyHeight + Constants.STICKY.SPACE_BETWEEN) + Constants.ADD_BUTTON.HEIGHT > Constants.CELL.HEIGHT) {
         _collapseAllStickies(arrayStickies);
     } else {
         _arrangeStickies(arrayStickies);
@@ -116,11 +120,12 @@ var _positionStickyInCell = function (sticky) {
 var _collapseAllStickies = function (arrayStickies) {
     _.each(arrayStickies, function (sticky, i) {
         sticky.position = {};
+
         var position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
-        if((Constants.STICKY.PADDING_TOP + (i*5) + sticky.dimension.height + (Constants.ADD_BUTTON.HEIGHT + Constants.STICKY.SPACE_BETWEEN)) < Constants.CELL.HEIGHT){
-            sticky.position.y = position.y + (i*5);
+        if ((Constants.STICKY.PADDING_TOP + (i * 5) + sticky.dimension.height + (Constants.ADD_BUTTON.HEIGHT + Constants.STICKY.SPACE_BETWEEN)) < Constants.CELL.HEIGHT) {
+            sticky.position.y = position.y + (i * 5);
             sticky.zIndex = i;
-        }else{
+        } else {
             sticky.position.y = position.y;
             sticky.zIndex = 0;
         }
@@ -144,7 +149,7 @@ var _positionStickyBacklog = function (arrayStickies) {
     var y = 100 + Constants.STICKY.PADDING_TOP;
     var stickyHeight = StickyStore.getStickyHeight();
 
-    _.each(arrayStickies, function(sticky){
+    _.each(arrayStickies, function (sticky) {
         sticky.position = {
             x: Constants.STICKY.PADDING,
             y: y
@@ -176,16 +181,16 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         _initStickies();
 
         // Position each sticky
-        _.each(stickies, function(sticky){
+        _.each(stickies, function (sticky) {
             this.positionSticky(sticky);
         }, this);
     },
 
-    areStickiesCollapsed: function(){
+    areStickiesCollapsed: function () {
         return stickiesCollapsed;
     },
 
-    getStickyHeight: function(){
+    getStickyHeight: function () {
         return (this.areStickiesCollapsed() ? Constants.STICKY.HEIGHT.COLLAPSED : Constants.STICKY.HEIGHT.NOT_COLLAPSED);
 
     },
@@ -197,8 +202,8 @@ var StickyStore = assign({}, EventEmitter.prototype, {
     /**
      * @param {function} callback
      */
-    removeChangeListener: function () {
-        this.removeListener(StickyConst.CHANGE);
+    removeChangeListener: function (callback) {
+        this.removeListener(StickyConst.CHANGE, callback);
     },
 
     emitChange: function (e) {
@@ -209,15 +214,15 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         this.on(StickyConst.CHANGE_POSITION, callback);
     },
 
-    removeChangePositionListener: function () {
-        this.removeListener(StickyConst.CHANGE_POSITION);
+    removeChangePositionListener: function (callback) {
+        this.removeListener(StickyConst.CHANGE_POSITION, callback);
     },
 
     emitChangePosition: function (e) {
         this.emit(StickyConst.CHANGE_POSITION, e);
     },
 
-    createSticky: function(type, cell){
+    createSticky: function (type, cell) {
         var id = Math.random();
         var height = this.areStickiesCollapsed() ? Constants.STICKY.HEIGHT.COLLAPSED : Constants.STICKY.HEIGHT.NOT_COLLAPSED;
         var sticky = {
@@ -254,9 +259,9 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         this.positionSticky(sticky);
     },
 
-    collapse: function(isCollapse){
+    collapse: function (isCollapse) {
         stickiesCollapsed = isCollapse;
-        _.each(stickies, function(sticky){
+        _.each(stickies, function (sticky) {
             sticky.dimension.height = this.getStickyHeight();
             this.positionSticky(sticky);
         }, this);
@@ -273,11 +278,11 @@ var StickyStore = assign({}, EventEmitter.prototype, {
 
         _.each(stickies, function (sticky) {
             if (sticky.cell_column === column && sticky.cell_row === row) {
-                if(excludeSticky) {
+                if (excludeSticky) {
                     if (excludeSticky.content.id !== sticky.content.id) {
                         arrayStickies.push(sticky);
                     }
-                }else{
+                } else {
                     arrayStickies.push(sticky);
                 }
             }
@@ -286,19 +291,19 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         return arrayStickies;
     },
 
-    getAllStickiesInBacklog: function(excludeSticky){
+    getAllStickiesInBacklog: function (excludeSticky) {
         var arrayStickies = [];
 
-        _.each(stickies, function(sticky){
-           if(sticky.cell_column === -1 || sticky.cell_row === -1){
-               if(excludeSticky){
-                   if(excludeSticky.content.id !== sticky.content.id) {
-                       arrayStickies.push(sticky);
-                   }
-               }else{
-                   arrayStickies.push(sticky);
-               }
-           }
+        _.each(stickies, function (sticky) {
+            if (sticky.cell_column === undefined || sticky.cell_row === undefined || sticky.cell_column === -1 || sticky.cell_row === -1) {
+                if (excludeSticky) {
+                    if (excludeSticky.content.id !== sticky.content.id) {
+                        arrayStickies.push(sticky);
+                    }
+                } else {
+                    arrayStickies.push(sticky);
+                }
+            }
         });
 
         return arrayStickies;
@@ -308,9 +313,13 @@ var StickyStore = assign({}, EventEmitter.prototype, {
         sticky.position = ColAndRowStore.getPositionXY(sticky.cell_column, sticky.cell_row);
 
         if (_.isNull(sticky.position)) {
-            if(KanbanStore.isBacklog()) {
+            if (KanbanStore.isBacklog()) {
                 var arrayStickies = StickyStore.getAllStickiesInBacklog();
                 _positionStickyBacklog(arrayStickies);
+            } else {
+                //todo: manage no backlog position
+                console.warn('where the stickies are suppose to be positioned if they have no coll no row and no backlog ??? ');
+                sticky.position = {x:0, y:0};
             }
         } else {
             _positionStickyInCell(sticky);

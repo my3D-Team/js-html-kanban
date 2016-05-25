@@ -16,7 +16,6 @@ var KanbanModelBuilder = {
         model.zindex = data.zindex;
 
 
-
         // columns
         this.buildColumns(data);
 
@@ -31,7 +30,9 @@ var KanbanModelBuilder = {
     },
 
     buildChildren: function (data) {
+        model.stickies  = model.stickies ? model.stickies : [];
         _.each(data.children, function (child) {
+
             switch (child.type) {
                 case Labels.TYPE.STATUS_KANBAN:
                     this.buildBacklog(child);
@@ -63,7 +64,6 @@ var KanbanModelBuilder = {
 
     buildSticky: function (sticky) {
         // init stickies model if needed
-        model.stickies  = model.stickies ? model.stickies : [];
         model.stickies.push(sticky);
     }
 

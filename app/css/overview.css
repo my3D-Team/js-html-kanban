@@ -20,55 +20,14 @@
     width: 99%;
     margin: 0.5%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    border-radius: 3px;
 
 }
 
+/*dummy div to manage the height of the preview */
 .preview .dummy {
     padding-top: 70%;
-}
-
-.preview:hover > .preview-infos {
-    opacity: 1;
-}
-
-.preview:hover > .preview-core img {
-    transform  : scale(1.3);
-}
-
-.preview:hover > .preview-footer {
-    min-height: 60px;
-}
-
-.preview:hover > .preview-title {
-    min-height: 0px !important;
-    height: 0;
-    overflow: hidden;
-}
-
-.preview-infos {
-    position: absolute;
-    opacity: 0;
-    height: 100%;
-    top: 0;
-    width: 100%;
-    background-color: rgba(0, 67, 141, 0.7);
-
-}
-
-.preview-footer {
-    position: absolute;
-    height: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    font-size: 13px;
-    color: rgba(0, 67, 141, 1);
-    background-color: white;
-    z-index: 1;
-    padding: 0 10px ;
-    font-weight: bold;
-    line-height: 13px;
-    overflow: hidden;
 }
 
 .preview-title {
@@ -85,34 +44,8 @@
     background-color: rgba(0, 0, 0, 0.7);
     min-width: 100px;
     z-index: 1;
-}
+    border-radius: 3px 3px 0 0;
 
-.preview-title button {
-    float: right;
-    color: #2b649e;
-    text-decoration: none;
-    background-color: white;
-    border-color: whitesmoke;
-    display: inline-block;
-    padding: 6px 12px;
-    margin-top: -7px;
-    font-weight: bold;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
 }
 
 .preview-core {
@@ -128,8 +61,45 @@
     text-align: center;
     text-shadow: 1px 1px #333;
     background-color: white;
-
     overflow: hidden;
+    border-radius: 3px;
+
+}
+
+.preview-footer {
+    position: absolute;
+    height: 60px;
+    bottom: -90px;
+    left: 0;
+    width: 100%;
+    font-size: 13px;
+    color: rgba(0, 67, 141, 1);
+    background-color: white;
+    z-index: 1;
+    padding: 0 10px;
+    font-weight: bold;
+    line-height: 13px;
+}
+
+.preview-infos {
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 67, 141, 0.7);
+
+}
+
+.preview-edit {
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    top: 0;
+    width: 100%;
+    color: black;
+    background-color: silver;
+
 }
 
 .preview-core img {
@@ -137,23 +107,136 @@
     min-width: 100%;
 }
 
+/*region Hover*/
+.preview:hover > .preview-infos {
+    opacity: 1;
+}
+
+.preview:hover > .preview-core img {
+    transform: scale(1.3);
+}
+
+.preview:hover > .preview-footer {
+    bottom: 0;
+}
+
+.preview:hover > .preview-title {
+    min-height: 0px;
+    height: 0;
+    overflow: hidden;
+}
+
+/*endregion Hover*/
+
 .graph {
-    height: 75%;
-    margin: 5%;
+    height: auto;
+    margin: 5% 0;
+    width: 50%;
+}
+
+.graph-info {
+    width: 50%;
+    height: 100%;
+    float: right;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    text-shadow: 2px 2px black;
+}
+
+.miniwrap {
+    margin-bottom: 17px;
+}
+
+.miniwrap .minicon {
+    margin: 0 16px 0 0;
 }
 
 .minicon {
     width: 16px;
     height: 16px;
-    margin: 0px 4px -4px 4px;
+    margin: 0px 0px -4px 15px;
 }
 
 .preview-title, .preview-footer, .preview-infos, .preview-core img {
-    /*-webkit-transition: all .3s ease-out;*/
-    /*-moz-transition: all 0.3s ease-out;*/
-    /*-ms-transition: all 0.3s ease-out;*/
-    /*-o-transition: all 0.3s ease-out;*/
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
+}
+
+.entry-read-more-pointer {
+    box-shadow: rgba(0, 0, 0, 0.4) 0 2px 5px;
+    width: 50px;
+    height: 50px;
+    display: block;
+    padding: 16px 0;
+    position: absolute;
+    top: -26px;
+    right: 25px;
+    line-height: 1;
+    background: #ec407a;
+    text-align: center;
+    color: white;
+    background-clip: padding-box;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 20px;
+    font-size: 2rem;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -ms-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    -transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    text-decoration: none;
+}
+
+.entry-read-more-pointer:hover {
+    color: white;
+    box-shadow: 0 25px 55px 0 rgba(0, 0, 0, 0.21), 0 16px 28px 0 rgba(0, 0, 0, 0.22);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+.bubble .fa {
+    font-size: 24px;
+    top: 12px;
+    left: 10px;
+    position: absolute;
+}
+
+.list {
+    list-style: none;
+    position: absolute;
+    bottom: 75px;
+    right: 31px;
+}
+
+.list li{
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.slide-list {
+    margin-left: 300px;
+    animation-name: example;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes example {
+    from {
+        margin-left: 300px
+    }
+    to {
+        margin-left: 10px
+    }
 }
 
 @media screen and (max-width: 768px) and (min-width: 320px) {

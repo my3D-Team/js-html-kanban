@@ -71,7 +71,8 @@ var ColAndRowStore = assign({}, EventEmitter.prototype, {
     getPositionXY: function(column, row){
         var position = {};
 
-        if(column === -1 || row === -1){
+        if(row === undefined || column === undefined || column === -1 || row === -1 ){
+
             position = null;
         }else {
             position.x = ((column+1) * Constants.COLUMN.WIDTH) + Constants.STICKY.PADDING;
